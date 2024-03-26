@@ -28,6 +28,7 @@
     "react-giphy-searchbox": "^1.5.4",
     "react-i18next": "^14.0.1",
     "react-input-emoji": "^5.6.5",
+    "react-nested-dropdown": "^0.0.12",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",
     "react-simply-carousel": "^9.1.1",

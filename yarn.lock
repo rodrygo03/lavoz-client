@@ -3534,6 +3534,11 @@ cliui@^7.0.2:
     strip-ansi "^6.0.0"
     wrap-ansi "^7.0.0"
 
+clsx@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/clsx/-/clsx-1.2.1.tgz#0ddc4a20a549b59c93a4116bb26f5294ca17dc12"
+  integrity sha512-EcR6r5a8bj6pu3ycsa/E/cKVGuTgZJZdsyUYHOksG/UHIiKfjxzRxYJpyVBwYaQeOvghal9fcc4PidlgzugAQg==
+
 clsx@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.0.0.tgz#12658f3fd98fafe62075595a5c30e43d18f3d00b"
@@ -8248,6 +8253,13 @@ react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.2.0.tgz#199431eeaaa2e09f86427efbb4f1473edb47609b"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-nested-dropdown@^0.0.12:
+  version "0.0.12"
+  resolved "https://registry.yarnpkg.com/react-nested-dropdown/-/react-nested-dropdown-0.0.12.tgz#ea8a7da9fbfe00377d074d8c4e895e6402c79c3b"
+  integrity sha512-pKv9mCtkqoSiNCO64X0zv88fEci+M+XihFXopSxZfVbfS2JNTgIS6KzvdvM/2hM1/vfKT3X5EbfiJL4N3Vyx9g==
+  dependencies:
+    clsx "^1.2.1"
 
 react-refresh@^0.11.0:
   version "0.11.0"
