@@ -1,0 +1,226 @@
+.register {
+  height: 100vh;
+  background-color: #6D1D1D;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .language-toggle {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+  }
+  .flag {
+    width: 35px;
+    height: 35px;
+  }
+
+  .notice {
+    font-size: 12px;
+  }
+  .card {
+    width: 60vw;
+    @media screen and (max-width: 1200px) {
+      width: 100%;
+      border-radius: 0px;
+      padding: 20px;
+    }
+    display: flex;
+    flex-direction: row-reverse;
+    background-color: white;
+    border-radius: 10px;
+    min-height: 600px;
+    overflow: hidden;
+
+    .left {
+      @media screen and (max-width: 1200px) {
+        display: none; 
+      }
+      flex: 1;
+      background: linear-gradient(rgba(58, 15, 15, 0.65), rgba(58, 15, 15, 0.65)),
+        url("https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600")
+          center;
+      background-size: cover;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      color: white;
+
+      h1 {
+        font-size: 80px;
+        line-height: 80px;
+      }
+      
+      p {
+      }
+
+      span {
+        font-size: 14px;
+      }
+      
+      button {
+        width: 50%;
+        padding: 10px;
+        border: none;
+        background-color: white;
+        color: #4C1313;
+        font-weight: bold;
+        cursor: pointer;
+      }
+    }
+
+    // FOR ATTEMPT 1
+    .right {
+      flex: 1;
+      padding: 50px;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+
+      h1 {
+      color: #555;
+      }
+      
+      
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        
+        input {
+          border: none;
+          border-bottom: 1px solid lightgray;
+          padding: 20px 10px;
+        }
+
+        .passwords {
+          display: flex;
+          align-items: center; /* Align items vertically in the center */
+          width: 100%;
+          padding: 0px;
+          margin: 0px;
+
+          input {
+            width: 100%;
+          }
+        }
+        
+        .eye {
+          margin-left: -30px; /* Adjust the margin as needed to align the eye icon to the left */
+        }
+        
+        button {
+          width: 50%;
+          padding: 10px;
+          border: none;
+          background-color: #BB7E7E;
+          color: white;
+          font-weight: bold;
+          cursor: pointer;
+        }
+      }
+
+      .question {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        justify-content: center;
+        align-items: center;
+
+        button {
+          padding: 15px 25px;
+          width: 100%;
+          font-weight: bold;
+          border: 1px solid gray;
+          -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.38);
+          -moz-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.38);
+          box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.38);
+          transition: all 0.3s ease-in;
+          color: #4C1313;
+        }
+
+        button:hover {
+          background-color: #4C1313; /* Change the background color when hovered */
+          color: white;
+        }
+
+        .personal {
+          background-color: rgb(236, 236, 236);
+        }
+        .business {
+          margin-top: 30px;
+          background-color: #6D1D1D;
+          color: white;
+        }
+
+        .description {
+          font-size: 0.9em;
+          text-align: center;
+        }
+      }
+
+      .buttonRow {
+        gap: 20px;
+        display: flex;
+
+        button {
+          transition: all 0.2s ease-in;
+        }
+
+        .back {
+          background-color: white;
+          color: black;
+          font-weight: normal;
+          border: 1px solid lightgray;
+        }
+        .back:hover {
+          background-color: lightgray;
+        }
+
+        button:hover {
+          background-color: #4C1313;
+        }
+      }
+    }
+  }
+
+  .mobile {
+    @media screen and (min-width: 1201px) {
+      display: none; 
+    }
+  }
+  
+  .pc {
+    @media screen and (max-width: 1200px) {
+      display: none; 
+    }
+  }
+
+  .login-button {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 20px;
+
+    button {
+      background-color: white;
+      color: black;
+      font-weight: normal;
+      border: 1px solid darkgray;
+      padding: 5px 10px;
+      transition: all 0.2s ease-in;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: lightgray;
+    }
+  }
+}

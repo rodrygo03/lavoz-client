@@ -1,0 +1,344 @@
+@import "../../style.scss";
+
+.post {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    width: fit-content;
+    overflow: none;
+    width: 100%;
+
+    .icon {
+      color: themed("textColor");
+    }
+
+    
+    .image {
+      width: 25vw;
+      object-fit: contain;
+      margin: 20px;
+      justify-self: center;
+      align-self: center;
+    }
+    video {
+      width: 25vw;
+      object-fit: contain;
+      align-self: center;
+      margin: auto;
+    }
+
+    .container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .reaction-container.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+      }
+
+      .my-share-container.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+      }
+
+      .my-share-container {
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+        display: flex;
+        border-radius: 10px;
+        align-items: center;
+        box-shadow: 0px 0px 12px -10px rgba(0, 0, 0, 0.18);
+        border: 0.5px solid lightgray;
+        padding: 5px;
+        position: relative;
+        bottom: 10px;
+        left: 150px;
+        transition: 1s ease;
+        
+        .section {
+          display: flex;
+          font-size: 12px;
+          margin-right: 5px;
+          margin-top: 0px;
+        }
+        .reaction {
+          margin: 0px 5px;
+          display: flex;
+          transition: all 0.3s ease-in;
+
+          img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            object-fit: scale;
+          }
+        }
+        .reaction:hover {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+          margin-right: 6px;
+        }
+
+        .enlarged {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+        }
+      }
+
+      .reaction-container {
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+        display: flex;
+        border-radius: 10px;
+        align-items: center;
+        box-shadow: 0px 0px 12px -10px rgba(0, 0, 0, 0.18);
+        border: 0.5px solid lightgray;
+        padding: 5px;
+        position: relative;
+        bottom: 10px;
+        transition: 1s ease;
+        
+        .section {
+          display: flex;
+          flex-direction: row;
+          font-size: 12px;
+          margin-right: 5px;
+          margin-top: 0px;
+        }
+        .reaction {
+          margin: 0px 5px;
+          display: flex;
+          transition: all 0.27s ease-in;
+
+          img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            object-fit: scale;
+          }
+        }
+        .reaction:hover {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+          margin-right: 6px;
+        }
+
+        .enlarged {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+        }
+      }
+
+      .reaction-icon {
+        position: relative;
+      
+        .label {
+          position: absolute;
+          top: -20px; // Adjust the distance from the reaction icon according to your preference
+          left: 50%;
+          transform: translateX(-50%);
+          background-color: #fff;
+          padding: 2px 5px;
+          border-radius: 3px;
+          // border: 0.2px solid lightgray;
+          font-size: 9px;
+          display: none;
+          width: max-content; // Set a width larger than the image width
+          white-space: nowrap; 
+          text-align: center;
+          transition: all 0.3s ease-in-out;
+          color: #091ebd;
+        }
+      
+        &:hover .label {
+          display: block;
+        }
+      }
+      
+
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .userInfo {
+          display: flex;
+          gap: 20px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              font-weight: 500;
+            }
+
+            .date {
+              font-size: 12px;
+            }
+          }
+          
+        }
+      }
+
+      .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        padding: 20px 5px;
+
+        img {
+          width: 100%;
+          max-height: 500px;
+          object-fit: contain;
+          margin-top: 20px;
+        }
+
+        video {
+            width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            margin-top: 20px;
+        }
+      }
+
+      .info {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        width: 100%;
+
+        .like-count {
+          display: flex;
+          justify-content: flex-end;
+          align-items: center;
+        }
+
+        .item {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          cursor: pointer;
+          font-size: 14px;
+          
+          img {
+            width: 22px;
+            height: 22px;
+            object-fit: cover;
+            transition: all 0.4s ease-in-out;
+          }
+
+          img:hover {
+            transform: scale(1.1);
+            transform-origin: center;
+          }
+        }
+      }
+    }
+  }
+}
+
+.comments {
+  @include themify($themes) {
+
+    .write{
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0px 0px 0px;
+
+      input{
+        flex:5;
+        padding: 10px;
+        border: 1px solid themed("border");
+        background-color: transparent;
+        color: themed("textColor");
+      }
+
+      .submit {
+        border: none;
+        background-color: #6D1D1D;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-left: 10px;
+      }
+    }
+    
+    .x {
+      padding: 5px;
+      border-radius: 100px;
+      border: none;
+      text-align: center;
+      background-color: transparent;
+    }
+
+    .comment {
+      margin: 30px 0px;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+
+      .info {
+        flex:3;
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        justify-content: flex-start;
+      
+        span {
+          font-weight: 500;
+        }
+
+        p{
+          color:themed("textColorSoft");
+        }
+
+        button {
+          background-color: transparent;
+          border: none;
+        }
+      }
+      
+      .date{
+        flex:1;
+        justify-content: flex-end;
+        color: gray;
+        font-size: 12px;
+        display: flex;
+      }
+
+      .stars {
+        display: flex;
+        margin-top: 5px;
+      }
+    }
+  }
+}

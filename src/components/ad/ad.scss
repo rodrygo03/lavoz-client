@@ -1,0 +1,189 @@
+@import "../../style.scss";
+
+.pendingAd{
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+
+    .thanks-container {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      -webkit-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.38);
+      -moz-box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.38);
+      box-shadow: 0px 0px 15px -8px rgba(0, 0, 0, 0.38);
+
+      .row {
+        display: flex;
+        justify-content: space-between;
+      }
+      button {
+        border: none;
+        padding: 8px 30px;
+        color: white;
+        cursor: pointer;
+        border-radius: 5px;
+        margin: 20px;
+        background-color: gray;
+      }
+      .approve {
+        background-color: green;
+      }
+      .reject {
+        background-color: red;
+      }
+
+      h2 {
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+    }
+
+    .approve {
+        display: flex;
+        gap: 20px;
+        border: 1px solid themed("border");
+        padding: 5px 10px;
+        border-radius: 50px;
+        align-items: center;
+
+        .icon {
+            margin: 0px;
+            padding: 0px;
+            transition: 0.3s all ease-in;
+        }
+        .icon:hover {
+            transform: scale(1.25);
+            transform-origin: center;
+            margin-top: -5px; /* Adjust the value according to your preference */
+        }
+    }
+
+    .container {
+      padding: 20px;
+
+      .reaction-container.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+      }
+
+      .share-container.show {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+      }
+
+      .share-container {
+        opacity: 0;
+        transform: translateY(-50%);
+        transition: opacity 1s ease-in-out, transform 0.3s ease-in-out;
+        display: flex;
+        border-radius: 10px;
+        align-items: center;
+        box-shadow: 0px 0px 12px -10px rgba(0, 0, 0, 0.18);
+        border: 0.5px solid lightgray;
+        padding: 5px;
+        position: relative;
+        bottom: 10px;
+        left: 150px;
+        transition: 1s ease;
+        
+        .section {
+          display: flex;
+          font-size: 12px;
+          margin-right: 5px;
+          margin-top: 0px;
+        }
+        .reaction {
+          margin: 0px 5px;
+          display: flex;
+          transition: all 0.3s ease-in;
+
+          img {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            object-fit: scale;
+          }
+        }
+        .reaction:hover {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+          margin-right: 6px;
+        }
+
+        .enlarged {
+          transform: scale(1.5);
+          transform-origin: center;
+          margin-top: -10px; /* Adjust the value according to your preference */
+        }
+      }
+      
+
+      .user {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .userInfo {
+          display: flex;
+          gap: 20px;
+
+          img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          .details {
+            display: flex;
+            flex-direction: column;
+
+            .name {
+              font-weight: 500;
+            }
+
+            .date {
+              font-size: 12px;
+            }
+          }
+          
+        }
+      }
+
+      .centered {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .content {
+        margin: 20px 0px;
+
+        img {
+          width: 25vw;
+          object-fit: contain;
+          margin-top: 20px;
+          justify-self: center;
+        }
+
+        video {
+            width: 100%;
+            max-height: 500px;
+            object-fit: cover;
+            margin-top: 20px;
+        }
+      }
+    }
+  }
+}

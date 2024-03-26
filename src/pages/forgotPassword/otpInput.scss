@@ -1,0 +1,103 @@
+.otpInput {
+    min-height: 100vh;
+    background-color: rgba(109, 29, 29, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .language-toggle {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 20px;
+    
+        @media screen and (max-width: 1200px) {
+          top: 5%;
+        }
+    }
+    .flag {
+        width: 35px;
+        height: 35px;
+    }
+
+    .card {
+        display: flex;
+        background-color: white;
+        border-radius: 10px;
+        overflow: hidden;
+        border: 1px lightgray solid;
+        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+
+        @media screen and (max-width: 1200px) {
+        width: 100%;
+        border-radius: 0px;
+        }
+
+        .right {
+            flex: 1;
+            padding: 50px 100px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+
+            
+            
+            input {
+                width: 5vw;
+                height: 5vw;
+                border: 1px lightgray solid;
+                border-radius: 20px;
+                text-align: center;
+                font-size: 1.6em;
+                color: gray;
+                box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.09);
+            }
+            .row {
+                display: flex;
+                gap: 15px;
+                margin: 20px;
+            }
+
+            form {
+                display: flex;
+                flex-direction: column;
+                
+            }
+
+            button {
+                width: 100%;
+                padding: 10px;
+                border: 1px lightgray solid;
+                background-color: gray;
+                color: white;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.3s ease-in-out;
+                margin: 10px 0px;
+                align-self: center;
+            }
+            button:hover {
+                background-color: #6D1D1D !important;
+                color: white !important;
+            }
+
+            .didnt-receive {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                font-size: 0.9em;
+            
+            }
+        }
+    }
+}
