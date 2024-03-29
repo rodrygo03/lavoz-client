@@ -71,6 +71,14 @@ const Share = ({categ}) => {
           label: t('categories.games'),
           onSelect: () => setCategory("games"),
         },
+        {
+          label: t('categories.advice'),
+          onSelect: () => setCategory("games"),
+        },
+        {
+          label: t('categories.fans'),
+          onSelect: () => setCategory("games"),
+        },       
       ],
     },
     {
@@ -107,7 +115,15 @@ const Share = ({categ}) => {
     {
       label: t('categories.games'),
       onSelect: () => setCategory("games"),
-    }
+    },
+    {
+      label: t('categories.advice'),
+      onSelect: () => setCategory("games"),
+    },
+    {
+      label: t('categories.fans'),
+      onSelect: () => setCategory("games"),
+    },   
   ];
 
   const [files, setFiles] = useState([]);
@@ -189,9 +205,12 @@ const Share = ({categ}) => {
   
   const handleClick = async (e) => {
     e.preventDefault();
-    if (category === null) {
-      setCategory("general");
+    if (category === null || !category) {
+      //setCategory("general");
+      setError("no-category");
+      return;
     }
+    if (desc === "" && files.length === 0) return;
     if (files.length > 10) {
       setTooManyFiles(true);
       return;
@@ -502,7 +521,7 @@ const Share = ({categ}) => {
             src={Flag}
             alt=""
           />
-          <button style={{marginLeft: "50px"}} className="x" onClick={()=>setFlag(false)}>
+          <button style={{marginLeft: "50px", cursor: "pointer"}} className="x" onClick={()=>setFlag(false)}>
             <DisabledByDefault style={{color: "gray"}}/>
           </button>
           </div>
@@ -519,7 +538,7 @@ const Share = ({categ}) => {
                 <Dropdown items={tamuOptions}>
                   {({ isOpen, onClick }) => (
                     <button type="button" onClick={onClick} className={"category-label"}>
-                      {category === null ? "Select Category *" : category === 'news' ? t('categories.articles') : category}
+                      {category === null ? "Select Category *" : category}
                     </button>
                   )}
                 </Dropdown>
@@ -564,9 +583,9 @@ const Share = ({categ}) => {
               </div>
             </label> */}
             {pathname === '/tamu' &&
-              <label>
+              <label onClick={()=>setFlag(!flag)}>
                 <div className="item">
-                  <img src={Tamu} onClick={()=>setFlag(!flag)}/>
+                  <img src={Tamu}/>
                   <span>{t('share.flag')}</span>
                 </div>
               </label>
@@ -577,7 +596,7 @@ const Share = ({categ}) => {
             <button onClick={handleClick}>{t('share.post')}</button>
           </div>
         </div>
-        {/* {error === 'no-category' && <span className="error-msg">Please select a category.</span>} */}
+        {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {gifOpen &&

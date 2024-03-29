@@ -55,6 +55,8 @@ i18n
             global: "Global",
             tamu: "Texas A&M",
             games: "Aggie Games",
+            advice: "Advice",
+            fans: "Aggie Fans",
             greatThings: "Great Things",
             construction: "Construction",
             free: "Free Items",
@@ -64,7 +66,7 @@ i18n
             vehicle: "Vehicles"
           },
           share: {
-            create: "Howdy, create a new post...",
+            create: "Howdy! Create a new post...",
             createAd: "Create new ad...",
             sellItem: "Sell a new item...",
             select: "Select Category *",
@@ -146,6 +148,9 @@ i18n
             house: "Housekeeping",
             janitor: "Janitorial Service",
             restaurant: "Restaurant",
+            students: "Students",
+            professionals: "Professionals",
+            temporary: "Temporary",
             delete: "delete job",
             error: "* indicates a required field"
           },
@@ -262,6 +267,7 @@ i18n
             global: "Globales",
             tamu: "Universidad Texas A&M",
             games: "Partidos de los Aggies",
+            advice: "Consejos",
             greatThings: "Cosas geniales",
             construction: "Construcción",
             free: "Artículos grátis",
@@ -271,7 +277,7 @@ i18n
             vehicle: "Vehículos"
           },
           share: {
-            create: "Hola, hacer nueva publicación...",
+            create: "Howdy! Hacer nueva publicación...",
             createAd: "Hacer nuevo anuncio...",
             sellItem: "Vender nueva cosa...",
             select: "Elegir Categoría *",
@@ -353,6 +359,9 @@ i18n
             house: "Limpieza de casas",
             janitor: "Servicio de Limpieza",
             restaurant: "Restaurante",
+            students: "Estudiantes",
+            professionals: "Profesionales",
+            temporary: "Temporales",
             delete: "Quitar trabajo",
             error: "El asterisco (*) significa que el campo es obligatorio."
           },

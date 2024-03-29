@@ -54,6 +54,14 @@ const PostAd = () => {
           label: t('categories.games'),
           onSelect: () => setCategory("games"),
         },
+        {
+          label: t('categories.advice'),
+          onSelect: () => setCategory("games"),
+        },
+        {
+          label: t('categories.fans'),
+          onSelect: () => setCategory("games"),
+        },       
       ],
     },
     {

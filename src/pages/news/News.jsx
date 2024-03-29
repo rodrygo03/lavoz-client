@@ -51,13 +51,6 @@ const News = () => {
         </div>
         <div className="news-container">
             <Share categ={null}/>
-            <div className="section" style={{display: "flex", justifyContent: "center", alignItems: "center"}}>
-              {i18n.language == 'en' ? 
-                <iframe width="1000" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
-              :
-                <iframe width="1000" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
-              }
-            </div>
             <div className="section">
                 <h3 className="subtitle">{t('otherPages.filterNews')}</h3>
                 <div className="categories">
@@ -82,6 +75,36 @@ const News = () => {
                         {selectedCategories.includes("global") && <DisabledByDefaultIcon fontSize="small"/>}
                     </button>
                 </div>
+                {selectedCategories.length > 1 ? 
+                  <div>
+                    {i18n.language == 'en' ? 
+                      <iframe title="news-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
+                    :
+                      <iframe title="news-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
+                    }
+                  </div>
+              : selectedCategories.includes("local") ? 
+                  <div>
+                    {i18n.language == 'en' ? 
+                      <iframe title="local-english" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameborder="0"></iframe>
+                    :
+                    <iframe title="local-spanish" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameborder="0"></iframe>
+                    } 
+                  </div>
+              : selectedCategories.includes("usa") ?
+                  <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/Ws0LbjfbVeJMjKvl" frameborder="0"></iframe>
+              : selectedCategories.includes("latam") ? 
+                  <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/crIC2v0crrv8tVWM" frameborder="0"></iframe>
+              : selectedCategories.includes("global") ?
+                  <div>
+                    {i18n.language == 'en' ? 
+                    <iframe title="global-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_tPMf7bPyXT0l0aJ2" frameborder="0"></iframe>
+                    :
+                    <iframe title="global-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_cfOq3Y7xU4J00heM" frameborder="0"></iframe>
+                    } 
+                  </div>
+              : <div/>
+              }
                 <Posts categories={selectedCategories}/>
             </div>
         </div>

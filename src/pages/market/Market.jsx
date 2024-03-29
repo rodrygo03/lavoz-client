@@ -25,10 +25,11 @@ const Market = () => {
   }
 
   const getSubmitAd = () => {
-    if (!currentUser.currentUser) return;
-    else if (currentUser.currentUser.account_type === 'business' || currentUser.currentUser.account_type === 'admin') {
-      return (<SubmitAd/>)
-    } 
+    // if (!currentUser.currentUser) return;
+    // else if (currentUser.currentUser.account_type === 'business' || currentUser.currentUser.account_type === 'admin') {
+    //   return (<SubmitAd/>)
+    // } 
+    return (<SubmitAd/>)
   }
 
   return (

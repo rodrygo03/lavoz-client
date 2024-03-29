@@ -494,7 +494,7 @@ const Post = ({ post }) => {
         
         <div className="content">
           {post.desc}
-          <div className="centered">
+          <div className="centered" style={{marginTop: 10}}>
             {post.img1 === null ? getSingleFile() : getCarousel()}
             {post.flag === 1 && 
               <img className="file" src={Tamu}/>
@@ -528,7 +528,7 @@ const Post = ({ post }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 1 ? 'enlarged' : ''}`} onClick={() => handleSelect(1)}>
                   <div className="reaction-icon">
-                    <img className="reaction-img" src={`${process.env.PUBLIC_URL}/reactions/thumbs_up.png`} className="reaction-img" />
+                    <img className="reaction-img" src={`${process.env.PUBLIC_URL}/reactions/thumbs_up.png`}/>
                     <div className="label">{t('reactions.like')}</div>
                   </div>
                 </div>

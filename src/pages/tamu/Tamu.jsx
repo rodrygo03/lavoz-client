@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 
 const Tamu = () => {
   const { t, i18n } = useTranslation();
-  const [selectedCategories, setSelectedCategories] = useState(["tamu", "games"]);
+  const [selectedCategories, setSelectedCategories] = useState(["tamu", "games", "advice", "fans"]);
   const handleCategoryPress = (category) => {
     setSelectedCategories((prevCategories) => {
         if (prevCategories.includes(category)) {
@@ -31,7 +31,12 @@ const Tamu = () => {
         </div>
         <div className="news-container">
             <Share categ={null}/>
-            <div className="section">
+            <div className="section" style={{marginTop: 50}}>
+                {i18n.language == 'en' ? 
+                      <iframe title="tamu-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameborder="0"></iframe>
+                    :
+                      <iframe title="tamu-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_N0wzxrQ4tvROvxUB" frameborder="0"></iframe>
+                }
                 <h3 className="subtitle">{t('tamu.filter')}</h3>
                 <div className="categories">
                     <button className={selectedCategories.includes("tamu") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("tamu")}>
@@ -41,6 +46,14 @@ const Tamu = () => {
                     <button className={selectedCategories.includes("games") ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('games')}>
                         {t('categories.games')}
                         {selectedCategories.includes("games") && <DisabledByDefaultIcon fontSize="small"/>}
+                    </button>
+                    <button className={selectedCategories.includes("advice") ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('advice')}>
+                        {t('categories.advice')}
+                        {selectedCategories.includes("advice") && <DisabledByDefaultIcon fontSize="small"/>}
+                    </button>
+                    <button className={selectedCategories.includes("fans") ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('fans')}>
+                        {t('categories.fans')}
+                        {selectedCategories.includes("fans") && <DisabledByDefaultIcon fontSize="small"/>}
                     </button>
                 </div>
                 <Posts categories={selectedCategories}/>

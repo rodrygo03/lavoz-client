@@ -45,12 +45,20 @@ const SubmitJob = () => {
       onSelect: () => setCategory("housekeeping"),
     },
     {
-        label: t('categories.general'),
-        onSelect: () => setCategory("janitor"),
-    },
-    {
         label: t('jobs.restaurant'),
         onSelect: () => setCategory("restaurant"),
+    },
+    {
+      label: t('jobs.students'),
+      onSelect: () => setCategory("restaurant"),
+    },
+    {
+      label: t('jobs.professionals'),
+      onSelect: () => setCategory("restaurant"),
+    },
+    {
+      label: t('jobs.temporary'),
+      onSelect: () => setCategory("restaurant"),
     },
   ];
 

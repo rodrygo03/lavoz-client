@@ -19,7 +19,7 @@ import { useTranslation } from "react-i18next";
 const Jobs = () => {
   const { t, i18n } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const [selectedCategories, setSelectedCategories] = useState(["construction", "gardener", "housekeeping", "janitor", "restaurant", "general", "temporary"]);
+  const [selectedCategories, setSelectedCategories] = useState(["construction", "gardener", "housekeeping", "janitor", "restaurant", "general", "temporary", "students", "professionals"]);
   const [jobInput, setJobInput] = useState("");
 
   const handleCategoryPress = (category) => {
@@ -30,7 +30,7 @@ const Jobs = () => {
               return [];
             } 
             else {
-              return["construction", "gardener", "housekeeping", "janitor", "restaurant", "general", "temporary"]
+              return["construction", "gardener", "housekeeping", "janitor", "restaurant", "general", "temporary", "students", "professionals"]
             }
         });
         break;
@@ -61,7 +61,6 @@ const Jobs = () => {
     }
   }
 
-
   return (
     <div className="jobs">
         <div className="background">
@@ -76,7 +75,7 @@ const Jobs = () => {
             <div>
             <div className="centered">
               {
-                !currentUser || currentUser.accountType != "business" ? <div/> 
+                !currentUser || currentUser.account_type !== "business" ? <div/> 
                 : 
                 <SubmitJob/>
               }
@@ -84,9 +83,9 @@ const Jobs = () => {
             <h3 className="subtitle">{t('jobs.find')}</h3>
             <h4 className="smaller">{t('jobs.filter')}</h4>
             <div className="categories">
-                <button className={selectedCategories.length === 7 ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("all")}>
+                <button className={selectedCategories.length === 9 ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("all")}>
                     {t('categories.all')}
-                    {selectedCategories.length === 7 && <DisabledByDefaultIcon fontSize="small"/>}
+                    {selectedCategories.length === 9 && <DisabledByDefaultIcon fontSize="small"/>}
                 </button>
                 <button className={selectedCategories.includes("construction") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("construction")}>
                     {t('categories.construction')}
@@ -111,6 +110,18 @@ const Jobs = () => {
                 <button className={selectedCategories.includes("general") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("general")}>
                     {t('categories.general')}
                     {selectedCategories.includes("general") && <DisabledByDefaultIcon fontSize="small"/>}
+                </button>
+                <button className={selectedCategories.includes("students") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("students")}>
+                    {t('jobs.students')}
+                    {selectedCategories.includes("students") && <DisabledByDefaultIcon fontSize="small"/>}
+                </button>
+                <button className={selectedCategories.includes("professionals") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("professionals")}>
+                    {t('jobs.professionals')}
+                    {selectedCategories.includes("professionals") && <DisabledByDefaultIcon fontSize="small"/>}
+                </button>
+                <button className={selectedCategories.includes("professionals") ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("professionals")}>
+                    {t('jobs.temporary')}
+                    {selectedCategories.includes("professionals") && <DisabledByDefaultIcon fontSize="small"/>}
                 </button>
             </div>
             <div className="grid">
