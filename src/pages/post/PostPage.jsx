@@ -9,7 +9,10 @@ import { makeRequest } from "../../axios";
 
 const PostPage = () => {
   const queryClient = useQueryClient();
-  const postId = parseInt(useLocation().pathname.split("/")[2]); 
+  const location = useLocation();
+  const pathnameParts = location.pathname.split('/');
+  const postId = parseInt(pathnameParts[2], 10); 
+  const shouldOpenComments = pathnameParts.includes('open');
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["post"],
@@ -17,9 +20,9 @@ const PostPage = () => {
   });
   
   return (
-    <div className="home">
+    <div className="postpage">
     {isLoading ? "loading" :
-      (data.length > 0 ? <Post post={data[0]} /> : "post has been deleted")
+      (data.length > 0 ? <Post post={data[0]} openComments={shouldOpenComments} /> : "post has been deleted")
     }
     </div>
   )

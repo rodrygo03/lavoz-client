@@ -27,7 +27,7 @@ import AddGif from "@mui/icons-material/GifBox";
 import ReactGiphySearchbox from 'react-giphy-searchbox';
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 
-const Post = ({ post }) => {
+const Post = ({ post, openComments = false }) => {
   const { t, i18n } = useTranslation();
 
   const [commentOpen, setCommentOpen] = useState(false);
@@ -124,6 +124,11 @@ const Post = ({ post }) => {
       setRated(hasReacted);
     }
   }, [data, currentUser]);
+
+  useEffect(() => {
+    // Set commentOpen based on the openComments prop
+    setCommentOpen(openComments);
+  }, [openComments]); // Depend on openComments so it updates if the prop changes
 
   const delete_from_s3 = async (img) => {
     try {
@@ -496,10 +501,12 @@ const Post = ({ post }) => {
           {post.desc}
           <div className="centered" style={{marginTop: 10}}>
             {post.img1 === null ? getSingleFile() : getCarousel()}
-            {post.flag === 1 && 
-              <img className="file" src={Tamu}/>
-            }
           </div>
+            {post.flag === 1 &&
+              <div className="centered">
+                <img style={{width: "50%"}} src={Tamu}/>
+              </div> 
+            }
             {post.gifUrl && 
             <div style={containerStyle}>
               <iframe

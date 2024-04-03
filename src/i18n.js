@@ -75,6 +75,7 @@ i18n
             gif: "Add GIF",
             flag: "Add TAMU flag",
             post: "Post",
+            uploading: "Uploading...",
             error: "Videos must be shorter than 15 seconds.",
             ten: "You can only select up to 10 files.",
             addMore: "Add more +"
@@ -157,7 +158,8 @@ i18n
           notifs: {
             comment: "commented on your post.",
             follow: "followed you!",
-            reaction: "reacted to your post.",
+            reaction: "reacted ",
+            topost: " to your post.",
             notifs: "Notifications",
             today: "Today",
             week: "This week",
@@ -285,6 +287,7 @@ i18n
             gif: "Agregar GIF",
             flag: "Agregar la bandera de TAMU",
             post: "Subir",
+            uploading: "Subiendo...",
             pleaseSelect: "Hay que seleccionar la categoría",
             error: "Sólo están autorizados los videos menos que 15 segundos.",
             ten: "Sólo se puede elegir 10 fotos, videos, o audios.",
@@ -368,7 +371,8 @@ i18n
           notifs: {
             comment: "comentó en tu post.",
             follow: "te siguió!",
-            reaction: "reaccionó a tu post.",
+            reaction: "reaccionó ",
+            topost: "a tu post.",
             notifs: "Notificaciones",
             today: "Hoy",
             week: "Esta semana",

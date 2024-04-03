@@ -77,7 +77,7 @@ const News = () => {
                 </div>
                 {selectedCategories.length > 1 ? 
                   <div>
-                    {i18n.language == 'en' ? 
+                    {i18n.language === 'en' ? 
                       <iframe title="news-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
                     :
                       <iframe title="news-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
@@ -85,19 +85,30 @@ const News = () => {
                   </div>
               : selectedCategories.includes("local") ? 
                   <div>
-                    {i18n.language == 'en' ? 
+                    {i18n.language === 'en' ? 
                       <iframe title="local-english" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameborder="0"></iframe>
                     :
                     <iframe title="local-spanish" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameborder="0"></iframe>
                     } 
                   </div>
               : selectedCategories.includes("usa") ?
-                  <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/Ws0LbjfbVeJMjKvl" frameborder="0"></iframe>
+                  <div>
+                    {i18n.language === 'en' ? 
+                    <iframe title="usa-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/Ws0LbjfbVeJMjKvl" frameborder="0"></iframe>
+                    :
+                    <iframe title="usa-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_aTMU8Kx8u0qFDdBx" frameborder="0"></iframe> 
+                    }
+                  </div>
               : selectedCategories.includes("latam") ? 
-                  <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/crIC2v0crrv8tVWM" frameborder="0"></iframe>
+                    <div>
+                    {i18n.language === 'en' ? 
+                      <iframe title="latam-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/crIC2v0crrv8tVWM" frameborder="0"></iframe>
+                      : <iframe title="latam-esp" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uCsCcL6mlnK6l0v6" frameborder="0"></iframe>
+                    }
+                    </div>
               : selectedCategories.includes("global") ?
                   <div>
-                    {i18n.language == 'en' ? 
+                    {i18n.language === 'en' ? 
                     <iframe title="global-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_tPMf7bPyXT0l0aJ2" frameborder="0"></iframe>
                     :
                     <iframe title="global-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_cfOq3Y7xU4J00heM" frameborder="0"></iframe>

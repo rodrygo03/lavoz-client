@@ -18,12 +18,8 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 
 const LeftBar = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-  const [categoryToggle, setCategoryToggle] = useState(false);
-  const [newsToggle, setNewsToggle] = useState(false);
-  const [marketToggle, setMarketToggle] = useState(false);
-  const [tamuToggle, setTamuToggle] = useState(false);
   const [err, setErr] = useState(null);
   const { currentUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);

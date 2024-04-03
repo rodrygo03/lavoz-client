@@ -126,6 +126,10 @@ function App() {
           element: <PostPage />,
         },
         {
+          path: "/post/:id/open",
+          element: <PostPage />,
+        },
+        {
           path: "/guest",
           element: <Guest/>
         }

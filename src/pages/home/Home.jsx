@@ -13,69 +13,6 @@ import { AuthContext } from "../../context/authContext";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
-  // const [activeSlide, setActiveSlide] = useState(0);
-  // const { currentUser } = useContext(AuthContext);
-
-  // const [selectedCategories, setSelectedCategories] = useState(["news", "local", "usa", "latam", "global", "hora", 
-  //                                                               "market", "jobs", "events", 
-  //                                                               "tamu", "games",
-  //                                                               "greatThings", "more", "general"]);
-  // const handleCategoryPress = (category) => {
-  //   switch (category) {
-  //     case 'all':
-  //       setSelectedCategories((prevCategories) => {
-  //           if (prevCategories.length > 0) {
-  //             return [];
-  //           } 
-  //           else {
-  //             return["news", "local", "usa", "latam", "global", "hora", 
-  //                    "market", "jobs", "events", 
-  //                    "tamu", "games",
-  //                    "greatThings", "more", "general"
-  //                   ]
-  //           }
-  //       });
-  //       break;
-  //     case 'news':
-  //       setSelectedCategories((prevCategories) => {
-  //         if (prevCategories.includes('news')) {
-  //           // If "Noticias" is already selected, remove it along with its subcategories
-  //           return prevCategories.filter((c) => !['news', 'local', 'usa', 'latam', 'global', 'hora'].includes(c));
-  //         } else {
-  //           // If "Noticias" is not selected, add it along with its subcategories
-  //           return [...prevCategories, 'news', 'local', 'usa', 'latam', 'global', 'hora'];
-  //         }
-  //       });
-  //       break;
-  //     case 'market':
-  //       setSelectedCategories((prevCategories) => {
-  //         if (prevCategories.includes('market')) {
-  //           return prevCategories.filter((c) => !['market', 'jobs', 'events'].includes(c));
-  //         } else {
-  //           return [...prevCategories, 'market', 'jobs', 'events'];
-  //         }
-  //       });
-  //       break;
-  //     case 'tamu':
-  //       setSelectedCategories((prevCategories) => {
-  //         if (prevCategories.includes('tamu')) {
-  //           return prevCategories.filter((c) => !['tamu', 'games'].includes(c));
-  //         } else {
-  //           return [...prevCategories, 'tamu', 'games'];
-  //         }
-  //       });
-  //       break;
-  //     default:
-  //       setSelectedCategories((prevCategories) => {
-  //         if (prevCategories.includes(category)) {
-  //           return prevCategories.filter((c) => c !== category);
-  //         } else {
-  //           return [...prevCategories, category];
-  //         }
-  //       });
-  //   }
-  // };
-
 
   return (
     <div className="home">
@@ -85,17 +22,17 @@ const Home = () => {
       
       <div className="section">
             <h3 className="title">{t('categories.news')}</h3>
-            {i18next.language == 'en' ? 
-            <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
+            {i18next.language === 'en' ? 
+            <iframe title="news-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
             :
-            <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
+            <iframe title="news-esp" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
             }
             <h3 className="title" style={{marginTop: 0}}>{t('sections.discover')}</h3>
             <div style={{display: 'flex', justifyContent: 'center'}}>
-              {i18next.language == 'en' ? 
-              <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_WFZEboCZQYPItoIQ" frameborder="0"></iframe>
+              {i18next.language === 'en' ? 
+              <iframe title="social-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_WFZEboCZQYPItoIQ" frameborder="0"></iframe>
               :
-              <iframe width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_DMvof61NN3rH5dAj" frameborder="0"></iframe>
+              <iframe title="social-esp" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_DMvof61NN3rH5dAj" frameborder="0"></iframe>
               }
             </div>
       </div>

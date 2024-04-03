@@ -14,6 +14,7 @@ import { AuthContext } from "../../context/authContext";
 import i18next, { changeLanguage } from "i18next";
 import US from "../../assets/us.png";
 import MX from "../../assets/mx.png";
+import NotificationBell from "../notification/NotificationBell";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -65,8 +66,13 @@ const Navbar = () => {
             <Link to="/messages" style={{ textDecoration: "none", color: "inherit" }}>
               <EmailOutlinedIcon />
             </Link>
-            <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
+            {/* <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
               <NotificationsOutlinedIcon />
+            </Link> */}
+            <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
+                <NotificationBell
+                    iconColor="black"
+                />
             </Link>
             <Link to={"/profile/"+currentUser.id} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="user">
