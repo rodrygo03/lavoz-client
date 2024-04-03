@@ -15,6 +15,7 @@ const Stories = () => {
   const [file,setFile] = useState(null);
   const [image, setImage] = useState(null);
   const [id, setId] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["stories"],
@@ -54,6 +55,7 @@ const Stories = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
     let imgUrl = "";
     if (file) imgUrl = await upload();
     mutation.mutate({ img: imgUrl });
@@ -140,7 +142,7 @@ const Stories = () => {
             </div>
           </label>
           {file && isVideo(file.name) && <span className="error-msg">{t('story.error')}</span>}
-          {file && !isVideo(file.name) && <button className="post" onClick={handleClick}>{t('story.post')}</button>}
+          {file && !isVideo(file.name) && <button onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>}
         </div>
       </div>
       }
