@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 import ReactSimplyCarousel from "react-simply-carousel";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { Link } from "react-router-dom";
+import DefaultUser from "../../assets/pfp.jpg";
 
 const SubmitAd = () => {
   const { t, i18n } = useTranslation();
