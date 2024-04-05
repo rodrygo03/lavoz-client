@@ -33,7 +33,7 @@ const Tamu = () => {
             <Share categ={null}/>
             <div className="section" style={{marginTop: 50}}>
                 {i18n.language == 'en' ? 
-                      <iframe title="tamu-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/taeDVZp2KHcRDfSb" frameborder="0"></iframe>
+                      <iframe title="tamu-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_Vla9Lh2zzuM6diy3" frameborder="0"></iframe>
                     :
                       <iframe title="tamu-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_N0wzxrQ4tvROvxUB" frameborder="0"></iframe>
                 }
