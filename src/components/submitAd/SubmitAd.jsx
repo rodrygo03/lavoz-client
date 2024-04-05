@@ -335,98 +335,86 @@ const SubmitAd = () => {
 
   return (
     <div className="share">
-      <div className="container">
-        <div className="top">
-            <img
-              src={currentUser.profilePic}
-              alt=""
-            />
-            <input 
-              type="text" 
-              placeholder={t('share.sellItem')} 
-              onChange={e=>setDesc(e.target.value)} 
-              value={desc}
-            />
-        </div>
-        
-        <div className="middle">
-          {renderFilePreviews()}
-        </div>
-        {/* {gif && 
-          <div>
-            <button className="x" style={{position: "relative", left: "70%"}}onClick={()=>setGif(null)}>
-              <DisabledByDefault style={{color: "gray"}}/>
-            </button>
-          <div style={containerStyle}>
-            <iframe
-              src={gif}
-              width="100%"
-              height="100%"
-              style={iframeStyle}
-              frameBorder="0"
-              className="giphy-embed"
-              allowFullScreen
-              title="Giphy Embed"
-            ></iframe>
-          </div>
-          </div>
-        } */}
-
-        <hr />
-        <div className="bottom">
-          <div className="left">
-            <div className="item">
-              <img src={Friend}/>
-              <Dropdown items={items}>
-                {({ isOpen, onClick}) => (
-                  <button type="button" onClick={onClick} className={"category-label"}>
-                    {category === null ? t('share.select') : category}
-                  </button>
-                )}
-              </Dropdown>
+      {!currentUser ? 
+          <div className="container">
+            <div className="top">
+              <img
+                src={DefaultUser}
+                alt=""
+              />
+              <span className="textInput">Howdy! To upload posts, please sign in or make an account.</span>
             </div>
-            <input
-              type="file"
-              id="file"
-              style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
-              multiple
-              onChange={handleFileChange}
-            />
-            <label htmlFor="file">
-              <div className="item">
-                <img src={Image} alt="" />
-                {files.length >= 1 ? <span>{t('share.addMore')}</span>
-                : <span>{t('share.add')}</span>
-                }
-              </div>
-            </label>
-            {/* <label>
-              <div className="item">
-                <AddReactionIcon style={{color: "gray"}} onClick={()=>setGifOpen(!gifOpen)}/>
-                <span>{t('share.gif')}</span>
-              </div>
-            </label> */}
+            <div className="content" style={{marginTop: 50}}>
+                <hr />
+                <div className="row" style={{marginTop: 0}}>
+                  {/* <Link to={"/register"}>
+                    <button className="guest-button">Sign Up</button>  
+                  </Link>
+                  <Link to={"/login"}>
+                    <button className="guest-button" style={{backgroundColor: "gray"}}>Login</button>  
+                  </Link> */}
+                  <Link to={"/register"}>
+                    <button className="guest-button">Learn More</button>
+                  </Link>
+                </div>
+            </div>
           </div>
-          <div className="right">
-            <button onClick={handleClick}>{t('share.post')}</button>
-          </div>
-        </div>
-        {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
-        {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
-        {/* {gifOpen &&
-           <div className='searchbox-wrapper'>
-              <ReactGiphySearchbox 
-              apiKey='wTlyF2IWF5BelAJ5IdnYcy5NJPZlEW5Z' 
-              onSelect={(item) => {setGif(item.embed_url)}}
-              masonryConfig = {[
-              {columns: 2, imageWidth:110,gutter:5},
-              {mq: "700px", columns: 3, imageWidth: 120, gutter: 5}
-              ]}
+    :
+          <div className="container">
+            <div className="top">
+                <img
+                  src={currentUser.profilePic}
+                  alt=""
                 />
-        </div>*/ }
-      </div>
-      
+                <input 
+                  type="text" 
+                  placeholder={t('share.sellItem')} 
+                  onChange={e=>setDesc(e.target.value)} 
+                  value={desc}
+                />
+            </div>
+            
+            <div className="middle">
+              {renderFilePreviews()}
+            </div>
+            <hr />
+            <div className="bottom">
+              <div className="left">
+                <div className="item">
+                  <img src={Friend}/>
+                  <Dropdown items={items}>
+                    {({ isOpen, onClick}) => (
+                      <button type="button" onClick={onClick} className={"category-label"}>
+                        {category === null ? t('share.select') : category}
+                      </button>
+                    )}
+                  </Dropdown>
+                </div>
+                <input
+                  type="file"
+                  id="file"
+                  style={{ display: "none" }}
+                  accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
+                  multiple
+                  onChange={handleFileChange}
+                />
+                <label htmlFor="file">
+                  <div className="item">
+                    <img src={Image} alt="" />
+                    {files.length >= 1 ? <span>{t('share.addMore')}</span>
+                    : <span>{t('share.add')}</span>
+                    }
+                  </div>
+                </label>
+              </div>
+              <div className="right">
+                <button onClick={handleClick}>{t('share.post')}</button>
+              </div>
+            </div>
+            {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
+            {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
+          </div>
+    }
     </div>
   );
 };

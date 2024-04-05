@@ -37,21 +37,21 @@ const Notifs = () => {
         <h4>{t('notifs.today')}</h4>
         {isLoading ? "isloading"
         :
-        notifsToday.slice(0,12).map((notif) => <Notification notification={notif} key={notif.id}/>)
+        notifsToday.map((notif) => <Notification notification={notif} key={notif.id}/>)
         }
       </div>
       <div className="section">
         <h4>{t('notifs.week')}</h4>
         {isLoading ? "isloading" 
         :
-        notifsThisWeek.slice(0,12).map((notif) => <Notification notification={notif} key={notif.id}/>)
+        notifsThisWeek.map((notif) => <Notification notification={notif} key={notif.id}/>)
         }
       </div>
       <div className="section">
         <h4>{t('notifs.earlier')}</h4>
         {isLoading ? "isloading" 
         :
-        earlierNotifs.slice(0,12).map((notif) => <Notification notification={notif} key={notif.id}/>)
+        earlierNotifs.map((notif) => <Notification notification={notif} key={notif.id}/>)
         }
       </div>
     </div>

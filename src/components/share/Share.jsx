@@ -73,11 +73,11 @@ const Share = ({categ}) => {
         },
         {
           label: t('categories.advice'),
-          onSelect: () => setCategory("games"),
+          onSelect: () => setCategory("advice"),
         },
         {
           label: t('categories.fans'),
-          onSelect: () => setCategory("games"),
+          onSelect: () => setCategory("fans"),
         },       
       ],
     },
