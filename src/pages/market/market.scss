@@ -6,6 +6,7 @@
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+    height: 100%;
 
     .grid {
       margin-top: 30px;
@@ -32,28 +33,42 @@
       flex-direction: column;
       align-items: center;
 
+      @include mobile {
+        padding: 10px 5px;
+      }
+      @include tablet {
+        padding: 10px 5px;
+      }
+
       .text-container {
         overflow: hidden;
-        white-space: nowrap;
-
-        .text-content {
-            display: inline-block;
-            // animation: scrollText 20s linear infinite;
-        }
-        @keyframes scrollText {
-            0% {
-                transform: translateX(100%);
-              }
-              100% {
-                transform: translateX(-100%);
-              }
-          }
+        white-space: wrap;
+        text-align: center;
       }
 
       span {
         color: white;
         text-align: center;
         font-style: italic;
+
+        @include tablet {
+          font-size: 0.8em;
+        }
+        @include mobile {
+          font-size: 0.8em;
+        }
+      }
+    }
+
+    .mobile {
+      @media screen and (min-width: 581px) {
+        display: none; 
+      }
+    }
+    
+    .pc {
+      @media screen and (max-width: 580px) {
+        display: none; 
       }
     }
 
@@ -64,6 +79,24 @@
         border-bottom: 1px themed("border") solid;
         margin-bottom: 30px;
         color: themed("border");
+        transition: transform 0.5s ease-in-out;
+
+        &.closed {
+          transform: translateY(-100%); // Slide out
+          position: absolute;
+        }
+    
+        &.open {
+          transform: translateY(0); // Slide in
+        }
+
+        @include mobile {
+          flex-direction: column;
+        }
+        @include tablet {
+          flex-direction: column;
+        }
+
         .tab {
             background-color: transparent;
             border:none;
@@ -92,6 +125,13 @@
       color: white;
       font-size: 60px;
       text-align: center;
+
+      @include mobile {
+        font-size: 20px;
+      }
+      @include tablet {
+        font-size: 30px;
+      }
     }
     .subtitle {
       font-weight: bold;

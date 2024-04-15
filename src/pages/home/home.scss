@@ -1,24 +1,26 @@
 @import "../../style.scss";
 
-.home{
+.home {
   @include themify($themes) {
     padding: 20px 70px;
     background-color: themed("bgSoft");
     display: flex;
     flex-direction: column;
     overflow-x: hidden;
+
     @include mobile {
-      padding: 10px;
+      padding: 5px;
     }
 
-    @include tablet{
-      padding: 20px;
+    @include tablet {
+      padding: 10px;
     }
 
     .section {
       display: flex;
       flex-direction: column;
     }
+
     .categories {
       padding-bottom: 20px;
       display: flex;
@@ -30,6 +32,10 @@
       margin: 35px 0px 20px 0px;
       color: themed("textColor");
       font-size: 25px;
+
+      @include mobile {
+        font-size: 18px;  // smaller font size for mobile
+      }
     }
 
     .widget {
@@ -41,11 +47,11 @@
       align-items: center;
       display: flex;
       gap: 10px;
-    }
 
-    .inactive {
-      background-color: themed("bg");
-      color: themed("textColor");
+      &.inactive {
+        background-color: themed("bg");
+        color: themed("textColor");
+      }
     }
   }
- }
+}

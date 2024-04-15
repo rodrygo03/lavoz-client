@@ -598,13 +598,13 @@ const Share = ({categ}) => {
 
           </div>
           <div className="right">
-            <button onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>
+            <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
-        {gifOpen &&
+        {/* {gifOpen &&
           <div className='searchbox-wrapper'>
             <ReactGiphySearchbox 
               apiKey='wTlyF2IWF5BelAJ5IdnYcy5NJPZlEW5Z' 
@@ -613,9 +613,9 @@ const Share = ({categ}) => {
                 {columns: 2, imageWidth:110,gutter:5},
                 {mq: "700px", columns: 3, imageWidth: 120, gutter: 5}
               ]}
-              />
+            />
           </div>
-        }
+        } */}
       </div>
     }
       

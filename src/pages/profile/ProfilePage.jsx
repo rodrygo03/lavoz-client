@@ -17,7 +17,8 @@ import Profile from "../../components/profile/Profile";
 
 const ProfilePage = () => {
   const userId = parseInt(useLocation().pathname.split("/")[2]);
-  
+  const { currentUser } = useContext(AuthContext);
+
   return (
     <div className="profile">
       <Profile userId={userId}/>

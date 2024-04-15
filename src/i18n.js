@@ -109,6 +109,7 @@ i18n
             business: "Business Type",
             msg: "A business account allows you to post ads and display information about your business on your profile.",
             update: "Update",
+            updating: "Updating",
             start: "Get Started",
             submit: "Update Your Profile"
           },
@@ -321,7 +322,8 @@ i18n
             profile: "¿Cuenta de negocios?",
             business: "Tipo de negocio",
             msg: "Una cuenta de negocios te permite subir anuncios y mostrar informacion de tu negócio en el perfil.",
-            update: "Cambiar",
+            update: "Actualizar",
+            updating: "Actualizando",
             start: "¡A empezar!",
             submit: "Cambiar Tu Perfil"
           },

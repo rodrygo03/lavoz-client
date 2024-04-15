@@ -1,16 +1,13 @@
 import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import moment from 'moment';
 import "./messages.scss";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import SendIcon from '@mui/icons-material/Send';
 import EditNoteIcon from '@mui/icons-material/EditNote';
-import InputEmoji from 'react-input-emoji';
 import TextField from "@mui/material/TextField";
-import List from '../../components/list/List';
 import MessageThread from '../../components/messages/MessageThread';
+import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 
 const Messages = () => {
     const { currentUser } = useContext(AuthContext);
@@ -18,9 +15,8 @@ const Messages = () => {
     const [searchVisible, setSearchVisible] = useState(false);
     const [selectedUser, setSelectedUser] = useState(0);
     const [selectedUsername, setSelectedUsername] = useState("");
-    const [readyToRender, setReadyToRender] = useState(false);
-    const [selectedUserTimeout, setSelectedUserTimeout] = useState(null);
-    
+    const maxLength = 100;
+
     const { isLoading, error, data } = useQuery({
       queryKey: ["user"],
       queryFn: () => makeRequest.get("/users/").then((res) => res.data),
@@ -38,7 +34,7 @@ const Messages = () => {
         
         return (
           filteredUsers.slice(0, 5).map((user) => 
-            <div key={user.id} className="conversation" onClick={() => setSelectedUser(user.id)}>
+            <div key={user.id} className="user" onClick={() => setSelectedUser(user.id)}>
               <img className="small-img" src={user.profilePic} alt={`${user.username}'s profile`} />
               <div className="info">
                 <span className="username">{user.username}</span>
@@ -103,16 +99,18 @@ const Messages = () => {
           }
           {!isMLoading && mData &&
             mData.map((thread) => (
-              thread.user_id != currentUser.id &&
               <div key={thread.msg} className="conversation" onClick={() => handleChange(thread.user_id, thread.user_name)}>
-                <img src={thread.user_profile_pic} alt={`${thread.user_username}'s profile`} />
-                <div className="info">
-                  <span className="username">{thread.user_username}</span>
-                  <div className="preview">
-                    <span>{thread.latest_message_content} - </span>
-                    <span className="date">{moment(thread.latest_message_time).fromNow()}</span>
+                <div style={{display: "flex", gap: 20, alignItems: "center"}}>
+                  <img src={thread.user_profile_pic} alt={`${thread.user_username}'s profile`} />
+                  <div className="info">
+                    <span className="username">{thread.user_username}</span>
+                    <div className="preview">
+                      <span style={{ fontWeight: (thread.latest_message_read == 0 && thread.latest_message_to == currentUser.id) ? 'bold' : 'normal' }}>{thread.latest_message_content.length > 100 ? `${thread.latest_message_content.substring(0, 100)}...` : thread.latest_message_content}</span>
+                      <span className="date">{moment(thread.latest_message_time).fromNow()}</span>
+                    </div>
                   </div>
                 </div>
+                {thread.latest_message_read == 0 && thread.latest_message_to == currentUser.id && <FiberManualRecordIcon style={{color: "red", marginRight: 15}} fontSize="small"/>}
               </div>
             ))}
         </div>

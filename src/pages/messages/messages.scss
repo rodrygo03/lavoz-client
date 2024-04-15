@@ -2,11 +2,8 @@
 
 .messages {
   @include themify($themes) {
-    padding: 20px 70px;
     background-color: themed("bgSoft");
     height: 100%;
-    padding: 0px;
-    margin: 0px;
     display: flex;
     color: themed("textColor");
 
@@ -56,11 +53,12 @@
     }
 
     .search-list {
-      .conversation {
+      .user {
         display: flex;
         align-items: center;
         padding: 10px 0px;
         gap: 20px;
+        justify-content: flex-start;
 
         .small-img {
             width: 40px;
@@ -73,6 +71,13 @@
 
         .username {
           font-size: 14px;
+
+          @include tablet {
+            font-size: 12px;
+          }
+          @include mobile {
+            font-size: 12px;
+          }
         }
       }
     }
@@ -80,7 +85,6 @@
     .message-list {
         width: 50%;
         background-color: themed("bg");
-        margin-top: 20px;
         border: 1px lightgray solid;
         -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
         -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
@@ -88,11 +92,20 @@
         overflow-y: scroll;
         padding: 15px;
 
+        @include tablet {
+          padding: 10px 5px;
+          width: 40%;
+        }
+        @include mobile {
+          padding: 10px 5px;
+          width: 40%;
+        }
+
         .conversation {
             display: flex;
             align-items: center;
             padding: 10px 0px;
-            gap: 20px;
+            justify-content: space-between;
 
             img {
                 width: 50px;
@@ -101,6 +114,14 @@
                 object-fit: cover;
                 border: 1px #6D1D1D solid;
                 box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+                @include tablet {
+                  width: 40px;
+                  height: 40px;
+                }
+                @include mobile {
+                  width: 30px;
+                  height: 30px;
+                }  
             }
 
             .info {
@@ -111,6 +132,12 @@
               .date {
                 color: gray;
                 margin-left: 10px;
+                @include tablet {
+                  margin-left: 0px;
+                }
+                @include mobile {
+                  margin-left: 0px;
+                }
               }
 
               .preview {
@@ -118,6 +145,22 @@
                 justify-content: space-between;
                 align-items: center;
                 font-size: 14px;
+                overflow: hidden;
+                white-space: normal;  /* Allows the text to wrap */
+                word-wrap: break-word; /* Ensures long words do not overflow the container */
+                overflow-wrap: break-word;
+                flex-wrap: wrap;
+
+                @include tablet {
+                  font-size: 12px;
+                  flex-direction: column;
+                  align-items: flex-start;
+                }
+                @include mobile {
+                  font-size: 12px;
+                  flex-direction: column;
+                  align-items: flex-start;
+                }
               }
 
             }
@@ -128,136 +171,19 @@
         }
     }
 
-    .thread {
-        width: 50%;
-        background-color: themed("bg");
-        margin-top: 20px;
-        -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        overflow-y: scroll;
-        padding: 15px;
-        display: flex;
-        flex-direction: column;
-        min-height: 70vh;
+    .msg-right {
+      height: 90vh;
+      width: 50%;
+      padding: 0px;
+      margin: 0px;
 
-        .date {
-          align-self: center;
-          font-size: 14px;
-          color: gray;
-        }
-        .small {
-          font-size: 12px;
-          align-self: flex-end;
-        }
-        .row {
-          display: flex;
-          flex-direction: row;
-          align-items: flex-end;
-        }
-        .username {
-          text-align: center;
-          margin-bottom: 10px;
-        }
-        img {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          aspect-ratio: 1.0;
-          object-fit: cover;
-          border: 1px #6D1D1D solid;
-          box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        }
+      @include tablet {
+        width: 55%;
+      }
+      @include mobile {
+        width: 55%;
+      }
 
-        .msg-to {
-          /* Basic styling for the container */
-            position: relative;
-            margin: 15px 10px;
-            -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            background-color: #6D1D1D;
-            padding: 8px 10px;
-            border-radius: 10px;
-            color: #ffffff;
-            width: 200px; /* Set the width as per your requirement */
-            margin-left: auto; /* Align to the right side */
-          }
-
-        /* Creating the triangle shape */
-        .msg-to::before {
-          content: '';
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          margin-left: 40%; /* Adjust this value to move the triangle horizontally */
-          border-width: 5px;
-          border-style: solid;
-          border-color: #6D1D1D transparent transparent transparent;
-        }
-
-        .msg-from {
-          /* Basic styling for the container */
-            justify-self: flex-end;
-            position: relative;
-            margin-right: auto;
-            -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-            margin: 15px 10px;
-            background-color: slategray;
-            padding: 8px 10px;
-            border-radius: 10px;
-            color: #ffffff;
-            width: 200px; /* Set the width as per your requirement */
-            
-        }
-
-        /* Creating the triangle shape */
-        .msg-from::before {
-          content: '';
-          position: absolute;
-          top: 100%;
-          left: 50%;
-          margin-left: -43%; /* Adjust this value to move the triangle horizontally */
-          border-width: 5px;
-          border-style: solid;
-          border-color: slategray transparent transparent transparent;
-        }
-
-        .write{
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-            margin: 20px 0px;
-            justify-self: flex-end;
-      
-            input{
-              flex:5;
-              padding: 10px;
-              border: 1px solid themed("border");
-              background-color: transparent;
-              color: themed("textColor");
-            }
-      
-            button{
-              border: none;
-              background-color: transparent;
-              padding: 10px;
-              cursor: pointer;
-              border-radius: 3px;
-            }
-            img {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                object-fit: cover;
-                border: 1px #6D1D1D solid;
-                box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-                aspect-ratio: 1.0;
-            }
-        }
     }
 
     .section {

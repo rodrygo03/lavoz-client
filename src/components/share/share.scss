@@ -44,10 +44,9 @@
 
     .rnd__root-menu {
       position: absolute;
-      top: -20%;
+      top: -100px;
       left: 100%;
       margin: 7px 0;
-      z-index: 10;
       background-color: themed("bg");
       bottom: auto !important;
     }

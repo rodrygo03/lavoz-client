@@ -19,6 +19,11 @@ $themes: (
   ),
 );
 
+html, body, #root {
+  height: 100%;
+  margin: 0; /* Remove default margin */
+}
+
 @mixin themify($themes) {
   @each $theme, $map in $themes {
     .theme-#{$theme} & {

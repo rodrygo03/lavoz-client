@@ -1,5 +1,15 @@
 @import "../../style.scss";
 
+.soft {
+  @include themify($themes) {
+    background-color: transparent;
+  }
+}
+
+.toggle-closed {
+  position: absolute;
+}
+
 .leftBar {
   @include themify($themes) {
     flex: 2;
@@ -9,10 +19,20 @@
     overflow: scroll;
     background-color: themed("bg");
     color: themed("textColor");
-    min-width: 200px;
+    transition: transform 0.5s ease-in-out;
+    padding-right: 20px;
 
-    @include mobile{
-      display: none;
+    .soft {
+      background-color: themed("bgSoft");
+    }
+
+    &.closed {
+      transform: translateX(-100%); // Slide out
+      position: absolute;
+    }
+
+    &.open {
+      transform: translateX(0); // Slide in
     }
 
     &::-webkit-scrollbar {
@@ -26,9 +46,20 @@
       overflow: wrap;
     }
 
+    .toggle {
+      position: absolute;
+      right: 10px;
+      bottom: 10px; 
+
+      @include mobile {
+        top: 10px;
+      }
+    }
+
     .logout {
       position: absolute;
       right: 10px;
+      bottom: 40px;
       justify-self: flex-end;
       display: flex;
       align-items: center;

@@ -91,7 +91,7 @@ const Stories = () => {
 
   return (
     <div className="stories">
-      {!isLoading && currentUser &&
+      {!isLoading && data && currentUser &&
       <div className="story">
         <img src={currentUser.profilePic} alt="" />
         <button className={data.length < 5 && "lower"} onClick = {() => {setShareOpen((true))}}>+</button>

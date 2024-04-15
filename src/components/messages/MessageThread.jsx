@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import moment from 'moment';
@@ -7,15 +7,18 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import SendIcon from '@mui/icons-material/Send';
 import InputEmoji from 'react-input-emoji';
+import Message from "./Message";
 
 const MessageThread = ({user, name}) => {
   const { currentUser } = useContext(AuthContext);
   const [inputText, setInputText] = useState("");
-  const [searchVisible, setSearchVisible] = useState(false);
   const [newMsg, setNewMsg] = useState("");
   const queryClient = useQueryClient();
   const userId = user;
   const [msgSubmitted, setMsgSubmitted] = useState(false);
+
+  // Ref to the last message element
+  const endOfMessagesRef = useRef(null);
 
   let inputHandler = (e) => {
     //convert input text to lower case
@@ -51,6 +54,11 @@ const MessageThread = ({user, name}) => {
     queryFn: () => makeRequest.get("/messages?userId=" + userId).then((res) => {return res.data})
   });
 
+  // Auto-scroll to the latest message
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [mData]); // Depend on mData, so it triggers on message change
+
   if (isLoading) {
     return <div>Loading...</div>;
   }
@@ -70,7 +78,7 @@ const MessageThread = ({user, name}) => {
   }, {});
 
   return (
-        <div className="right">
+        <div className="msg-right">
             {!isLoading && mData &&
               <div className = "thread">
                 {/* <div className = "username">{name}</div> */}
@@ -81,19 +89,11 @@ const MessageThread = ({user, name}) => {
                         {moment(day).format("dddd M/D/YYYY")}
                     </div>
                     {messages.map((message) => (
-                        <div key={message.id}>
-                            <div className="row">
-                                {message.msgTo === currentUser.id && (
-                                <img src={message.profilePic} className="profilePic" />
-                                )}
-                                <div
-                                className={message.msgFrom === currentUser.id ? "msg-to" : "msg-from"}
-                                >
-                                {message.msg}
-                                </div>
-                            </div>
-                        </div>
+                        <Message key={message.id} message={message} currentUser={currentUser}>
+                        {/* Add ref to the last message */}
+                        </Message>
                     ))}
+                    <div ref={endOfMessagesRef} />
                     </div>
                 ))}
               </div>
@@ -106,9 +106,9 @@ const MessageThread = ({user, name}) => {
                 onChange={setNewMsg}
                 borderRadius = {10}
                 />
-                <button className="submit" onClick = {handleClick}> <SendIcon style={msgSubmitted === false ? {color: "gray"} : {color: "green"}}/> </button>
+                <button className="submit" disabled = {msgSubmitted} onClick = {handleClick}> <SendIcon style={msgSubmitted === false ? {color: "gray"} : {color: "green"}}/> </button>
             </div>
-          </div>
+        </div>
   );
 };
 

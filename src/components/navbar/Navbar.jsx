@@ -1,20 +1,24 @@
-import "./navbar.scss";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import GridViewOutlinedIcon from "@mui/icons-material/GridViewOutlined";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
 import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
-import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
-import { DarkModeContext } from "../../context/darkModeContext";
-import { AuthContext } from "../../context/authContext";
-import i18next, { changeLanguage } from "i18next";
+import IconButton from '@mui/material/IconButton';
+
 import US from "../../assets/us.png";
 import MX from "../../assets/mx.png";
 import NotificationBell from "../notification/NotificationBell";
+import MessageBell from "../notification/MessageBell";
+
+import { DarkModeContext } from "../../context/darkModeContext";
+import { AuthContext } from "../../context/authContext";
+import i18next from "i18next";
+
+import "./navbar.scss";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -23,77 +27,55 @@ const Navbar = () => {
 
   const toggleLng = () => {
     setLanguage(!language);
-    if (i18next.language == 'es') i18next.changeLanguage('en');
-    else i18next.changeLanguage('es');
+    i18next.changeLanguage(language ? 'en' : 'es');
   }
 
   return (
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span>Poststation</span>
+          <span>Postsstation</span>
         </Link>
-        <Link to ='/' style={{textDecoration: "none", color: "inherit", display: 'flex'}}>
-          <HomeOutlinedIcon style={{justifyContent: "center", alignItems: "center"}}/>
+        <Link to='/' className="pc" style={{ textDecoration: "none", color: "inherit", display: 'flex' }}>
+          <HomeOutlinedIcon className="pc" style={{ justifyContent: "center", alignItems: "center" }} />
         </Link>
         {darkMode ? (
-          <WbSunnyOutlinedIcon onClick={toggle} style={{cursor: "pointer"}} />
+          <WbSunnyOutlinedIcon className="pc" onClick={toggle} style={{ cursor: "pointer" }} />
         ) : (
-          <DarkModeOutlinedIcon onClick={toggle} style={{cursor: "pointer"}} />
+          <DarkModeOutlinedIcon className="pc" onClick={toggle} style={{ cursor: "pointer" }} />
         )}
-        <button className = "language-toggle" onClick={toggleLng}>
-          {language ?
-            <img src={MX} className="flag"/> : <img src={US} className="flag"/>
-          }
+        <button className="language-toggle" onClick={toggleLng}>
+          <img src={language ? MX : US} className="flag" alt="Language Flag"/>
         </button>
-        {/* <Link to="/market" style = {{textDecoration: "none", color: "inherit", display: 'flex'}}>
-          <GridViewOutlinedIcon style={{justifyContent: "center", alignItems: "center"}}/>
-        </Link> */}
-
-        {/* <div className="search">
-          <SearchOutlinedIcon />
-          <input type="text" placeholder="Search..." />
-        </div> */}
-
       </div>
-
-        {
-          currentUser ? 
-          <div className="right">
-            <Link to={"/users"} style={{ textDecoration: "none", color: "inherit" }}>
-              <PersonOutlinedIcon />
-            </Link>
-            <Link to="/messages" style={{ textDecoration: "none", color: "inherit" }}>
-              <EmailOutlinedIcon />
-            </Link>
-            {/* <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
-              <NotificationsOutlinedIcon />
-            </Link> */}
-            <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
-                <NotificationBell
-                    iconColor="black"
-                />
-            </Link>
-            <Link to={"/profile/"+currentUser.id} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="user">
-                <img
-                  src={currentUser.profilePic}
-                  alt=""
-                />
-                <span>{currentUser.name}</span>
-              </div>
-            </Link>
-          </div>
-          :
-          <div className="row">
-            <Link to={"/register"}>
-              <button className="guest-button">Sign Up</button>  
-            </Link>
-            <Link to={"/login"}>
-              <button className="guest-button" style={{backgroundColor: "gray"}}>Login</button>  
-            </Link>
-          </div>
-        }
+      {currentUser ? (
+        <div className="right">
+          <Link to={"/users"} className="pc" style={{ textDecoration: "none", color: "inherit" }}>
+            <IconButton color={"inherit"}><PersonOutlinedIcon style={{ color: "inherit" }} /></IconButton>
+          </Link>
+          <Link to="/messages" style={{ textDecoration: "none", color: "inherit" }}>
+            <MessageBell iconColor="inherit" />
+          </Link>
+          <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
+            <NotificationBell iconColor="inherit" />
+          </Link>
+          <Link to={"/profile/" + currentUser.id} className="pc" style={{ textDecoration: "none", color: "inherit" }}>
+            <div className="user">
+              <img src={currentUser.profilePic} alt="" />
+              <span>{currentUser.name}</span>
+            </div>
+          </Link>
+        </div>
+      ) : (
+        <div className="row">
+          <Link to={"/login"}>
+            <button className="guest-button-second">Login</button>
+          </Link>
+          <Link to={"/register"}>
+            <button className="guest-button">Sign Up</button>
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

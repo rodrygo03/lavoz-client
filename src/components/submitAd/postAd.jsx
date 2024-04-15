@@ -25,6 +25,7 @@ const PostAd = () => {
   const { t, i18n } = useTranslation();
   const [category, setCategory] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const items = [
     {
@@ -407,7 +408,7 @@ const PostAd = () => {
           </label>
         </div>
         <div className="right">
-          <button onClick={handleClick}>{t('share.post')}</button>
+          <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>
         </div>
       </div>
       {error && <span className="error-msg">{t('share.pleaseSelect')}</span>}

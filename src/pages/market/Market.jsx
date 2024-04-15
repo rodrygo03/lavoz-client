@@ -1,15 +1,14 @@
 import Posts from "../../components/posts/Posts"
 import "./market.scss"
-import {  useContext, useState } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { makeRequest } from "../../axios";
+import {   useState } from "react";
 import SubmitAd from "../../components/submitAd/SubmitAd";
 import { useTranslation } from "react-i18next";
-import { AuthContext } from "../../context/authContext";
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
 
 const Market = () => {
   const { t } = useTranslation();
-  const currentUser = useContext(AuthContext);
+  const [tabsOpen, setTabsOpen] = useState(true);
   const [tab, setTab] = useState(0);
 
   const getCategories = () => {
@@ -32,6 +31,10 @@ const Market = () => {
     return (<SubmitAd/>)
   }
 
+  const handleToggle = () => {
+    setTabsOpen(!tabsOpen);
+  }
+
   return (
     <div className="market">
         <div className="background">
@@ -42,8 +45,8 @@ const Market = () => {
                 </div>
             </div>
         </div>
-        <div className="tabs">
-        <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>
+        <div className={`tabs ${tabsOpen ? "open" : "closed"}`}>
+            <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>
             <button className={tab === 1 ? "tab selected" : "tab"} onClick={() => setTab(1)}>{t('categories.general')}</button>
             <button className={tab === 8 ? "tab selected" : "tab"} onClick={() => setTab(8)}>Aggie Merch</button>
             <button className={tab === 2 ? "tab selected" : "tab"} onClick={() => setTab(2)}>{t('categories.construction')}</button>
@@ -52,6 +55,9 @@ const Market = () => {
             <button className={tab === 5 ? "tab selected" : "tab"} onClick={() => setTab(5)}>{t('categories.landscape')}</button>
             <button className={tab === 6 ? "tab selected" : "tab"} onClick={() => setTab(6)}>{t('categories.property')}</button>
             <button className={tab === 7 ? "tab selected" : "tab"} onClick={() => setTab(7)}>{t('categories.vehicle')}</button>
+        </div>
+        <div className="toggle mobile">
+          {tabsOpen === true ? <KeyboardDoubleArrowUpIcon style={{color: "gray"}} onClick={handleToggle}/> : <KeyboardDoubleArrowDownIcon style={{color: "gray"}} onClick={handleToggle}/>}
         </div>
         <div className = "market-container">
           {getSubmitAd()}

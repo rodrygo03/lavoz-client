@@ -17,12 +17,16 @@ export const AuthContextProvider = ({ children }) => {
     setCurrentUser(res.data)
   };
 
+  const updateUser = (userData) => {
+    setCurrentUser(userData);
+  };
+
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(currentUser));
   }, [currentUser]);
 
   return (
-    <AuthContext.Provider value={{ currentUser, login }}>
+    <AuthContext.Provider value={{ currentUser, updateUser, login }}>
       {children}
     </AuthContext.Provider>
   );

@@ -1,7 +1,6 @@
 import Posts from "../../components/posts/Posts"
 import Share from "../../components/share/Share"
 import "./events.scss"
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import {  useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -11,11 +10,9 @@ import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 
 const Events = () => {
-  const { t, i18n } = useTranslation();
-  const { currentUser } = useContext(AuthContext);
-  const [selectedCategories, setSelectedCategories] = useState(["construction", "gardener", "housekeeping", "janitor", "restaurant", "general", "temporary"]);
+  const { t } = useTranslation();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, data } = useQuery({
       queryKey: ["events"],
       queryFn: () => makeRequest.get("/posts/events").then((res) => {return res.data})
   });

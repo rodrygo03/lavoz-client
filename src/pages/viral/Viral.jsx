@@ -17,7 +17,6 @@ const Viral = () => {
   const [link, setLink] = useState(null);
   const [err, setErr] = useState(null);
   const [open, setOpen] = useState(null);
-  const [embedContent, setEmbedContent] = useState(null);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["embeds"],
@@ -78,15 +77,11 @@ const Viral = () => {
 
   return (
     <div className="viral">
-        {/* <div className="background">
-            <h1 className="title">Discover</h1>
-            <span>Have a laugh and browse through this week's featured media.</span>
-        </div> */}
         <div className="section" style={{display: "flex", justifyContent: "center", padding: 30 }}>
             {i18next.language == 'en' ? 
-            <iframe width="400" height="700" src="https://rss.app/embed/v1/feed/_WFZEboCZQYPItoIQ" frameborder="0"></iframe>
+            <iframe width="350" height="700" src="https://rss.app/embed/v1/feed/_WFZEboCZQYPItoIQ" frameborder="0"></iframe>
             :
-            <iframe width="400" height="700" src="https://rss.app/embed/v1/feed/_DMvof61NN3rH5dAj" frameborder="0"></iframe>
+            <iframe width="350" height="700" src="https://rss.app/embed/v1/feed/_DMvof61NN3rH5dAj" frameborder="0"></iframe>
             }
         </div>
     </div>

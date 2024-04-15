@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { makeRequest } from "../../axios";
 import "./update.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -6,11 +6,13 @@ import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Switch from '@mui/material/Switch';
 import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useTranslation } from "react-i18next";
+import { AuthContext } from "../../context/authContext";
 
 const Update = ({ setOpenUpdate, user }) => {
     const { t, i18n } = useTranslation();
     const [cover, setCover] = useState(null);
     const [profile, setProfile] = useState(null);
+    const { updateUser, currentUser } = useContext(AuthContext);
     const [texts, setTexts] = useState({
       email: user.email,
       password: user.password,
@@ -25,7 +27,9 @@ const Update = ({ setOpenUpdate, user }) => {
       account_type: user.account_type,
       business_type: user.business_type,
     });
-    const [checked, setChecked] = useState(user.account_type === 'business');
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const id = currentUser.id;
+    const [checked, setChecked] = useState(user.account_type == 'business');
 
     const handleToggle = () => {
       setChecked(!checked);
@@ -57,6 +61,7 @@ const Update = ({ setOpenUpdate, user }) => {
         },
         onSuccess: () => {
           // Invalidate and refetch
+          //updateUser(userData);
           queryClient.invalidateQueries(["user"]);
         },
     });
@@ -73,6 +78,8 @@ const Update = ({ setOpenUpdate, user }) => {
           coverPic: coverUrl,
           profilePic: profileUrl,
         });
+        let userData = {...texts, coverPic: coverUrl, profilePic: profileUrl, id: id};
+        updateUser(userData);
         setOpenUpdate(false);
         setCover(null);
         setProfile(null);
@@ -239,7 +246,7 @@ const Update = ({ setOpenUpdate, user }) => {
               </div>
             }
             <span className = "description">{t('update.msg')}</span>
-            <button onClick={handleClick}>{t('update.update')}</button>
+            <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('update.update') : t('update.updating') } </button>
           </form>
           <button className="close" onClick={() => setOpenUpdate(false)}>
             <DisabledByDefaultIcon style={{color: "red"}}/>

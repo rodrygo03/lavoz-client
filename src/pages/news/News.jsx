@@ -1,46 +1,25 @@
-import Stories from "../../components/stories/Stories"
 import Posts from "../../components/posts/Posts"
 import Share from "../../components/share/Share"
-import MostLiked from "../../components/posts/MostLiked";
-import Post from "../../components/post/Post";
 import "./news.scss"
-import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import i18next from "i18next";
 import { useTranslation } from "react-i18next";
 
 const News = () => {
   const { t, i18n } = useTranslation();
-  const { isLoading, error, data } = useQuery({
-      queryKey: ["latestNews"],
-      queryFn: () => makeRequest.get("/posts/latestNews").then((res) => {return res.data})
-  });
-
-  const [selectedCategories, setSelectedCategories] = useState(["local", "usa", "latam", "global", "news"]);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   
-  const handleCategoryPress = (category) => {
-    switch (category) {
-      case 'all':
-        setSelectedCategories((prevCategories) => {
-            if (prevCategories.length > 0) {
-              return [];
-            } 
-            else {
-              return["local", "usa", "latam", "global", "news"]
-            }
-        });
-        break;
-      default:
-        setSelectedCategories((prevCategories) => {
-          if (prevCategories.includes(category)) {
-            return prevCategories.filter((c) => c !== category);
-          } else {
-            return [...prevCategories, category];
-          }
-        });
+  const getPostCategories = () => {
+    if (selectedCategory === "all") {
+      return ["local", "global", "usa", "latam"]
+    } else {
+      return selectedCategory;
     }
+  }
+
+  const handleCategoryPress = (category) => {
+    setSelectedCategory(category);
   };
 
   return (
@@ -54,28 +33,23 @@ const News = () => {
             <div className="section">
                 <h3 className="subtitle">{t('otherPages.filterNews')}</h3>
                 <div className="categories">
-                    <button className={selectedCategories.length === 5 ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("all")}>
-                        {t('categories.all')}
-                        {selectedCategories.length === 5 && <DisabledByDefaultIcon fontSize="small"/>}
-                    </button>
-                    <button className={selectedCategories.includes("local") ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('local')}>
-                        {t('categories.local')}
-                        {selectedCategories.includes("local") && <DisabledByDefaultIcon fontSize="small"/>}
-                    </button>
-                    <button className={selectedCategories.includes("usa") ? "widget" : "widget inactive"}   onClick = {() => handleCategoryPress('usa')}>
-                        {t('categories.us')}
-                        {selectedCategories.includes("usa") && <DisabledByDefaultIcon fontSize="small"/>}
-                    </button>
-                    <button className={selectedCategories.includes("latam") ? "widget" : "widget inactive"} onClick = {() => handleCategoryPress('latam')}>
-                        {t('categories.latam')}
-                        {selectedCategories.includes("latam") && <DisabledByDefaultIcon fontSize="small"/>}
-                    </button>
-                    <button className={selectedCategories.includes("global") ? "widget" : "widget inactive"} onClick = {() => handleCategoryPress('global')}>
-                        {t('categories.global')}
-                        {selectedCategories.includes("global") && <DisabledByDefaultIcon fontSize="small"/>}
-                    </button>
+                  <button className={selectedCategory === "all" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("all")}>
+                      {t('categories.all')}
+                  </button>
+                  <button className={selectedCategory === "local" ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('local')}>
+                      {t('categories.local')}
+                  </button>
+                  <button className={selectedCategory === "usa" ? "widget" : "widget inactive"}   onClick = {() => handleCategoryPress('usa')}>
+                      {t('categories.us')}
+                  </button>
+                  <button className={selectedCategory === "latam" ? "widget" : "widget inactive"} onClick = {() => handleCategoryPress('latam')}>
+                      {t('categories.latam')}
+                  </button>
+                  <button className={selectedCategory === "global" ? "widget" : "widget inactive"} onClick = {() => handleCategoryPress('global')}>
+                      {t('categories.global')}
+                  </button>
                 </div>
-                {selectedCategories.length > 1 ? 
+                {selectedCategory === "all" ? 
                   <div>
                     {i18n.language === 'en' ? 
                       <iframe title="news-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameborder="0"></iframe>
@@ -83,7 +57,7 @@ const News = () => {
                       <iframe title="news-spanish" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameborder="0"></iframe>
                     }
                   </div>
-              : selectedCategories.includes("local") ? 
+              : selectedCategory === "local" ? 
                   <div>
                     {i18n.language === 'en' ? 
                       <iframe title="local-english" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameborder="0"></iframe>
@@ -91,7 +65,7 @@ const News = () => {
                     <iframe title="local-spanish" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameborder="0"></iframe>
                     } 
                   </div>
-              : selectedCategories.includes("usa") ?
+              : selectedCategory === "usa" ?
                   <div>
                     {i18n.language === 'en' ? 
                     <iframe title="usa-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/Ws0LbjfbVeJMjKvl" frameborder="0"></iframe>
@@ -99,14 +73,14 @@ const News = () => {
                     <iframe title="usa-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_aTMU8Kx8u0qFDdBx" frameborder="0"></iframe> 
                     }
                   </div>
-              : selectedCategories.includes("latam") ? 
+              : selectedCategory === "latam" ? 
                     <div>
                     {i18n.language === 'en' ? 
                       <iframe title="latam-eng" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/crIC2v0crrv8tVWM" frameborder="0"></iframe>
                       : <iframe title="latam-esp" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_uCsCcL6mlnK6l0v6" frameborder="0"></iframe>
                     }
                     </div>
-              : selectedCategories.includes("global") ?
+              : selectedCategory === "global" ?
                   <div>
                     {i18n.language === 'en' ? 
                     <iframe title="global-english" width="100%" height="440"  src="https://rss.app/embed/v1/carousel/_tPMf7bPyXT0l0aJ2" frameborder="0"></iframe>
@@ -116,7 +90,7 @@ const News = () => {
                   </div>
               : <div/>
               }
-                <Posts categories={selectedCategories}/>
+                <Posts categories={getPostCategories()}/>
             </div>
         </div>
     </div>
