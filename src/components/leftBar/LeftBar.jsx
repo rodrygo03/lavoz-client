@@ -28,10 +28,10 @@ const LeftBar = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const logout = async () => {
-    const res = await axios.post("http://localhost:8800/api/auth/logout", {
-    });
-    // const res = await axios.post("https://poststation-api-391b2ced2a59.herokuapp.com/api/auth/logout", {
+    // const res = await axios.post("http://localhost:8800/api/auth/logout", {
     // });
+    const res = await axios.post("https://poststation-api-391b2ced2a59.herokuapp.com/api/auth/logout", {
+    });
   };
 
   const handleLogout = async (e) => {
