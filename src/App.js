@@ -48,8 +48,8 @@ function App() {
     return (
       <QueryClientProvider client={queryClient}>
         <div className={`theme-${darkMode ? "dark" : "light"}`} style={{height: '100%'}}>
-          <Navbar style={{height: '5%'}} />
-          <div style={{ display: "flex", height: '95%' }}>
+          <Navbar style={{height: '5%', width: '100%'}} />
+          <div style={{ display: "flex", height: '95%', maxWidth: '100%' }}>
             <LeftBar />
             <div style={{ flex: 10}}>
               <Outlet />
