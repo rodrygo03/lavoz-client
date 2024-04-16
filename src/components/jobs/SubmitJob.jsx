@@ -50,15 +50,15 @@ const SubmitJob = () => {
     },
     {
       label: t('jobs.students'),
-      onSelect: () => setCategory("restaurant"),
+      onSelect: () => setCategory("students"),
     },
     {
       label: t('jobs.professionals'),
-      onSelect: () => setCategory("restaurant"),
+      onSelect: () => setCategory("professionals"),
     },
     {
       label: t('jobs.temporary'),
-      onSelect: () => setCategory("restaurant"),
+      onSelect: () => setCategory("temporary"),
     },
   ];
 

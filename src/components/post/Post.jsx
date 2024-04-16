@@ -260,7 +260,7 @@ const Post = ({ post, openComments = false }) => {
 
 
   const url = () => {
-    return `https://poststation.netlify.app/post/${post.id}`
+    return `https://www.postsstation.com/post/${post.id}`
   }
 
   // FOR COMMENTS 
@@ -597,7 +597,7 @@ const Post = ({ post, openComments = false }) => {
                       <a
                         className="twitter-share-button"
                         style={{ color: "inherit" }}
-                        href={`https://twitter.com/intent/tweet?text=Check%20this%20out%20on%20Poststation:&url=${encodeURIComponent(url())}`}
+                        href={`https://twitter.com/intent/tweet?text=Check%20this%20out%20on%20Postsstation:&url=${encodeURIComponent(url())}`}
                         target="_blank"
                         rel="noopener noreferrer"
                       >
