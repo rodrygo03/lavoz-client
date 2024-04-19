@@ -9,9 +9,8 @@ import User from "../../components/user/User";
 import { useTranslation } from 'react-i18next';
 
 const Users = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const userId = currentUser.id;
   const [inputText, setInputText] = useState("");
   const [followerInputText, setFollowerInputText] = useState("");
   const [followingInputText, setFollowingInputText] = useState("");
@@ -79,7 +78,7 @@ const Users = () => {
       
       return (
         <div className="user-list">
-            {filteredUsers.map((user) => 
+            {filteredUsers.slice(0,16).map((user) => 
               // <User user={user} key={user.id}/>
             <Link to={"/profile/" + user.id} style={{ textDecoration: "none", color: "inherit" }}>
             <div className="user" key={user.id} onClick={() => setSelectedUser(user.id)}>

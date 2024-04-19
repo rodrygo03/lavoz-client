@@ -51,7 +51,7 @@ function App() {
           <Navbar style={{height: '5%', width: '100%'}} />
           <div style={{ display: "flex", height: '95%', maxWidth: '100%' }}>
             <LeftBar />
-            <div style={{ flex: 10}}>
+            <div style={{ flex: 10, maxWidth: "100vw"}}>
               <Outlet />
             </div>
             {/* <RightBar /> */}

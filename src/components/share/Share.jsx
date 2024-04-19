@@ -137,7 +137,7 @@ const Share = ({categ}) => {
 
   const isVideo = (url) => {
     if (url === null) return false;
-    const videoExtensions = [".mp4", ".mov", ".webp", ".mp3", ".webm", ".ogg"];
+    const videoExtensions = [".mp4", ".m4a", ".mov", ".webp", ".mp3", ".webm", ".ogg"];
     return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
   };
 
@@ -286,13 +286,12 @@ const Share = ({categ}) => {
 
   const getCarousel = () => {
     return(
-      <div>
+      <div style={{flexWrap: "nowrap"}}>
         <ReactSimplyCarousel
           containerProps={{
             style: {
               display: "flex",
               alignItems: "center",
-              minWidth: 500,
               margin: "auto",
               padding: "auto",
             }
@@ -303,60 +302,15 @@ const Share = ({categ}) => {
           }}
           itemsToShow={1}
           itemsToScroll={1}
-          responsiveProps={
-            [{minWidth: 0, maxWidth: 10000000, forwardBtnProps: {
-              children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            },
-            backwardBtnProps: {
-              children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            }}, ]
-          }
           swipeTreshold={20}
           onRequestChange={setActiveSlideIndex}
           forwardBtnProps={{
             children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }
+            className: "right-arrow"
           }}
           backwardBtnProps={{
             children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              show: "all",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer"
-            }
+            className: "left-arrow"
           }}
           dotsNav={{
             show: true,
@@ -400,7 +354,6 @@ const Share = ({categ}) => {
             > 
             {file.type.startsWith("image/") ? 
             <div> 
-              {debug(file.type)}
               <button className="x-carousel" style={{marginLeft: 300}} onClick={() => handleX(index)}>
                 <DisabledByDefault style={{color: 'gray'}}/>
               </button>
@@ -526,7 +479,7 @@ const Share = ({categ}) => {
             src={Flag}
             alt=""
           />
-          <button style={{marginLeft: "50px", cursor: "pointer"}} className="x" onClick={()=>setFlag(false)}>
+          <button className="x" onClick={()=>setFlag(false)}>
             <DisabledByDefault style={{color: "gray"}}/>
           </button>
           </div>
@@ -569,7 +522,7 @@ const Share = ({categ}) => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov"
+              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
               multiple
               onChange={handleFileChange}
             />

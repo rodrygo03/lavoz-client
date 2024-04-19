@@ -26,7 +26,6 @@
     }
 
     .background {
-      width: 100%;
       background-color: #6D1D1D;
       padding: 50px 30px;
       display: flex;
@@ -41,15 +40,16 @@
       }
 
       .text-container {
-        overflow: hidden;
-        white-space: wrap;
+        overflow: wrap;
         text-align: center;
+        text-wrap: wrap;
       }
 
       span {
         color: white;
         text-align: center;
         font-style: italic;
+        text-wrap: wrap;
 
         @include tablet {
           font-size: 0.8em;
@@ -57,18 +57,6 @@
         @include mobile {
           font-size: 0.8em;
         }
-      }
-    }
-
-    .mobile {
-      @media screen and (min-width: 581px) {
-        display: none; 
-      }
-    }
-    
-    .pc {
-      @media screen and (max-width: 580px) {
-        display: none; 
       }
     }
 
@@ -115,6 +103,13 @@
     }
     .market-container {
       padding: 10px 50px;
+
+      @include mobile {
+        padding: 10px;
+      }
+      @include tablet {
+        padding: 10px;
+      }
     }
     .centered {
         display: flex;

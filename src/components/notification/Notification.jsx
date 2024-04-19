@@ -95,9 +95,11 @@ const Notification = ({ notification }) => {
                             <div className="pfp">
                                 <img className="profilePic" src={notification.profilePic}/>
                                 <div className="text">
-                                    <span>{notification.name} {t('notifs.reaction')}</span>
-                                    {displayReaction()}
-                                    <span>{t('notifs.topost')}</span>
+                                    <div>
+                                        <span>{notification.name} {t('notifs.reaction')}</span>
+                                        {displayReaction()}
+                                        <span>{t('notifs.topost')}</span>
+                                    </div>
                                     <span className="date">{moment(notification.createdAt).fromNow()}</span>
                                 </div>
                             </div>

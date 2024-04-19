@@ -22,7 +22,7 @@ $themes: (
 html, body, #root {
   height: 100%;
   width: 100%;
-  margin: 0; /* Remove default margin */
+  margin: 0; 
   padding: 0;
 }
 
@@ -57,5 +57,22 @@ html, body, #root {
 @mixin tablet {
   @media (max-width: 960px) {
     @content;
+  }
+}
+@mixin pc {
+  @media (min-width: 961px) {
+    @content;
+  }
+}
+
+.mobile {
+  @media screen and (min-width: 1201px) {
+    display: none; 
+  }
+}
+
+.pc {
+  @media screen and (max-width: 1200px) {
+    display: none; 
   }
 }

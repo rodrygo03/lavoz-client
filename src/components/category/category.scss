@@ -3,14 +3,9 @@
 .category{
   @include themify($themes) {
     background-color: themed("bgSoft");
+    padding: 0px;
+    margin: 0px;
 
-    @include mobile {
-      padding: 10px;
-    }
-
-    @include tablet{
-      padding: 20px;
-    }    
     .great-container {
       padding: 10px 50px;
       @include mobile {
@@ -41,7 +36,6 @@
       }
     }
     .background {
-      width: 100%;
       background-color: #6D1D1D;
       padding: 50px 30px;
       display: flex;

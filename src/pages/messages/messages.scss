@@ -6,6 +6,8 @@
     height: 100%;
     display: flex;
     color: themed("textColor");
+    margin-right: 0;
+    padding-right: 0;
 
     ul {
       list-style: none;
@@ -174,16 +176,15 @@
     .msg-right {
       height: 90vh;
       width: 50%;
+
+      @include mobile {
+        width: 58%;
+      }
+      @include tablet {
+        width: 58%;
+      }
       padding: 0px;
       margin: 0px;
-
-      @include tablet {
-        width: 55%;
-      }
-      @include mobile {
-        width: 55%;
-      }
-
     }
 
     .section {

@@ -2,19 +2,17 @@ import { useContext, useState } from "react";
 import "./stories.scss"
 import { AuthContext } from "../../context/authContext"
 import Image from "../../assets/img.png";
-import { useMutation, QueryClient, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios"
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 import { useTranslation } from "react-i18next";
 
 const Stories = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const {currentUser} = useContext(AuthContext);
   const [shareOpen, setShareOpen] = useState(false);
   const [file,setFile] = useState(null);
-  const [image, setImage] = useState(null);
-  const [id, setId] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { isLoading, error, data } = useQuery({

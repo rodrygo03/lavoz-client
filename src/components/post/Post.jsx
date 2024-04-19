@@ -3,7 +3,6 @@ import TextsmsOutlinedIcon from "@mui/icons-material/TextsmsOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import { Link, useNavigate } from "react-router-dom";
-import Comments from "../comments/Comments";
 import { useState, useContext, useEffect } from "react";
 import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
@@ -263,6 +262,10 @@ const Post = ({ post, openComments = false }) => {
     return `https://www.postsstation.com/post/${post.id}`
   }
 
+  const handleChange = (e) => {
+    setDesc(e.target.value);
+  }
+
   // FOR COMMENTS 
   const handleClick = () => {
     const postId = post.id;
@@ -295,19 +298,30 @@ const Post = ({ post, openComments = false }) => {
     }
     return(
       <div className="comments">
-        <div className="write">
+        <div className="writePC">
           <img className="pfp" src={currentUser.profilePic} alt="" />
-          <InputEmoji 
-            placeholder={t('post.write')} 
-            value={desc}
-            onChange={setDesc}
-            borderRadius = {10}
-          />
+            <InputEmoji 
+              placeholder={t('post.write')} 
+              value={desc}
+              onChange={setDesc}
+              borderRadius = {10}
+            />
             <label>
               <AddGif style={{color: "gray", cursor: "pointer"}} onClick={()=>setGifOpen(!gifOpen)}/>
             </label>
           <button className="submit" onClick={handleClick}>{t('post.send')}</button>
         </div>
+
+        <div className="writeMobile">
+          <img className="pfp" src={currentUser.profilePic} alt="" />
+          <input 
+            placeholder={t('post.write')}
+            value={desc}
+            onChange={handleChange}
+          />
+          <button className="submit" onClick={handleClick}>{t('post.send')}</button>
+        </div>
+
         {gif && 
           <div>
             <button className="x" style={{position: "relative", left: "70%"}}onClick={()=>setGif(null)}>
@@ -528,8 +542,8 @@ const Post = ({ post, openComments = false }) => {
             }
         </div>
         
-        <div style={{display: "flex"}}>
-          <div className="info" style={{width: "10%"}}>
+        <div>
+          <div className="info">
           {reactionsOpen && 
             <div className={`reaction-container ${reactionsOpen ? 'show' : ''}`}>
               <div className='section'>
@@ -642,30 +656,30 @@ const Post = ({ post, openComments = false }) => {
                 </div>
             }
           </div>
-        </div>
-        <div className="info">
-          <div className="item"
-            onClick={() => open(0)}
-          >
-            {isLoading ? ("loading") : 
-            <div className="item"> 
-            {/* <img src={getReaction(data)} className={'icon'}/> */}
-            {getReaction(data)}
-            {getReactionText(data)}
+          <div className="info bottom">
+            <div className="item"
+              onClick={() => open(0)}
+            >
+              {isLoading ? ("loading") : 
+              <div className="item"> 
+              {/* <img src={getReaction(data)} className={'icon'}/> */}
+              {getReaction(data)}
+              {getReactionText(data)}
+              </div>
+              }
+            </div>
+            <div className="item" onClick={() => open(1)}>
+              <ShareOutlinedIcon />
+              {t('post.share')}
+            </div>
+            {commentError || commentsLoading ? "loading"
+            :
+            <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
+              <TextsmsOutlinedIcon />
+              {commentData.length} 
+              {commentData.length === 1 ? t('post.comment') : t('post.comment')+'s'}
             </div>
             }
-          </div>
-          {commentError || commentsLoading ? "loading"
-          :
-          <div className="item" onClick={() => setCommentOpen(!commentOpen)}>
-            <TextsmsOutlinedIcon />
-            {commentData.length} 
-            {commentData.length === 1 ? t('post.comment') : t('post.comment')+'s'}
-          </div>
-          }
-          <div className="item" onClick={() => open(1)}>
-            <ShareOutlinedIcon />
-            {t('post.share')}
           </div>
         </div>
         {commentOpen && displayComments()}

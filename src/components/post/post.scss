@@ -11,6 +11,7 @@
     width: fit-content;
     overflow: none;
     width: 100%;
+    max-width: 800px;
 
     .icon {
       color: themed("textColor");
@@ -18,6 +19,20 @@
 
     .flag {
       width: 20%;
+    }
+
+    .bottom {
+       flex-wrap: wrap;
+       @include mobile {
+        display: flex;
+        align-items: flex-start;
+       }
+    }
+
+    .pc {
+      @include mobile {
+        display: none;
+      }
     }
 
     
@@ -65,8 +80,11 @@
         padding: 5px;
         position: relative;
         bottom: 10px;
-        left: 150px;
         transition: 1s ease;
+
+        @include pc {
+          left: 30%;
+        }
         
         .section {
           display: flex;
@@ -113,6 +131,12 @@
         position: relative;
         bottom: 10px;
         transition: 1s ease;
+
+        // @include mobile {
+        //   position: static;
+        //   justify-self: center;
+        //   margin: 10px auto;
+        // }
         
         .section {
           display: flex;
@@ -269,11 +293,24 @@
 .comments {
   @include themify($themes) {
 
-    .write{
+    .pc {
+      @media screen and (min-width: 500px) {
+        display: none; 
+      }
+    }
+
+    .writePC {
       display: flex;
       align-items: center;
       justify-content: space-between;
       margin: 20px 0px 0px 0px;
+
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        display: none;
+      }
 
       input{
         flex:5;
@@ -283,6 +320,36 @@
         color: themed("textColor");
       }
 
+      .submit {
+        border: none;
+        background-color: #6D1D1D;
+        color: white;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin-left: 10px;
+      }
+    }
+
+    .writeMobile {
+      @include pc {
+        display: none;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0px 0px 0px;
+
+      input{
+        padding: 10px;
+        flex: 2;
+        margin: 0px 5px;
+        border: 1px solid themed("border");
+        background-color: transparent;
+        color: themed("textColor");
+        border-radius: 10px;
+      }
       .submit {
         border: none;
         background-color: #6D1D1D;

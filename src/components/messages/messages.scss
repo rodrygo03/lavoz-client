@@ -4,14 +4,12 @@
   @include themify($themes) {
     background-color: themed("bgSoft");
     .thread {
-      width: auto;
       max-height: 80%;
-      background-color: white;
+      background-color: themed("bg");
       -webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
       -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
       box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
       overflow-y: scroll;
-      flex: 1;
       padding: 15px;
       display: flex;
       flex-direction: column;
@@ -112,18 +110,25 @@
         }
     }
     
-    .write{
+    .writePC{
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 20px;
-      padding: 0px 0px 0px 0px;
+      gap: 10px;
+      padding: 0px 10px;
       background-color: themed("bg");
       justify-self: flex-end;
       height: 18%;
 
+      @include mobile {
+        display: none;
+      }
+      @include tablet {
+        display: none;
+      }
+
       input{
-        flex:5;
+        flex:4;
         padding: 10px;
         border: 1px solid themed("border");
         background-color: transparent;
@@ -138,15 +143,59 @@
         border-radius: 3px;
       }
       img {
-          width: 50px;
-          height: 50px;
+          width: 40px;
+          height: 40px;
           border-radius: 50%;
           object-fit: cover;
           border: 1px #6D1D1D solid;
           box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
           aspect-ratio: 1.0;
       }
-  }
+    }
+
+    .writeMobile{
+      @include pc {
+        display: none;
+      }
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 0px 5px;
+      background-color: themed("bg");
+      justify-self: flex-end;
+      height: 18%;
+      flex-wrap: wrap;
+
+      input{
+        flex: 4;
+        padding: 10px;
+        border: 1px solid themed("border");
+        background-color: transparent;
+        color: themed("textColor");
+        border-radius: 10px;
+      }
+
+      button{
+        flex: 0.25;
+        border: none;
+        background-color: transparent;
+        padding: 0px;
+        cursor: pointer;
+        border-radius: 3px;
+        margin: 0px;
+      }
+      img {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 1px #6D1D1D solid;
+          box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
+          aspect-ratio: 1.0;
+      }
+    }
     .section {
       // border-bottom: 1px lightgray solid;
       padding: 10px 0px;

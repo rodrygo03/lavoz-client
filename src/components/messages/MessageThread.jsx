@@ -77,6 +77,10 @@ const MessageThread = ({user, name}) => {
     return result;
   }, {});
 
+  const handleChange = (e) => {
+    setNewMsg(e.target.value);
+  }
+
   return (
         <div className="msg-right">
             {!isLoading && mData &&
@@ -99,15 +103,26 @@ const MessageThread = ({user, name}) => {
               </div>
             }
             
-            <div className="write">
-                <InputEmoji 
+            <div className="writePC">
+              <img className="pfp" src={currentUser.profilePic} alt="" />
+              <InputEmoji 
                 placeholder="Message..." 
                 value={newMsg}
                 onChange={setNewMsg}
                 borderRadius = {10}
-                />
-                <button className="submit" disabled = {msgSubmitted} onClick = {handleClick}> <SendIcon style={msgSubmitted === false ? {color: "gray"} : {color: "green"}}/> </button>
+              />
+              <button className="submit" disabled = {msgSubmitted} onClick = {handleClick}> <SendIcon style={msgSubmitted === false ? {color: "gray"} : {color: "green"}}/> </button>
             </div>
+
+            <div className="writeMobile">
+              <input 
+                placeholder="Message..."
+                value={newMsg}
+                onChange={handleChange}
+              />
+              <button className="submit" disabled = {msgSubmitted} onClick = {handleClick}> <SendIcon style={msgSubmitted === false ? {color: "gray"} : {color: "green"}}/> </button>
+            </div>
+
         </div>
   );
 };

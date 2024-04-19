@@ -33,27 +33,24 @@ const Notifs = () => {
   return (
     <div className="notifs">
       <h2>{t('notifs.notifs')}</h2>
-      <div className="section">
+        {!isLoading && notifsToday && notifsToday.length != 0 && 
+        <div className="section">
         <h4>{t('notifs.today')}</h4>
-        {isLoading ? "isloading"
-        :
-        notifsToday.map((notif) => <Notification notification={notif} key={notif.id}/>)
+          {notifsToday.map((notif) => <Notification notification={notif} key={notif.id}/>)}
+        </div>
         }
-      </div>
-      <div className="section">
-        <h4>{t('notifs.week')}</h4>
-        {isLoading ? "isloading" 
-        :
-        notifsThisWeek.map((notif) => <Notification notification={notif} key={notif.id}/>)
+        {!isLoading && notifsThisWeek && notifsThisWeek.length != 0 && 
+          <div className="section">
+          <h4>{t('notifs.week')}</h4>
+            {notifsThisWeek.map((notif) => <Notification notification={notif} key={notif.id}/>)}
+          </div>
         }
-      </div>
-      <div className="section">
-        <h4>{t('notifs.earlier')}</h4>
-        {isLoading ? "isloading" 
-        :
-        earlierNotifs.map((notif) => <Notification notification={notif} key={notif.id}/>)
+        {!isLoading && earlierNotifs && earlierNotifs.length != 0 && 
+          <div className="section">
+          <h4>{t('notifs.earlier')}</h4>
+            {earlierNotifs.map((notif) => <Notification notification={notif} key={notif.id}/>)}
+          </div>
         }
-      </div>
     </div>
   );
 };

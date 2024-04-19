@@ -4,11 +4,20 @@
   @include themify($themes) {
     background-color: themed("bgSoft");
     color: themed("textColor");
+    min-height: 95vh;
+
     h1 {
         padding: 30px 30px 0px 30px;
+
+        @include mobile {
+          font-size: 25px;
+        }
     }
     h3 {
         font-weight: lighter;
+        @include mobile {
+          font-size: 18px;
+        }
     }
     .user-category {
         padding: 15px 30px;
@@ -40,6 +49,7 @@
         -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.18);
         box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.18);
         box-sizing: border-box;
+        flex-grow: 0;
         
         .profilePic {
             width: 15vh;
@@ -47,6 +57,14 @@
             border-radius: 50%;
             object-fit: cover;
             margin: auto;
+            @include mobile {
+              width: 12vh;
+              height: 12vh;
+            }
+            @include tablet {
+              width: 12vh;
+              height: 12vh;
+            }
         }
 
         span {
@@ -69,7 +87,7 @@
         margin: 15px 0px;
         background-color: white;
         box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        width: 50vh;
+        width: 75vw;
       }
   
       .search-list {

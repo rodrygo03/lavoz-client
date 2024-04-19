@@ -46,12 +46,12 @@ const LeftBar = () => {
 
   return (
     <div className='soft'>
-      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}} />}
+      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
       <div className={`leftBar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="container">
           <div className='menu'>
             <div className = "toggle">
-              {sidebarOpen ? <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
+              {sidebarOpen ? <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}}/>
               : <KeyboardDoubleArrowRightIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
               }
             </div>

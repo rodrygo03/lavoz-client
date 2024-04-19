@@ -41,6 +41,8 @@ const Profile = ({userId}) => {
     },
   });
 
+  console.log(relationshipData);
+  
   const handleFollow = () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
   }
@@ -116,11 +118,13 @@ const Profile = ({userId}) => {
                   </div>
                   }
                 </div>
-                {rIsLoading || rError ? (
-                  "loading"
-                ) : userId === currentUser.id ? (
+                {userId === currentUser.id ? (
                   <button onClick={()=>setOpenUpdate(true)}>{t('update.update')}</button>
-                ) : (
+                ) :
+                rIsLoading || rError ? (
+                  "loading"
+                ) : 
+                (
                   <button onClick={handleFollow}>
                     {relationshipData.includes(currentUser.id)
                       ? t('users.following')

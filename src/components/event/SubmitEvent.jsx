@@ -54,7 +54,8 @@ const SubmitEvent = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (texts.name == null || texts.location == null || texts.date == null || texts.time == null) {
+    if (!texts.name || !texts.location || !texts.date || !texts.time ) {
+      console.log("hello")
       setError(true);
       return;
     }

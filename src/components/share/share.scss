@@ -11,6 +11,35 @@
     margin-bottom: 20px;
     overflow: none;
 
+    .right-arrow {
+      background-color: transparent;
+      border: none;
+      position: absolute;
+      right: 100px;
+
+      @include mobile {
+        right: 30px;
+      }
+      @include tablet {
+        right: 40px;
+      }
+    }
+
+    .left-arrow {
+      background-color: transparent;
+      border: none;
+      position: absolute;
+      left: 100px;
+
+      @include mobile {
+        left: 30px;
+      } 
+      
+      @include tablet {
+        left: 40px;
+      }
+    }
+
     .categories {
       padding: 10px 0px;
       display: flex;
@@ -86,7 +115,8 @@
     }
 
     .flag {
-      width: 400px;
+      width: 75%;
+      max-width: 500px;
     }
 
     .category-label {
@@ -96,6 +126,11 @@
       font-size: 12px;
       color: gray;
       background-color: transparent;
+      display: flex;
+      align-items: center;
+      @include mobile {
+        padding: 0;
+      }
     }
 
     .red {
@@ -249,6 +284,12 @@
           display: flex;
           align-items: center;
           gap: 20px;
+          
+          @include mobile {
+            flex-direction: column;
+            gap: 10px;
+            align-items: flex-start;
+          }
 
           .item {
             display: flex;

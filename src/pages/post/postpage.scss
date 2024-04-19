@@ -6,6 +6,13 @@
         background-color: themed("bgSoft");
         display: flex;
         flex-direction: column;
-        height: 90%;
+        min-height: 80vh;
+
+        @include mobile {
+            padding: 10px;
+        }
+        @include tablet{
+            padding: 20px;
+        }
     }
 }

@@ -11,6 +11,26 @@
     margin-bottom: 20px;
     width: 100%;
 
+    @include mobile {
+      min-width: 95%;
+    }
+    @include tablet {
+      min-width: 95%;
+    }
+
+    form {
+      label {
+        @include mobile {
+          font-size: 0.8em;
+        }
+      }
+      input {
+        @include mobile {
+          font-size: 0.8em;
+        }
+      }
+    }
+
     .error-msg {
       color: red;
       font-size: 12px;
@@ -22,6 +42,10 @@
 
     .container {
       padding: 20px;
+
+      @include mobile {
+        padding: 20px 15px;
+      }
       .top {
         display: flex;
         align-items: center;
