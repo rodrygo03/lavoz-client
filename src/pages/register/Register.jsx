@@ -82,8 +82,8 @@ const Register = () => {
 
     try {
       // Register the user
-      //await axios.post("https://poststation-api-391b2ced2a59.herokuapp.com/api/auth/register", inputs);
-      await axios.post("http://server.postsstation.com/api/auth/register", inputs);
+      await axios.post("https://poststation-api-391b2ced2a59.herokuapp.com/api/auth/register", inputs);
+      // await axios.post("http://localhost:8800/api/auth/register", inputs);
 
       // Log in the user with the same credentials
       await login({
