@@ -23,6 +23,7 @@ const Register = () => {
   const [acctType, setAcctType] = useState(null); // user's response to account type: business or personal?
   const [visible, setVisible] = useState(false);
   const [language, setLanguage] = useState(i18next.language === 'es');
+  const [registered, setRegistered] = useState(false);
 
   const toggleLng = () => {
     setLanguage(!language);
@@ -86,7 +87,7 @@ const Register = () => {
       // await axios.post("http://localhost:8800/api/auth/register", inputs);
 
       // Log in the user with the same credentials
-      await login({
+      login({
         username: inputs.username,
         password: inputs.password,
       });
@@ -108,7 +109,7 @@ const Register = () => {
     <div className="register">
       <div className="card">
         <div className="left">
-          <h1>PostStation</h1>
+          <h1>PostsStation</h1>
           <p>
             {t('register.desc')}
           </p>
