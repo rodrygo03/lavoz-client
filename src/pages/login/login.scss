@@ -64,10 +64,10 @@
     padding: 20px;
 
     @include mobile {
-      top: 40px;
+      top: 0px;
     }
     @include tablet {
-      top: 40px;
+      top: 0px;
     }
   }
   .flag {
