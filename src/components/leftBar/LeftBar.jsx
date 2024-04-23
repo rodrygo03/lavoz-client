@@ -18,19 +18,19 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import KeyboardDoubleArrowLeftIcon from '@mui/icons-material/KeyboardDoubleArrowLeft';
 import KeyboardDoubleArrowRightIcon from '@mui/icons-material/KeyboardDoubleArrowRight';
+import { makeRequest } from "../../axios";
 
 const LeftBar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [err, setErr] = useState(null);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, clearUser } = useContext(AuthContext);
   const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
   const logout = async () => {
-    // const res = await axios.post("http://localhost:8800/api/auth/logout", {
-    // });
-    const res = await axios.post("https://server.postsstation.com/api/auth/logout", {
+    clearUser();
+    const res = await makeRequest.post("/auth/logout", {
     });
   };
 

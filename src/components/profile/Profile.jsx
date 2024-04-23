@@ -40,8 +40,6 @@ const Profile = ({userId}) => {
       queryClient.invalidateQueries(["relationship"]);
     },
   });
-
-  console.log(relationshipData);
   
   const handleFollow = () => {
     mutation.mutate(relationshipData.includes(currentUser.id));
@@ -137,7 +135,7 @@ const Profile = ({userId}) => {
           </div>
         </div>
       }
-      {openUpdate && <Update setOpenUpdate = {setOpenUpdate} user={data}/>}
+      {openUpdate && <Update setOpenUpdate = {setOpenUpdate} user={data} first={false}/>}
     </div>
   );
 };

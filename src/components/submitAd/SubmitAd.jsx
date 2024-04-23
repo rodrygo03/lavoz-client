@@ -215,7 +215,7 @@ const SubmitAd = () => {
       else if (isAudio(file.name)) {
         try {
           const duration = await getVideoDuration(file);
-          if (duration > 45) {
+          if (duration > 60) {
             setError("audio-error");
             setDisplayMessage(1);
             return;

@@ -76,7 +76,7 @@ i18n
             flag: "Add TAMU flag",
             post: "Post",
             uploading: "Uploading...",
-            error: "Videos must be shorter than 15 seconds. Audio must be shorter than 45 seconds.",
+            error: "Videos must be shorter than 15 seconds. Audio must be shorter than 60 seconds.",
             ten: "You can only select up to 10 files.",
             addMore: "Add more +"
           },
@@ -95,7 +95,7 @@ i18n
             rate: "rate this comment"
           },
           update: {
-            welcome: "Welcome to Poststation!",
+            welcome: "Welcome to Postsstation!",
             start: "To get started, let's fill out your profile a little more.",
             optional: "All fields are optional",
             cover: "Cover Picture",
@@ -290,7 +290,7 @@ i18n
             post: "Subir",
             uploading: "Subiendo...",
             pleaseSelect: "Hay que seleccionar la categoría",
-            error: "Sólo están autorizados los videos menos que 15 segundos y los audios menos que 45 segundos.",
+            error: "Sólo están autorizados los videos menos que 15 segundos y los audios menos que 60 segundos.",
             ten: "Sólo se puede elegir 10 fotos, videos, o audios.",
             addMore: "Agregar más +"
           },
@@ -309,7 +309,7 @@ i18n
             rate: "calificar este comentario"
           },
           update: {
-            welcome: "¡Bienvendios a Poststation!",
+            welcome: "¡Bienvendios a Postsstation!",
             start: "Para empezar, vamos a completar tu perfil.",
             optional: "Todos los campos son opcionales.",
             cover: "Foto de portada",

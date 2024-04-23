@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./register.scss";
-import { useContext, useState, useEffect, useRef } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import Terms from "../../components/terms/Terms";
 import Privacy from "../../components/terms/Privacy";
@@ -11,10 +11,11 @@ import { useTranslation } from "react-i18next";
 import US from "../../assets/us.png";
 import i18next, { changeLanguage } from "i18next";
 import MX from "../../assets/mx.png";
+import { makeRequest } from "../../axios";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { t, i18n } = useTranslation([]);
+  const { t } = useTranslation([]);
   const { login } = useContext(AuthContext);
   const [openTerms, setOpenTerms] = useState(false);
   const [openPrivacy, setOpenPrivacy] = useState(false);
@@ -23,7 +24,7 @@ const Register = () => {
   const [acctType, setAcctType] = useState(null); // user's response to account type: business or personal?
   const [visible, setVisible] = useState(false);
   const [language, setLanguage] = useState(i18next.language === 'es');
-  const [registered, setRegistered] = useState(false);
+  const { setCurrentUser } = useContext(AuthContext);
 
   const toggleLng = () => {
     setLanguage(!language);
@@ -81,21 +82,16 @@ const Register = () => {
       return;
     }
 
+    let userId = 0;
     try {
-      // Register the user
-      await axios.post("https://server.postsstation.com/api/auth/register", inputs);
-      // await axios.post("http://localhost:8800/api/auth/register", inputs);
-    } catch (err) {
-      setErr(err.response.data);
+      const res = await makeRequest.post("/auth/register", inputs);
+      userId = res.data.id;
+    } catch (error) {
+      console.error("Error:", error);
+      setErr("User already exists.");
+      return;
     }
-
-    // Log in the user with the same credentials
-    await login({
-      username: inputs.username,
-      password: inputs.password,
-    });
-
-    // Navigate to "/firstLogin" or any desired route after successful login
+    setCurrentUser({name: inputs.name, email: inputs.email, account_type: inputs.account_type, password: inputs.password, id: userId, coverPic: "https://lavozbucket.s3.amazonaws.com/default_cover.jpg", profilePic: "https://lavozbucket.s3.amazonaws.com/pfp.jpg"});
     navigate("/firstLogin");
   };
 

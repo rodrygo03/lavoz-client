@@ -8,7 +8,7 @@ import DisabledByDefaultIcon from '@mui/icons-material/DisabledByDefault';
 import { useTranslation } from "react-i18next";
 import { AuthContext } from "../../context/authContext";
 
-const Update = ({ setOpenUpdate, user }) => {
+const Update = ({ setOpenUpdate, user, first }) => {
     const { t, i18n } = useTranslation();
     const [cover, setCover] = useState(null);
     const [profile, setProfile] = useState(null);

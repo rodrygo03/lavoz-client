@@ -9,14 +9,14 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Update from "../../components/update/Update"
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { useTranslation } from "react-i18next";
 import Profile from "../../components/profile/Profile";
 
-const ProfilePage = () => {
-  const userId = parseInt(useLocation().pathname.split("/")[2]);
+function ProfilePage() {
+  let userId = parseInt(window.location.pathname.split("/")[2]);
   const { currentUser } = useContext(AuthContext);
 
   return (
