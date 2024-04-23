@@ -9,13 +9,13 @@
     background-color: themed("bg");
     color: themed("textColor");
     margin-bottom: 20px;
-    width: 100%;
+    width: 80%;
 
     @include mobile {
-      min-width: 95%;
+      width: 100%;
     }
     @include tablet {
-      min-width: 95%;
+      width: 100%;
     }
 
     form {

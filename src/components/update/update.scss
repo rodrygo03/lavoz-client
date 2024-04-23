@@ -13,10 +13,16 @@
     justify-content: center;
     z-index: 999;
 
+    .pc-none {
+      @media screen and (max-width: 480px) {
+        display: none !important; 
+      }
+    }
+
     .wrapper {
       overflow: scroll;
       margin: auto;
-      width: 40%;
+      width: 50%;
       height: 70%;
       background-color: themed("bg");
       padding: 50px;
@@ -33,6 +39,12 @@
       @include mobile {
         width: 100%;
         height: 100%;
+      }
+
+      @include tablet {
+        width: 80%;
+        height: 80%;
+        padding: 10px;
       }
 
       h1 {
@@ -52,6 +64,23 @@
         padding: 5px;
         cursor: pointer;
         color: white;
+      }
+
+      form {
+        input {
+          @include mobile {
+            flex-basis: 100% !important;
+            color: themed("textColor");
+          }
+        }
+
+        .toggle {
+          label {
+            @include mobile {
+              flex-basis: 50% !important;
+            }
+          }
+        }
       }
     }
   }

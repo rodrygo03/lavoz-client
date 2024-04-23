@@ -137,9 +137,15 @@ const Share = ({categ}) => {
 
   const isVideo = (url) => {
     if (url === null) return false;
-    const videoExtensions = [".mp4", ".m4a", ".mov", ".webp", ".mp3", ".webm", ".ogg"];
+    const videoExtensions = [".mp4", ".mov", ".webp", ".webm", ".ogg"];
     return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
   };
+
+  const isAudio = (url) => {
+    if (url === null) return false;
+    const videoExtensions = [".mp3", ".m4a"];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  }
 
   const containerStyle = {
     height: 0,
@@ -230,6 +236,7 @@ const Share = ({categ}) => {
       } catch (err) {
         console.error("Error uploading files:", err);
         setError("An error occurred during post creation.");
+        setIsSubmitting(false);
       }
     }
     setFiles([]);
@@ -263,6 +270,21 @@ const Share = ({categ}) => {
           const duration = await getVideoDuration(file);
           if (duration > 15) {
             setError("video-error");
+            setDisplayMessage(1);
+            return;
+          }
+          else {
+            setDisplayMessage(0);
+          }
+        } catch (err) {
+          console.error("error:", err);
+        }
+      }
+      else if (isAudio(file.name)) {
+        try {
+          const duration = await getVideoDuration(file);
+          if (duration > 45) {
+            setError("audio-error");
             setDisplayMessage(1);
             return;
           }

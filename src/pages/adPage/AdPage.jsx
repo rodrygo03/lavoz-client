@@ -14,7 +14,7 @@ const AdPage = () => {
 
   return (
     <div className="adpage">
-      {currentUser.currentUser.account_type != 'personal' && 
+      {currentUser && currentUser.currentUser.account_type != 'personal' && 
         <div>
           <div className="background">
               <h1 className="title">{t('sections.postAd')}</h1>
@@ -26,7 +26,7 @@ const AdPage = () => {
           </div>
           <div className = "market-container">
             <PostAd/>
-            {currentUser.currentUser.account_type === 'admin' && 
+            {currentUser && currentUser.currentUser.account_type === 'admin' && 
             <div>
               <h1>{t('ad.approveAds')}</h1>
               <Ads/>

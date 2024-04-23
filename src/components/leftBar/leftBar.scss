@@ -66,6 +66,10 @@
       overflow: wrap;
       gap: 10px;
 
+      @include mobile {
+        bottom: 10px;
+      }
+
       button {
         padding: 2px 5px;
       }

@@ -22,6 +22,7 @@ const ForgotPassword = () => {
       if (i18next.language == 'es') i18next.changeLanguage('en');
       else i18next.changeLanguage('es');
     }
+    const EMAIL_REGEX = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
 
     const navigateToOtp = () => {
         if (email) {
@@ -52,6 +53,10 @@ const ForgotPassword = () => {
 
     const handlePress = (e) => {
         e.preventDefault();
+        if (!email.match(EMAIL_REGEX)) {
+            setErr(t('register.email'));
+            return;
+        }
         if (emailInput != "") {
             setEmail(emailInput);
             navigateToOtp();

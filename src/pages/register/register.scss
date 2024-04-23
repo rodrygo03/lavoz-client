@@ -1,3 +1,5 @@
+@import "../../style.scss";
+
 .register {
   height: 100vh;
   background-color: #6D1D1D;
@@ -16,6 +18,13 @@
     display: flex;
     align-items: center;
     padding: 20px;
+
+    @include mobile {
+      top: 5px;
+    }
+    @include tablet {
+      top: 10px;
+    }
   }
   .flag {
     width: 35px;
@@ -30,7 +39,7 @@
     @media screen and (max-width: 1200px) {
       width: 100%;
       border-radius: 0px;
-      padding: 20px;
+      padding: 10px;
     }
     display: flex;
     flex-direction: row-reverse;
@@ -214,6 +223,13 @@
     top: 0;
     left: 0;
     margin: 20px;
+
+    @include mobile {
+      top: 5px;
+    }
+    @include tablet {
+      top: 10px;
+    }
 
     button {
       background-color: white;

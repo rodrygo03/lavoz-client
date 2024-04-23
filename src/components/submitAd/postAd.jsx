@@ -93,7 +93,6 @@ const PostAd = () => {
       return uploadedUrls;
     } catch (err) {
       if (err.response && err.response.status === 400 && err.response.data.error) {
-        // Handle specific error for video duration exceeding 1 minute
         setError(err.response.data.error);
       } else {
         // Handle other errors
@@ -139,6 +138,7 @@ const PostAd = () => {
       setTooManyFiles(true);
       return;
     }
+    setIsSubmitting(true);
   
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
@@ -152,6 +152,7 @@ const PostAd = () => {
       } catch (err) {
         console.error("Error uploading files:", err);
         setError("An error occurred during post creation.");
+        setIsSubmitting(false);
       }
     }
   
@@ -162,6 +163,7 @@ const PostAd = () => {
     setFiles([]);
     setCategory(null);
     setTooManyFiles(false);
+    setIsSubmitting(false);
   };
 
   const handleX = (index) => {
@@ -185,13 +187,12 @@ const PostAd = () => {
 
   const getCarousel = () => {
     return(
-      <div>
+      <div style={{flexWrap: "nowrap"}}>
         <ReactSimplyCarousel
           containerProps={{
             style: {
               display: "flex",
               alignItems: "center",
-              minWidth: 500,
               margin: "auto",
               padding: "auto",
             }
@@ -202,60 +203,15 @@ const PostAd = () => {
           }}
           itemsToShow={1}
           itemsToScroll={1}
-          responsiveProps={
-            [{minWidth: 0, maxWidth: 10000000, forwardBtnProps: {
-              children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            },
-            backwardBtnProps: {
-              children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            }}, ]
-          }
           swipeTreshold={20}
           onRequestChange={setActiveSlideIndex}
           forwardBtnProps={{
             children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }
+            className: "right-arrow"
           }}
           backwardBtnProps={{
             children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              show: "all",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer"
-            }
+            className: "left-arrow"
           }}
           dotsNav={{
             show: true,

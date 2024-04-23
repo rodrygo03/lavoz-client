@@ -111,20 +111,11 @@ const Job = ({ job }) => {
                 <LocationOnIcon/>
                 <span>{job.location}</span>
             </div>
-            {/* <div className="row">
-                <AccessTimeIcon/>
-                <span className="date">start by {moment(job.date).format('MMMM D, YYYY')}</span>
-            </div>
-            {job.employer_name && 
-            <div className="row">
-                <PersonIcon/>
-                <span>{job.employer_name}</span>
-            </div>} */}
             <div className="row">
                 <EmailIcon/>
-                <span>{t('jobs.contact')}</span>
-                <span className="link">
-                  <a href={`mailto:${job.contact}`} target="_blank" rel="noopener noreferrer">{job.contact}</a>
+                <span className="contact">
+                  {t('jobs.contact')}  
+                  <a className="link" href={`mailto:${job.contact}`} target="_blank" rel="noopener noreferrer">{job.contact}</a>
                 </span>
             </div>
             {job.description && 

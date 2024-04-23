@@ -14,13 +14,14 @@
     .right-arrow {
       background-color: transparent;
       border: none;
-      position: absolute;
-      right: 100px;
+      z-index: 999;
 
       @include mobile {
+        position: absolute;
         right: 30px;
       }
       @include tablet {
+        position: absolute;
         right: 40px;
       }
     }
@@ -28,14 +29,15 @@
     .left-arrow {
       background-color: transparent;
       border: none;
-      position: absolute;
-      left: 100px;
+      z-index: 999;
 
       @include mobile {
+        position: absolute;
         left: 30px;
       } 
       
       @include tablet {
+        position: absolute;
         left: 40px;
       }
     }
@@ -74,7 +76,10 @@
     .rnd__root-menu {
       position: absolute;
       top: -100px;
-      left: 100%;
+      left: 0px;
+      @include mobile {
+        left: auto !important;
+      }
       margin: 7px 0;
       background-color: themed("bg");
       bottom: auto !important;
@@ -86,6 +91,8 @@
 
     .rnd__submenu {
       background-color: themed("bg");
+      right: 0px;
+      z-index: 999;
     }
 
     .error-msg {

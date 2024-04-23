@@ -68,6 +68,33 @@ const SubmitAd = () => {
   const [gif, setGif] = useState(null);
   const [tooManyFiles, setTooManyFiles] = useState(false);
 
+  const isVideo = (url) => {
+    if (url === null) return false;
+    const videoExtensions = [".mp4", ".mov", ".webp", ".webm", ".ogg"];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  };
+
+  const isAudio = (url) => {
+    if (url === null) return false;
+    const videoExtensions = [".mp3", ".m4a"];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  }
+
+  const getVideoDuration = async (file) => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(video.src);
+        const duration = video.duration;
+        resolve(duration);
+      };
+      video.onerror = reject;
+  
+      video.src = URL.createObjectURL(file);
+    });
+  };
+
   const upload = async (files) => {
     try {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
@@ -118,18 +145,23 @@ const SubmitAd = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (category === null) {
-      setCategory("general-ad");
+    if (category === null || !category) {
+      //setCategory("general");
+      setError("no-category");
+      return;
     }
+    if (desc === "" && files.length === 0) return;
     if (files.length > 10) {
       setTooManyFiles(true);
       return;
     }
+    setIsSubmitting(true);
   
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
       try {
         const uploadedUrls = await upload(files.slice(0, 10));
+  
         uploadedUrls.forEach((url, index) => {
           if (url !== null) {
             imgUrls[index] = url;
@@ -138,17 +170,17 @@ const SubmitAd = () => {
       } catch (err) {
         console.error("Error uploading files:", err);
         setError("An error occurred during post creation.");
+        setIsSubmitting(false);
       }
     }
-  
+    setFiles([]);
     setError(false);
     setDisplayMessage(0);
-    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, gifUrl: gif, hasFlag: false });
+    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category });
     setDesc("");
-    setFiles([]);
     setGif(null);
-    setCategory(null);
     setTooManyFiles(false);
+    setIsSubmitting(false);
   };
 
   const handleX = (index) => {
@@ -158,12 +190,44 @@ const SubmitAd = () => {
     if (files.length <= 10) setTooManyFiles(false);
   };
 
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     if (files.length >= 10) {
       setTooManyFiles(true);
       return;
     }
     const selectedFiles = Array.from(e.target.files);
+    for (let file of selectedFiles) {
+      if (isVideo(file.name)) {
+        try {
+          const duration = await getVideoDuration(file);
+          if (duration > 15) {
+            setError("video-error");
+            setDisplayMessage(1);
+            return;
+          }
+          else {
+            setDisplayMessage(0);
+          }
+        } catch (err) {
+          console.error("error:", err);
+        }
+      }
+      else if (isAudio(file.name)) {
+        try {
+          const duration = await getVideoDuration(file);
+          if (duration > 45) {
+            setError("audio-error");
+            setDisplayMessage(1);
+            return;
+          }
+          else {
+            setDisplayMessage(0);
+          }
+        } catch (err) {
+          console.error("error:", err);
+        }
+      }
+    }
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
     setTimeout(() => {
       setActiveSlideIndex(activeSlideIndex+1);
@@ -171,14 +235,14 @@ const SubmitAd = () => {
   };
 
   const getCarousel = () => {
+    console.log(files[0].type)
     return(
-      <div>
+      <div style={{flexWrap: "nowrap"}}>
         <ReactSimplyCarousel
           containerProps={{
             style: {
               display: "flex",
               alignItems: "center",
-              minWidth: 500,
               margin: "auto",
               padding: "auto",
             }
@@ -189,60 +253,15 @@ const SubmitAd = () => {
           }}
           itemsToShow={1}
           itemsToScroll={1}
-          responsiveProps={
-            [{minWidth: 0, maxWidth: 10000000, forwardBtnProps: {
-              children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            },
-            backwardBtnProps: {
-              children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-              style: {
-                alignItems: "center",
-                display: "flex",
-                justifyContent: "center",
-                backgroundColor: "transparent",
-                border: "none",
-                cursor: "pointer",
-                show: "all"
-              }
-            }}, ]
-          }
           swipeTreshold={20}
           onRequestChange={setActiveSlideIndex}
           forwardBtnProps={{
             children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }
+            className: "right-arrow"
           }}
           backwardBtnProps={{
             children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="large"/>,
-            style: {
-              width: 60,
-              height: 60,
-              show: "all",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer"
-            }
+            className: "left-arrow"
           }}
           dotsNav={{
             show: true,

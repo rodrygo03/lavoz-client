@@ -116,7 +116,7 @@ const Register = () => {
           <Link to="/login">
             <button>{t('login.login')}</button>
           </Link>
-          <Link className="mobile"to="/login">
+          <Link className="mobile login-button"to="/login">
               <button style={{backgroundColor: "#6D1D1D"}}>{t('login.login')}</button>
           </Link>
         </div>

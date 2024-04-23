@@ -68,6 +68,7 @@ const Update = ({ setOpenUpdate, user }) => {
   
     const handleClick = async (e) => {
       e.preventDefault();
+      setIsSubmitting(true);
     
       try {
         let coverUrl = cover ? await upload(cover) : user.coverPic;
@@ -83,8 +84,10 @@ const Update = ({ setOpenUpdate, user }) => {
         setOpenUpdate(false);
         setCover(null);
         setProfile(null);
+        setIsSubmitting(false);
       } catch (error) {
         console.error("File upload failed:", error.message);
+        setIsSubmitting(false);
         // Handle the error, e.g., show a user-friendly message
       }
     };
@@ -137,94 +140,104 @@ const Update = ({ setOpenUpdate, user }) => {
               />
             </div>
             <div className="row">
-              <label>Email</label>
+              <label className="pc-none">Email</label>
               <input
                 type="text"
                 value={texts.email}
                 name="email"
                 onChange={handleChange}
+                placeholder={"email"}
               />
             </div>
 
             <div className="row">
-            <label>{t('update.password')}</label>
+            <label className="pc-none">{t('update.password')}</label>
               <input
                 type="password"
                 value={texts.password}
                 name="password"
                 onChange={handleChange}
+                placeholder={"Password"}
               />
             </div>
             <div className="row">
-              <label>{t('update.name')}</label>
+              <label className="pc-none">{t('update.name')}</label>
               <input
                 type="text"
                 value={texts.name}
                 name="name"
                 onChange={handleChange}
+                placeholder={t('update.name')}
               />
             </div>
             <div className='row'>
-              <label>Bio</label>
+              <label className="pc-none">Bio</label>
               <input
                 type="text"
                 value={texts.bio}
                 name="bio"
                 onChange={handleChange}
+                placeholder="Bio"
               />
             </div>
             <div className="row">
-              <label>{t('update.country')}</label>
+              <label className="pc-none">{t('update.country')}</label>
               <input
                 type="text"
                 name="city"
                 value={texts.city}
                 onChange={handleChange}
+                placeholder={t('update.country')}
               />
             </div>
             <div className="row">
-              <label>{t('update.language')}</label>
+              <label className="pc-none">{t('update.language')}</label>
               <input
                 type="text"
                 name="language"
                 value={texts.language}
                 onChange={handleChange}
+                placeholder={t('update.language')}
               />
             </div>
-            <div className="row">
-              <label>Facebook {t('update.link')}</label>
+            {/* <div className="row">
+              <label className="pc-none">Facebook {t('update.link')}</label>
               <input
                 type="text"
                 name="facebook"
                 value={texts.facebook}
                 onChange={handleChange}
+                placeholder={"Facebook"}
               />
             </div>
             <div className="row">
-              <label>Instagram {t('update.link')}</label>
+              <label className="pc-none">Instagram {t('update.link')}</label>
               <input
                 type="text"
                 name="instagram"
                 value={texts.instagram}
                 onChange={handleChange}
+                placeholder={"Instagram"}
               />
             </div>
             <div className="row">
-              <label>Twitter {t('update.link')}</label>
+              <label className="pc-none">Twitter {t('update.link')}</label>
               <input
                 type="text"
                 name="twitter"
                 value={texts.twitter}
                 onChange={handleChange}
+                placeholder={"Twitter"}
               />
-            </div>
+            </div> */}
             <div className="row">
-              <label>Website {t('update.link')}</label>
+              <label className="pc-none">Website {t('update.link')}</label>
               <input
                 type="text"
                 name="website"
                 value={texts.website}
                 onChange={handleChange}
+                placeholder={"Website"}
               />
             </div>
             <div className="row">
@@ -236,17 +249,19 @@ const Update = ({ setOpenUpdate, user }) => {
             </div>
             {checked && 
               <div className="row">
-              <label>{t('update.business')}</label>
+              <label className="pc-none">{t('update.business')}</label>
               <input
                 type="text"
                 name="business_type"
                 value={texts.business_type}
+                className="toggle"
                 onChange={handleChange}
+                placeholder={t('update.business')}
               />
               </div>
             }
             <span className = "description">{t('update.msg')}</span>
-            <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('update.update') : t('update.updating') } </button>
+            <button onClick={handleClick} disabled={isSubmitting}> {!isSubmitting ? t('update.update') : t('update.updating') } </button>
           </form>
           <button className="close" onClick={() => setOpenUpdate(false)}>
             <DisabledByDefaultIcon style={{color: "red"}}/>

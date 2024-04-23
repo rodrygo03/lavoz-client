@@ -381,9 +381,12 @@ const Post = ({ post, openComments = false }) => {
           containerProps={{
             style: {
               justifyContent: "space-between",
-              userSelect: "none",
               width: "fit-content",
-              display: "flex"
+              display: "flex",
+              alignItems: "center",
+              margin: "auto",
+              padding: "auto",
+              userSelect: "none"
             }
           }}
           userSelect={true}
@@ -391,30 +394,12 @@ const Post = ({ post, openComments = false }) => {
           swipeTreshold={20}
           onRequestChange={setActiveSlide}
           forwardBtnProps={{
-            children: <ArrowForwardIosIcon style={{color: "gray"}}/>,
-            style: {
-              height: 60,
-              alignSelf: "center",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer",
-            }
+            children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="medium"/>,
+            className: "right-arrow"
           }}
           backwardBtnProps={{
-            children: <ArrowBackIosNewIcon style={{color: "gray"}}/>,
-            style: {
-              height: 60,
-              alignSelf: "center",
-              alignItems: "center",
-              display: "flex",
-              justifyContent: "center",
-              backgroundColor: "transparent",
-              border: "none",
-              cursor: "pointer"
-            }
+            children: <ArrowBackIosNewIcon style={{color: "gray"}} fontSize="medium"/>,
+            className: "left-arrow"
           }}
           dotsNav={{
             show: true,

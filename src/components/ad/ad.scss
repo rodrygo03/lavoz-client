@@ -11,6 +11,11 @@
 
     .thanks-container {
       padding: 20px;
+
+      @include mobile {
+        padding: 10px;
+      }
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -171,10 +176,15 @@
         margin: 20px 0px;
 
         img {
-          width: 25vw;
+          width: 100%;
+          max-height: 500px;
           object-fit: contain;
           margin-top: 20px;
           justify-self: center;
+
+          @include mobile {
+            width: 75vw;
+          }
         }
 
         video {
@@ -182,6 +192,10 @@
             max-height: 500px;
             object-fit: cover;
             margin-top: 20px;
+
+            @include mobile {
+              width: 75vw;
+            }
         }
       }
     }

@@ -98,60 +98,48 @@ const SubmitEvent = () => {
           <h2>{t('events.submit')}</h2>
       </div>
       <form>
-          <div className="row">
-            <label>{t('events.name')}</label>
             <input
               type="text"
               value={texts.name}
               name="name"
               onChange={handleChange}
+              placeholder={t('events.name')}
             />
-          </div>
-          <div className="row">
-              <label>{t('events.date')}</label>
-              <input
+            <input
               type="date"
               value={texts.date}
               name="date"
               onChange={handleChange}
-              />
-          </div>
-          <div className="row">
-              <label>{t('events.time')}</label>
-              <input
+              placeholder={t('events.date')}
+            />
+            <input
               type="time"
               value={texts.time}
               name="time"
               onChange={handleChange}
-              />
-          </div>
-          <div className="row">
-            <label>{t('events.location')}</label>
-            <input
-              type="text"
-              value={texts.location}
-              name="location"
-              onChange={handleChange}
+              placeholder={t('events.time')}
             />
-          </div>
-          <div className="row">
-            <label>{t('events.description')}</label>
-            <input
-              type="text"
-              value={texts.description}
-              name="description"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="row">
-            <label>{t('events.url')}</label>
-            <input
-              type="text"
-              value={texts.url}
-              name="url"
-              onChange={handleChange}
-            />
-          </div>
+          <input
+            type="text"
+            value={texts.location}
+            name="location"
+            onChange={handleChange}
+            placeholder={t('events.location')}
+          />
+          <input
+            type="text"
+            value={texts.description}
+            name="description"
+            onChange={handleChange}
+            placeholder={t('events.description')}
+          />
+          <input
+            type="text"
+            value={texts.url}
+            name="url"
+            onChange={handleChange}
+            placeholder={t('events.url')}
+          />
       </form>
       <div className="middle">
         {file && (

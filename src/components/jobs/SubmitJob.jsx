@@ -147,33 +147,27 @@ const SubmitJob = () => {
                     )}
                 </Dropdown>
             </div>
-            <div className="row">
-              <label>{t('jobs.name')}</label>
               <input
                 type="text"
                 value={texts.name}
                 name="name"
                 onChange={handleChange}
+                placeholder={t('jobs.name')}
               />
-            </div>
-            <div className="row">
-              <label>{t('jobs.pay')}</label>
               <input
                 type="text"
                 value={texts.pay}
                 name="pay"
                 onChange={handleChange}
+                placeholder={t('jobs.pay')}
               />
-            </div>
-            <div className="row">
-                <label>{t('jobs.schedule')}</label>
                 <input
                 type="text"
                 value={texts.schedule}
                 name="schedule"
                 onChange={handleChange}
+                placeholder={t('jobs.schedule')}
                 />
-            </div>
             {/* <div className="row">
                 <label>Desired Start Date</label>
                 <input
@@ -192,33 +186,27 @@ const SubmitJob = () => {
                 onChange={handleChange}
               />
             </div> */}
-            <div className="row">
-              <label>{t('jobs.location')}</label>
               <input
                 type="text"
                 value={texts.location}
                 name="location"
                 onChange={handleChange}
+                placeholder={t('jobs.location')}
               />
-            </div>
-            <div className="row">
-              <label>{t('jobs.description')}</label>
               <input
                 type="text"
                 value={texts.description}
                 name="description"
                 onChange={handleChange}
+                placeholder={t('jobs.description')}
               />
-            </div>
-            <div className="row">
-              <label>{t('jobs.contact')}</label>
               <input
                 type="text"
                 value={texts.contact}
                 name="contact"
                 onChange={handleChange}
+                placeholder={t('jobs.contact')}
               />
-            </div>
         </form>
         <div className="middle">
           {file && (

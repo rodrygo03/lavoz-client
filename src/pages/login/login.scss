@@ -63,8 +63,11 @@
     align-items: center;
     padding: 20px;
 
-    @media screen and (max-width: 1200px) {
-      top: 5%;
+    @include mobile {
+      top: 40px;
+    }
+    @include tablet {
+      top: 40px;
     }
   }
   .flag {

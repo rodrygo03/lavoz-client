@@ -19,6 +19,12 @@
     .red {
       color: red;
     }
+
+    label {
+      @include mobile {
+        flex-basis: 40% !important;
+      }
+    }
     
     .dropdown {
         background-color: transparent;
