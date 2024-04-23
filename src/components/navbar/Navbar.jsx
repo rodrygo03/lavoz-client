@@ -8,9 +8,6 @@ import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import IconButton from '@mui/material/IconButton';
-
-import US from "https://www.postsstation.com/reactions/us.png";
-import MX from "https://www.postsstation.com/reactions/mx.png";
 import NotificationBell from "../notification/NotificationBell";
 import MessageBell from "../notification/MessageBell";
 
@@ -45,7 +42,7 @@ const Navbar = () => {
           <DarkModeOutlinedIcon className="pc" onClick={toggle} style={{ cursor: "pointer" }} />
         )}
         <button className="language-toggle" onClick={toggleLng}>
-          <img src={language ? MX : US} className="flag" alt="Language Flag"/>
+          <img src={language ? "https://www.postsstation.com/reactions/us.png" : "https://www.postsstation.com/reactions/mx.png"} className="flag" alt="Language Flag"/>
         </button>
       </div>
       {currentUser ? (
