@@ -534,7 +534,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 1 ? 'enlarged' : ''}`} onClick={() => handleSelect(1)}>
                   <div className="reaction-icon">
-                    <img className="reaction-img" src={`${process.env.PUBLIC_URL}/reactions/thumbs_up.png`}/>
+                    <img className="reaction-img" src={'https://www.postsstation.com/reactions/thumbs_up.png'}/>
                     <div className="label">{t('reactions.like')}</div>
                   </div>
                 </div>
@@ -543,7 +543,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 2 ? 'enlarged' : ''}`} onClick={() => handleSelect(2)}>
                   <div className="reaction-icon">
-                    <img src={`${process.env.PUBLIC_URL}/reactions/heart.png`} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/reactions/heart.png'} className="reaction-img" />
                     <div className="label">{t('reactions.love')}</div>
                   </div>
                 </div>
@@ -552,7 +552,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 3 ? 'enlarged' : ''}`} onClick={() => handleSelect(3)}>
                   <div className="reaction-icon">
-                    <img src={`${process.env.PUBLIC_URL}/reactions/applause.png`} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/reactions/applause.png'} className="reaction-img" />
                     <div className="label">{t('reactions.applause')}</div>
                   </div>
                 </div>
@@ -561,7 +561,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 4 ? 'enlarged' : ''}`} onClick={() => handleSelect(4)}>
                   <div className="reaction-icon">
-                    <img src={Laugh} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/static/media/laughing.79d0779eb66c8604971e.png'} className="reaction-img" />
                     <div className="label">{t('reactions.laughing')}</div>
                   </div>
                 </div>
@@ -570,7 +570,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 5 ? 'enlarged' : ''}`} onClick={() => handleSelect(5)}>
                   <div className="reaction-icon">
-                    <img src={`${process.env.PUBLIC_URL}/reactions/wow.png`} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/reactions/wow.png'} className="reaction-img" />
                     <div className="label">{t('reactions.wow')}</div>
                   </div>
                 </div>
@@ -579,7 +579,7 @@ const Post = ({ post, openComments = false }) => {
               <div className='section'>
                 <div className={`reaction ${reaction === 6 ? 'enlarged' : ''}`} onClick={() => handleSelect(6)}>
                   <div className="reaction-icon">
-                    <img src={`${process.env.PUBLIC_URL}/reactions/high-five.png`} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/reactions/high-five.png'} className="reaction-img" />
                     <div className="label">{t('reactions.highfive')}</div>
                   </div>
                 </div>
