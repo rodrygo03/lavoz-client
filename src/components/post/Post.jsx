@@ -233,12 +233,12 @@ const Post = ({ post, openComments = false }) => {
 
   const getReaction = () => {
     if (reaction === 0) return (<RecommendIcon className={'icon'}/>);
-    else if (reaction === 1) return (<img src={`${process.env.PUBLIC_URL}/reactions/thumbs_up.png`}/>);
-    else if (reaction === 2) return (<img src={`${process.env.PUBLIC_URL}/reactions/heart.png`}/>);
-    else if (reaction === 3) return (<img src={`${process.env.PUBLIC_URL}/reactions/applause.png`}/>);
-    else if (reaction === 4) return (<img src={`${process.env.PUBLIC_URL}/reactions/laughing.png`}/>);
-    else if (reaction === 5) return (<img src={`${process.env.PUBLIC_URL}/reactions/wow.png`}/>);
-    else if (reaction === 6) return (<img src={`${process.env.PUBLIC_URL}/reactions/high-five.png`}/>);
+    else if (reaction === 1) return (<img src={'https://www.postsstation.com/reactions/thumbs_up.png'}/>);
+    else if (reaction === 2) return (<img src={'https://www.postsstation.com/reactions/heart.png'}/>);
+    else if (reaction === 3) return (<img src={'https://www.postsstation.com/reactions/applause.png'}/>);
+    else if (reaction === 4) return (<img src={'https://www.postsstation.com/reactions/laughing.png'}/>);
+    else if (reaction === 5) return (<img src={'https://www.postsstation.com/reactions/wow.png'}/>);
+    else if (reaction === 6) return (<img src={'https://www.postsstation.com/reactions/high-five.png'}/>);
     else return (process.env.PUBLIC_URL + "/reactions/sad.png");
   }
 
