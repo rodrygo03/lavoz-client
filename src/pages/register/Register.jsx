@@ -85,18 +85,18 @@ const Register = () => {
       // Register the user
       await axios.post("https://server.postsstation.com/api/auth/register", inputs);
       // await axios.post("http://localhost:8800/api/auth/register", inputs);
-
-      // Log in the user with the same credentials
-      login({
-        username: inputs.username,
-        password: inputs.password,
-      });
-
-      // Navigate to "/firstLogin" or any desired route after successful login
-      navigate("/firstLogin");
     } catch (err) {
       setErr(err.response.data);
     }
+
+    // Log in the user with the same credentials
+    await login({
+      username: inputs.username,
+      password: inputs.password,
+    });
+
+    // Navigate to "/firstLogin" or any desired route after successful login
+    navigate("/firstLogin");
   };
 
   const handleChoice = (choice) => {
