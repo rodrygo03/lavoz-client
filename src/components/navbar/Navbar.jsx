@@ -9,8 +9,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import IconButton from '@mui/material/IconButton';
 
-import US from "../../assets/us.png";
-import MX from "../../assets/mx.png";
+import US from "https://www.postsstation.com/reactions/us.png";
+import MX from "https://www.postsstation.com/reactions/mx.png";
 import NotificationBell from "../notification/NotificationBell";
 import MessageBell from "../notification/MessageBell";
 
