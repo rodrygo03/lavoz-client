@@ -42,7 +42,7 @@ const Navbar = () => {
           <DarkModeOutlinedIcon className="pc" onClick={toggle} style={{ cursor: "pointer" }} />
         )}
         <button className="language-toggle" onClick={toggleLng}>
-          <img src={language ? "https://www.postsstation.com/reactions/us.png" : "https://www.postsstation.com/reactions/mx.png"} className="flag" alt="Language Flag"/>
+          <img src={language ? "https://www.postsstation.com/reactions/mx.png" : "https://www.postsstation.com/reactions/us.png"} className="flag" alt="Language Flag"/>
         </button>
       </div>
       {currentUser ? (
