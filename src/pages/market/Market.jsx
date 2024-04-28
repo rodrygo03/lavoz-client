@@ -18,7 +18,6 @@ const Market = () => {
     else if (tab === 3) return (['free', "market"])
     else if (tab === 4) return (['home', "market"])
     else if (tab === 5) return (['landscape', "market"])
-    else if (tab === 6) return (['property-rental', "market"])
     else if (tab === 7) return (['vehicles', "market"])
     else if (tab === 8) return (['merch', "market"])
   }
@@ -37,30 +36,43 @@ const Market = () => {
 
   return (
     <div className="market">
-        <div className="background">
-            <h1 className="title">MarketStation</h1>
+        <div className="background pc">
+            <h1 className="title">Market</h1>
             <div className="text-container">
                 <div className="text-content">
                     <span>{t('otherPages.market')}</span>
                 </div>
             </div>
         </div>
-        <div className={`tabs ${tabsOpen ? "open" : "closed"}`}>
-            <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>
-            <button className={tab === 1 ? "tab selected" : "tab"} onClick={() => setTab(1)}>{t('categories.general')}</button>
-            <button className={tab === 8 ? "tab selected" : "tab"} onClick={() => setTab(8)}>Aggie Merch</button>
-            <button className={tab === 2 ? "tab selected" : "tab"} onClick={() => setTab(2)}>{t('categories.construction')}</button>
-            <button className={tab === 3 ? "tab selected" : "tab"} onClick={() => setTab(3)}>{t('categories.free')}</button>
-            <button className={tab === 4 ? "tab selected" : "tab"} onClick={() => setTab(4)}>{t('categories.home')}</button>
-            <button className={tab === 5 ? "tab selected" : "tab"} onClick={() => setTab(5)}>{t('categories.landscape')}</button>
-            <button className={tab === 6 ? "tab selected" : "tab"} onClick={() => setTab(6)}>{t('categories.property')}</button>
-            <button className={tab === 7 ? "tab selected" : "tab"} onClick={() => setTab(7)}>{t('categories.vehicle')}</button>
+        <div className="pc">
+          <div className={`tabs ${tabsOpen ? "open" : "closed"}`}>
+              <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>
+              <button className={tab === 1 ? "tab selected" : "tab"} onClick={() => setTab(1)}>{t('categories.general')}</button>
+              <button className={tab === 8 ? "tab selected" : "tab"} onClick={() => setTab(8)}>Aggie Merch</button>
+              <button className={tab === 2 ? "tab selected" : "tab"} onClick={() => setTab(2)}>{t('categories.construction')}</button>
+              <button className={tab === 3 ? "tab selected" : "tab"} onClick={() => setTab(3)}>{t('categories.free')}</button>
+              <button className={tab === 4 ? "tab selected" : "tab"} onClick={() => setTab(4)}>{t('categories.home')}</button>
+              <button className={tab === 5 ? "tab selected" : "tab"} onClick={() => setTab(5)}>{t('categories.landscape')}</button>
+              <button className={tab === 7 ? "tab selected" : "tab"} onClick={() => setTab(7)}>{t('categories.vehicle')}</button>
+          </div>
         </div>
-        <div className="toggle mobile">
+        {/* <div className="toggle mobile">
           {tabsOpen === true ? <KeyboardDoubleArrowUpIcon style={{color: "gray"}} onClick={handleToggle}/> : <KeyboardDoubleArrowDownIcon style={{color: "gray"}} onClick={handleToggle}/>}
-        </div>
+        </div> */}
         <div className = "market-container">
           {getSubmitAd()}
+          <div className="mobile">
+            <div className={`tabs ${tabsOpen ? "open" : "closed"}`}>
+                <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>
+                <button className={tab === 1 ? "tab selected" : "tab"} onClick={() => setTab(1)}>{t('categories.general')}</button>
+                <button className={tab === 8 ? "tab selected" : "tab"} onClick={() => setTab(8)}>Aggie Merch</button>
+                <button className={tab === 2 ? "tab selected" : "tab"} onClick={() => setTab(2)}>{t('categories.construction')}</button>
+                <button className={tab === 3 ? "tab selected" : "tab"} onClick={() => setTab(3)}>{t('categories.free')}</button>
+                <button className={tab === 4 ? "tab selected" : "tab"} onClick={() => setTab(4)}>{t('categories.home')}</button>
+                <button className={tab === 5 ? "tab selected" : "tab"} onClick={() => setTab(5)}>{t('categories.landscape')}</button>
+                <button className={tab === 7 ? "tab selected" : "tab"} onClick={() => setTab(7)}>{t('categories.vehicle')}</button>
+            </div>
+          </div>
           <Posts categories={getCategories()}/>
         </div>
     </div>

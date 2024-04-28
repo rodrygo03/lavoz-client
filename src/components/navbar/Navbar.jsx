@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
@@ -14,18 +14,37 @@ import MessageBell from "../notification/MessageBell";
 import { DarkModeContext } from "../../context/darkModeContext";
 import { AuthContext } from "../../context/authContext";
 import i18next from "i18next";
+import { makeRequest } from "../../axios";
 
 import "./navbar.scss";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
-  const { currentUser } = useContext(AuthContext);
+  const { currentUser, clearUser } = useContext(AuthContext);
   const [language, setLanguage] = useState(i18next.language === 'es');
+  const navigate = useNavigate();
+  const [err, setErr] = useState(null);
 
   const toggleLng = () => {
     setLanguage(!language);
     i18next.changeLanguage(language ? 'en' : 'es');
   }
+
+  const logout = async () => {
+    clearUser();
+    const res = await makeRequest.post("/auth/logout", {
+    });
+  };
+
+  const handleLogout = async (e) => {
+    e.preventDefault()
+    try{
+      await logout();
+      navigate("/login");
+    } catch (err) {
+      setErr(err.response.data);
+    }
+  };
 
   return (
     <div className="navbar">
@@ -56,12 +75,15 @@ const Navbar = () => {
           <Link to="/notifications" style={{ textDecoration: "none", color: "inherit" }}>
             <NotificationBell iconColor="inherit" />
           </Link>
-          <Link to={"/profile/" + currentUser.id} className="pc" style={{ textDecoration: "none", color: "inherit" }}>
+          <Link to={"/login"}>
+            <button onClick={handleLogout} className="guest-button">Logout</button>
+          </Link>
+          {/* <Link to={"/profile/" + currentUser.id} className="pc" style={{ textDecoration: "none", color: "inherit" }}>
             <div className="user">
               <img src={currentUser.profilePic} alt="" />
-              <span>{currentUser.name}</span>
+              <span>{currentUser.username}</span>
             </div>
-          </Link>
+          </Link> */}
         </div>
       ) : (
         <div className="row">

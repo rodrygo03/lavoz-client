@@ -14,7 +14,6 @@ const Home = () => {
 
   return (
     <div className="home">
-      <Stories />
       <Share categ={null} />
       <MostLiked />
 
@@ -34,6 +33,7 @@ const Home = () => {
           }
         </div>
       </div>
+      <Stories />
       <h3 className="title">Social</h3>
       <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
 

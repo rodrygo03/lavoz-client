@@ -37,14 +37,6 @@ const SubmitJob = () => {
       onSelect: () => setCategory("construction"),
     },
     {
-      label: t('jobs.gardening'),
-      onSelect: () => setCategory("gardener"),
-    },
-    {
-      label: t('jobs.house'),
-      onSelect: () => setCategory("housekeeping"),
-    },
-    {
         label: t('jobs.restaurant'),
         onSelect: () => setCategory("restaurant"),
     },
@@ -53,8 +45,12 @@ const SubmitJob = () => {
       onSelect: () => setCategory("students"),
     },
     {
-      label: t('jobs.professionals'),
-      onSelect: () => setCategory("professionals"),
+      label: t('jobs.sales'),
+      onSelect: () => setCategory("sales"),
+    },
+    {
+      label: t('jobs.office'),
+      onSelect: () => setCategory("office"),
     },
     {
       label: t('jobs.temporary'),

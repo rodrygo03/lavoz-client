@@ -37,7 +37,6 @@ const Register = () => {
     email:"",
     password:"",
     confirmPassword: '', 
-    name:"",
     account_type: ""
   });
   const [loginInfo, setLoginInfo] = useState({
@@ -60,8 +59,7 @@ const Register = () => {
       inputs.username === '' ||
       inputs.password === '' ||
       inputs.confirmPassword === '' || // Check the confirmPassword field
-      inputs.email === '' ||
-      inputs.name === ''
+      inputs.email === '' 
     ) {
       setErr(t('register.error'));
       return;
@@ -91,7 +89,7 @@ const Register = () => {
       setErr("User already exists.");
       return;
     }
-    setCurrentUser({name: inputs.name, email: inputs.email, account_type: inputs.account_type, password: inputs.password, id: userId, coverPic: "https://lavozbucket.s3.amazonaws.com/default_cover.jpg", profilePic: "https://lavozbucket.s3.amazonaws.com/pfp.jpg"});
+    setCurrentUser({email: inputs.email, account_type: inputs.account_type, password: inputs.password, id: userId, coverPic: "https://lavozbucket.s3.amazonaws.com/default_cover.jpg", profilePic: "https://lavozbucket.s3.amazonaws.com/pfp.jpg"});
     navigate("/firstLogin");
   };
 
@@ -140,9 +138,9 @@ const Register = () => {
               <form>
                 <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
                 <input type="text" placeholder={t('login.username')} name="username" onChange={handleChange}/>
-                {acctType === 'business' ? <input type="text" placeholder={t('register.businessName')} name="name" onChange={handleChange}/>
+                {/* {acctType === 'business' ? <input type="text" placeholder={t('register.businessName')} name="name" onChange={handleChange}/>
                 : <input type="text" placeholder={t('update.name')} name="name" onChange={handleChange}/>
-                }
+                } */}
         {visible === true ? (
           <div className="passwords">
             <input placeholder={t('update.password')} type="text" name="password" onChange={handleChange} />

@@ -16,7 +16,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
     const [texts, setTexts] = useState({
       email: user.email,
       password: user.password,
-      name: user.name,
+      username: user.username,
       city: user.city,
       website: user.website,
       language: user.language,
@@ -99,7 +99,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
           <form>
             <div className="files">
               <label htmlFor="cover">
-                <span>Cover Picture</span>
+                <span className="img-label">Cover Picture</span>
                 <div className="imgContainer">
                   <img
                     src={
@@ -119,7 +119,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
                 onChange={(e) => setCover(e.target.files[0])}
               />
               <label htmlFor="profile">
-                <span>Profile Picture</span>
+                <span className="img-label">Profile Picture</span>
                 <div className="imgContainer">
                   <img
                     src={
@@ -151,6 +151,17 @@ const Update = ({ setOpenUpdate, user, first }) => {
             </div>
 
             <div className="row">
+              <label className="pc-none">{t('login.username')}</label>
+              <input
+                type="text"
+                value={texts.username}
+                name="name"
+                onChange={handleChange}
+                placeholder={t('login.username')}
+              />
+            </div>
+
+            <div className="row">
             <label className="pc-none">{t('update.password')}</label>
               <input
                 type="password"
@@ -158,16 +169,6 @@ const Update = ({ setOpenUpdate, user, first }) => {
                 name="password"
                 onChange={handleChange}
                 placeholder={"Password"}
-              />
-            </div>
-            <div className="row">
-              <label className="pc-none">{t('update.name')}</label>
-              <input
-                type="text"
-                value={texts.name}
-                name="name"
-                onChange={handleChange}
-                placeholder={t('update.name')}
               />
             </div>
             <div className='row'>

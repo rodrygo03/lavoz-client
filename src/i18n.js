@@ -153,6 +153,8 @@ i18n
             students: "Students",
             professionals: "Professionals",
             temporary: "Temporary",
+            office: "Office",
+            sales: "Sales",
             delete: "delete job",
             error: "* indicates a required field"
           },
@@ -187,7 +189,7 @@ i18n
             error: "Can't login!"
           },
           register: {
-            desc: "We are the premier social media outlet, online marketplace, and news application for Bryan/College Station! Create an account to promote your business, buy and sell goods, upload photos, and see what others have to say.",
+            desc: "We are a social media outlet, online marketplace, and news platform for Bryan/College Station!",
             do: "Do you have an account?",
             question: "Business or personal?",
             business: "Business",
@@ -363,6 +365,8 @@ i18n
             gardening: "Jardinería",
             house: "Limpieza de casas",
             janitor: "Servicio de Limpieza",
+            office: "Oficina",
+            sales: "Vendedores",
             restaurant: "Restaurante",
             students: "Estudiantes",
             professionals: "Profesionales",
@@ -401,7 +405,7 @@ i18n
             error: "No se puede hacer el login!"
           },
           register: {
-            desc: "¡Somos la primera red social, mercado virtual, y medio de noticias para Bryan/College Station! Hacer una cuenta para anunciar tu negocio, vender y comprar articulos, subir fotos, y ver lo que dice tu comunidad.",
+            desc: "¡Somos una red social, mercado virtual, y medio de noticias para Bryan/College Station!",
             do: "¿Ya tienes cuenta?",
             question: "¿Negocios o personal?",
             business: "Negocios",

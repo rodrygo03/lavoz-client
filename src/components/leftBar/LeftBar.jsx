@@ -65,13 +65,13 @@ const LeftBar = () => {
                       src={currentUser.profilePic}
                       alt=""
                     />
-                    <span>{currentUser.name}</span>
+                    <span>{currentUser.username}</span>
                   </div>
                 </Link>
-                <div className="logout">
+                {/* <div className="logout">
                   <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)}/>
                   {menuOpen && <button onClick={handleLogout}>Logout</button>}
-                </div>
+                </div> */}
               </div>
             }
 
@@ -84,7 +84,7 @@ const LeftBar = () => {
             <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Market} alt="" />
-                  <span>MarketStation</span>
+                  <span>Market</span>
               </div>
             </Link>
             <Link to={"/jobs"} style={{ textDecoration: "none", color: "inherit" }}>

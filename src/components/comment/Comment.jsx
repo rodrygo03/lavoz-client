@@ -93,7 +93,7 @@ const Comment = ({ comment }) => {
       <div className="comment-content">
         <img className="pfp" src={comment.profilePic} alt="" />
         <div className="comment-info">
-          <span>{comment.name}</span>
+          <span>{comment.username}</span>
           <p>{comment.desc}</p>
         </div>
         <div>

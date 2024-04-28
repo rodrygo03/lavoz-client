@@ -114,10 +114,16 @@
           .name {
             margin-top: 20px;
             text-align: center;
+            gap: 10px;
+          }
+
+          .station {
+            color: themed("logo");
+            font-weight: bold;
           }
           span {
             font-size: 30px;
-            font-weight: 500;
+            font-weight: lighter;
           }
 
           .business-type {

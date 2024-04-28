@@ -372,7 +372,7 @@ const Ad = ({ ad }) => {
                     to={`/profile/${ad.userId}`}
                     style={{ textDecoration: "none", color: "inherit" }}
                 >
-                    <span className="name">{ad.name}</span>
+                    <span className="name">{ad.username}</span>
                 </Link>
                 <span className="date">{moment(ad.createdAt).fromNow()}</span>
                 </div>

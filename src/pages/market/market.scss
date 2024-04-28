@@ -79,11 +79,30 @@
         }
 
         @include mobile {
-          flex-direction: column;
+          flex-wrap: wrap;
+          gap: 10px;
+          flex-direction: row;
+          justify-content: flex-start;
+          padding: 10px;
+          border-bottom: none;
+          margin-bottom: 10px;
         }
         @include tablet {
-          flex-direction: column;
+          flex-wrap: wrap;
+          gap: 10px;
+          flex-direction: row;
+          justify-content: flex-start;
+          padding: 10px;
+          border-bottom: none;
+          margin-bottom: 10px;
         }
+
+        // @include mobile {
+        //   flex-direction: column;
+        // }
+        // @include tablet {
+        //   flex-direction: column;
+        // }
 
         .tab {
             background-color: transparent;
@@ -92,6 +111,29 @@
             color: themed("textColor");
             width: 100%;
             font-size: 17px;
+
+            @include mobile {
+              border-radius: 10px;
+              padding: 5px 10px;
+              border: 1px lightgray solid;
+              align-items: center;
+              display: flex;
+              gap: 10px;
+              font-size: 12px;
+              width: fit-content;
+              background-color: themed("bg");
+            }
+            @include tablet {
+              border-radius: 10px;
+              padding: 5px 10px;
+              border: 1px lightgray solid;
+              align-items: center;
+              display: flex;
+              gap: 10px;
+              font-size: 12px;
+              width: fit-content;
+              background-color: themed("bg");
+            }
         }
         .tab:hover {
             background-color: themed("bg");
@@ -99,6 +141,17 @@
         .selected {
             color: themed("logo");
             font-weight: bold;
+
+            @include mobile {
+              background-color: #6D1D1D !important;
+              color: white;
+              font-weight: normal;
+            }
+            @include tablet {
+              background-color: #6D1D1D !important;
+              color: white;
+              font-weight: normal;
+            }
         }
     }
     .market-container {
@@ -238,23 +291,6 @@
     .smaller {
       font-weight: lighter;
       margin: 10px 0px;
-    }
-
-
-    .widget {
-      border-radius: 10px;
-      padding: 5px 10px;
-      background-color: #6D1D1D;
-      color: white;
-      border: 1px lightgray solid;
-      align-items: center;
-      display: flex;
-      gap: 10px;
-    }
-
-    .inactive {
-      background-color: themed("bg");
-      color: themed("textColor");
     }
   }
  }

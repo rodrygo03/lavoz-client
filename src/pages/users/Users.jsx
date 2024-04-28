@@ -19,7 +19,7 @@ const Users = () => {
 
   let inputHandler = (e) => {
     // convert input text to lowercase
-    var lowerCase = e.target.value.toLowerCase();
+    let lowerCase = e.target.value.toLowerCase();
     setInputText(lowerCase);
   };
 
@@ -74,7 +74,7 @@ const Users = () => {
     }
   
     if (!isLoading && data && Array.isArray(data)) {
-      const filteredUsers = data.filter((user) => user.username.includes(inputText));
+      const filteredUsers = data.filter((user) => user.username.toLowerCase().includes(inputText));
       
       return (
         <div className="user-list">

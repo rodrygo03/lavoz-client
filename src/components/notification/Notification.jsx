@@ -96,7 +96,7 @@ const Notification = ({ notification }) => {
                                 <img className="profilePic" src={notification.profilePic}/>
                                 <div className="text">
                                     <div>
-                                        <span>{notification.name} {t('notifs.reaction')}</span>
+                                        <span>{notification.username} {t('notifs.reaction')}</span>
                                         {displayReaction()}
                                         <span>{t('notifs.topost')}</span>
                                     </div>
@@ -119,7 +119,7 @@ const Notification = ({ notification }) => {
                             <div className="pfp">
                                 <img className="profilePic" src={notification.profilePic}/>
                                 <div className="text">
-                                    <span>{notification.name} {t('notifs.follow')}</span>
+                                    <span>{notification.username} {t('notifs.follow')}</span>
                                     <span className="date">{moment(notification.createdAt).fromNow()}</span>
                                 </div>
                             </div>
@@ -139,7 +139,7 @@ const Notification = ({ notification }) => {
                         <div className="pfp">
                             <img className="profilePic" src={notification.profilePic}/>
                             <div className="text">
-                                <span>{notification.name} {t('notifs.comment')}</span>
+                                <span>{notification.username} {t('notifs.comment')}</span>
                                 <span className="date">{moment(notification.createdAt).fromNow()}</span>
                             </div>
                         </div>

@@ -65,7 +65,8 @@ const Profile = ({userId}) => {
             <div className="uInfo">             
               <div className="center">
                 <div className="name">
-                  <span>{data.name}</span>
+                  <span>{data.username}</span>
+                  <span className="station"> Station</span>
                 </div>
                 {data.account_type === 'admin' && 
                   <div className="business-type">Admin</div>

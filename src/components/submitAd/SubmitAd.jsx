@@ -20,7 +20,7 @@ import { Link } from "react-router-dom";
 import DefaultUser from "../../assets/pfp.jpg";
 
 const SubmitAd = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [category, setCategory] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -49,10 +49,6 @@ const SubmitAd = () => {
     {
       label: t('categories.landscape'),
       onSelect: () => setCategory("landscape"),
-    },
-    {
-      label: t('categories.property'),
-      onSelect: () => setCategory("property-rental"),
     },
     {
       label: t('categories.vehicle'),
@@ -176,7 +172,7 @@ const SubmitAd = () => {
     setFiles([]);
     setError(false);
     setDisplayMessage(0);
-    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category });
+    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, hasFlag: false });
     setDesc("");
     setGif(null);
     setTooManyFiles(false);

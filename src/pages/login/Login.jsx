@@ -52,7 +52,7 @@ const Login = () => {
             }
         </button>
         <div className="left">
-          <h1>PostStation</h1>
+          <h1>PostsStation</h1>
           <p>
           {t('login.desc')}
           </p>

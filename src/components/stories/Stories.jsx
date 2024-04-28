@@ -98,7 +98,7 @@ const Stories = () => {
       {!isLoading && data && data.map(story=>(
         <div className="story" key={story.id}>
           <img src={story.img} alt="" />
-          <span className={data.length < 5 && "lower"}>{story.name}</span>
+          <span className={data.length < 5 && "lower"}>{story.username}</span>
           {(story.userId === currentUser.id || currentUser.account_type === 'admin') && 
             <div class='x'>
               <DisabledByDefault onClick={(e) => handleDelete(e, story.id, story.image)} color='white'/>

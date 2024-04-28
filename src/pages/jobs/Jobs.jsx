@@ -62,15 +62,6 @@ const Jobs = () => {
                 <button className={selectedCategory === "construction" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("construction")}>
                     {t('categories.construction')}
                 </button>
-                <button className={selectedCategory === "gardener" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("gardener")}>
-                    {t('jobs.gardening')}
-                </button>
-                <button className={selectedCategory === "housekeeping" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("housekeeping")}>
-                    {t('jobs.house')}
-                </button>
-                <button className={selectedCategory === "janitor" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("janitor")}>
-                    {t('jobs.janitor')}
-                </button>
                 <button className={selectedCategory === "restaurant" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("restaurant")}>
                     {t('jobs.restaurant')}
                 </button>
@@ -80,8 +71,11 @@ const Jobs = () => {
                 <button className={selectedCategory === "students" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("students")}>
                     {t('jobs.students')}
                 </button>
-                <button className={selectedCategory === "professionals" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("professionals")}>
-                    {t('jobs.professionals')}
+                <button className={selectedCategory === "office" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("office")}>
+                    {t('jobs.office')}
+                </button>
+                <button className={selectedCategory === "sales" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("sales")}>
+                    {t('jobs.sales')}
                 </button>
                 <button className={selectedCategory === "temporary" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("temporary")}>
                     {t('jobs.temporary')}
