@@ -106,7 +106,6 @@ const SubmitAd = () => {
         setError(err.response.data.error);
       } else {
         // Handle other errors
-        console.log('79');
         console.log(err);
       }
     }

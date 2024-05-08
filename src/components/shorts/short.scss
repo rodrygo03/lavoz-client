@@ -1,0 +1,184 @@
+@import "../../style.scss";
+
+.share-short {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    margin-bottom: 20px;
+    width: fit-content;
+
+    @include mobile {
+        width: 100%;
+    }
+    @include tablet {
+      min-width: 50%;
+    }
+
+    .error-msg {
+      color: red;
+      font-size: 12px;
+    }
+
+    .red {
+      color: red;
+    }
+
+    label {
+      @include mobile {
+        flex-basis: 40% !important;
+      }
+    }
+
+    video {
+        height: 60vh;
+
+        @include mobile {
+            height: fit-content;
+            width: 80vw;
+        }
+    }
+
+    .preview {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .x {
+        background-color: transparent;
+        border: none;
+    }
+    
+    .container {
+      padding: 20px;
+
+      .directions {
+        font-size: small;
+        color: gray,
+      }
+
+      hr {
+        margin: 20px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      .bottom {
+
+        img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+  
+        input {
+            border: none;
+            outline: none;
+            padding: 10px;
+            background-color: transparent;
+            width: 100%;
+            color: themed("textColor");
+            overflow: wrap;
+            resize: none;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .left {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+
+          .item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+
+            img {
+              height: 20px;
+            }
+
+            span {
+              font-size: 12px;
+              color: gray;
+            }
+          }
+        }
+        .right {
+          button {
+            border: none;
+            padding: 5px 10px;
+            color: white;
+            cursor: pointer;
+            background-color: #6D1D1D;
+            border-radius: 3px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.short {
+  @include themify($themes) {
+    -webkit-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    -moz-box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    border-radius: 20px;
+    background-color: themed("bg");
+    color: themed("textColor");
+    margin: 20px 0px;
+    width: fit-content;
+
+    .container {
+      padding: 20px;
+    }
+
+    .userInfo {
+      display: flex;
+      gap: 15px;
+      align-items: center;
+
+      img {
+        width: 35px;
+        height: 35px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+
+        .name {
+          font-weight: 500;
+          font-size: 0.9em;
+        }
+
+        .date {
+          font-size: 12px;
+          color: gray;
+        }
+      }
+      
+    }
+
+    video {
+      height: 75vh;
+      object-fit: contain;
+      align-self: center;
+      margin: 10px 0px;
+    }
+  }
+}
+

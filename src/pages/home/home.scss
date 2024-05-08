@@ -6,7 +6,6 @@
     background-color: themed("bgSoft");
     display: flex;
     flex-direction: column;
-    overflow-x: hidden;
 
     @include mobile {
       padding: 5px;

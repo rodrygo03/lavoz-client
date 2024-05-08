@@ -37,7 +37,7 @@ const Home = () => {
       <h3 className="title">Social</h3>
       <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
 
-      <h3 className="title">{t('categories.news')}</h3>
+      <h3 className="title">{t('categories.newsArticles')}</h3>
       <Posts categories={["news", "local", "latam", "usa"]} />
     </div>
   );

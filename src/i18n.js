@@ -48,6 +48,7 @@ i18n
             jobs: "Jobs",
             events: "Events",
             news: "News",
+            newsArticles: "News and Articles",
             articles: "Articles",
             local: "Local",
             us: "United States",
@@ -76,7 +77,7 @@ i18n
             flag: "Add TAMU flag",
             post: "Post",
             uploading: "Uploading...",
-            error: "Videos must be shorter than 15 seconds. Audio must be shorter than 60 seconds.",
+            error: "Videos must be shorter than 60 seconds. Audio must be shorter than 60 seconds.",
             ten: "You can only select up to 10 files.",
             addMore: "Add more +"
           },
@@ -85,7 +86,8 @@ i18n
             home: "Home",
             discover: "Discover",
             friends: "Friends",
-            postAd: "Post an Ad"
+            postAd: "Post an Ad",
+            shorts : "Shorts",
           },
           post: {
             comment: " Comment",
@@ -93,6 +95,11 @@ i18n
             write: "Write a comment...",
             send: "Send",
             rate: "rate this comment"
+          },
+          shorts: {
+            desc: "Share short videos to have a laugh and stay updated.",
+            post: "Upload a video shorter than 30 seconds.",
+            caption: "Add a caption...",
           },
           update: {
             welcome: "Welcome to Postsstation!",
@@ -265,6 +272,7 @@ i18n
             jobs: "Empleos",
             events: "Eventos",
             news: "Noticias",
+            newsArticles: "Noticias y Articulos",
             articles: "Articulos",
             local: "Locales",
             us: "Estados Unidos",
@@ -292,7 +300,7 @@ i18n
             post: "Subir",
             uploading: "Subiendo...",
             pleaseSelect: "Hay que seleccionar la categoría",
-            error: "Sólo están autorizados los videos menos que 15 segundos y los audios menos que 60 segundos.",
+            error: "Sólo están autorizados los videos menos que 60 segundos y los audios menos que 60 segundos.",
             ten: "Sólo se puede elegir 10 fotos, videos, o audios.",
             addMore: "Agregar más +"
           },
@@ -301,7 +309,8 @@ i18n
             home: "Inicio",
             discover: "Descubre más",
             friends: "Amigos",
-            postAd: "Subir un anuncio"
+            postAd: "Subir un anuncio",
+            shorts: "Videos Cortos",
           },
           post: {
             comment: " Comentario",

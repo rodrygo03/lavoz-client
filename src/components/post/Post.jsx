@@ -8,7 +8,7 @@ import moment from "moment";
 import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
-import TwitterIcon from "@mui/icons-material/Twitter";
+import XIcon from '@mui/icons-material/X';
 import FacebookTwoToneIcon from "@mui/icons-material/FacebookTwoTone";
 import PinterestIcon from "@mui/icons-material/Pinterest";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
@@ -193,9 +193,15 @@ const Post = ({ post, openComments = false }) => {
   
   const isVideo = (url) => {
     if (url === null) return false;
-    const videoExtensions = [".mp4", ".mov", ".webp", ".mp3", ".webm", ".ogg", ".m4a"];
+    const videoExtensions = [".mp4", ".mov", ".webp", ".webm", ".ogg"];
     return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
   };
+
+  const isAudio = (url) => {
+    if (url === null) return false;
+    const audioExtensions = [".mp3", ".m4a", ".wav"];
+    return audioExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  }
 
 
   const handleSelect = (id) => {
@@ -445,11 +451,15 @@ const Post = ({ post, openComments = false }) => {
               }}
             > 
             {isImage(imageUrl) ? <img className="image" src={imageUrl}/> 
-            : 
+            : isVideo(imageUrl) ?
             <video controls>
               <source src={imageUrl} className="video" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
+            : 
+            <audio controls>
+              <source src={post.img0} className="video" />
+            </audio>
             }
             </div>
           ))}
@@ -470,6 +480,12 @@ const Post = ({ post, openComments = false }) => {
           <source src={post.img0} className="video" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
+      )
+    } else if (isAudio(post.img0)) {
+      return (
+        <audio controls>
+          <source src={post.img0} className="video" />
+        </audio>
       )
     }
   }
@@ -600,7 +616,7 @@ const Post = ({ post, openComments = false }) => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        <TwitterIcon style={{ color: '#1d9bf0' }}/>
+                        <XIcon/>
                         {/* TODO: FIX URL */}
                       </a>
                     </div>

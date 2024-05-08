@@ -268,7 +268,7 @@ const Share = ({categ}) => {
       if (isVideo(file.name)) {
         try {
           const duration = await getVideoDuration(file);
-          if (duration > 15) {
+          if (duration > 60) {
             setError("video-error");
             setDisplayMessage(1);
             return;

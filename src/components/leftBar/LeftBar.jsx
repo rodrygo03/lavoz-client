@@ -8,6 +8,7 @@ import Jobs from "../../assets/13.png";
 import Events from "../../assets/map.png";
 import Image from "../../assets/12.png";
 import Video from "../../assets/4.png";
+import Camera from "../../assets/9.png";
 import Ad from "../../assets/11.png"
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
@@ -121,6 +122,12 @@ const LeftBar = () => {
               <div className="item">
                   <img src={Video} alt="" />
                   <span>{t('sections.discover')}</span>
+              </div>
+            </Link>
+            <Link to={"/shorts"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Camera} alt="" />
+                  <span>{t('sections.shorts')}</span>
               </div>
             </Link>
             {

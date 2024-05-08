@@ -36,6 +36,7 @@ import ForgotPassword from "./pages/forgotPassword/forgotPassword";
 import OTPInput from "./pages/forgotPassword/OTPInput";
 import ResetPassword from "./pages/forgotPassword/ResetPassword";
 import { RecoveryContext } from "./context/recoveryContext";
+import Shorts from "./pages/shorts/Shorts";
 
 function App() {
   const { currentUser } = useContext(AuthContext);
@@ -48,10 +49,10 @@ function App() {
     return (
       <QueryClientProvider client={queryClient}>
         <div className={`theme-${darkMode ? "dark" : "light"}`} style={{height: '100%'}}>
-          <Navbar style={{height: '5%', width: '100%'}} />
-          <div style={{ display: "flex", height: '95%', maxWidth: '100%' }}>
-            <LeftBar />
-            <div style={{ flex: 10, maxWidth: "100vw"}}>
+          <Navbar style={{height: '5%'}} />
+          <div style={{ display: "flex", height: '95%', width: '100%' }}>
+            <LeftBar style={{ width: "5%"}}/>
+            <div style={{ width: "100%", margin: 0, flex: 10 }}>
               <Outlet />
             </div>
             {/* <RightBar /> */}
@@ -132,6 +133,10 @@ function App() {
         {
           path: "/guest",
           element: <Guest/>
+        },
+        {
+          path: "/shorts",
+          element: <Shorts />
         }
       ],
     },

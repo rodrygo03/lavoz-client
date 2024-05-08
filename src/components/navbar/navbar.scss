@@ -14,6 +14,7 @@
     color: themed("textColor");
     z-index: 999;
     flex-wrap: nowrap;
+    width: calc(100% - 40px);
 
     .mobile {
       @media screen and (min-width: 581px) {
