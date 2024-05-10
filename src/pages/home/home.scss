@@ -5,7 +5,7 @@
     padding: 20px 70px;
     background-color: themed("bgSoft");
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     @include mobile {
       padding: 5px;
@@ -13,6 +13,12 @@
 
     @include tablet {
       padding: 10px;
+    }
+
+    .leftHome {
+      display: flex;
+      flex-direction: column;
+      flex: 8;
     }
 
     .section {
