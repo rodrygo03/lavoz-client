@@ -130,7 +130,7 @@ const Stories = () => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg"
+              accept=".png, .jpg, .jpeg, .heic"
               onChange={(e) => setFile(e.target.files[0])}
           />
           <label htmlFor="file">

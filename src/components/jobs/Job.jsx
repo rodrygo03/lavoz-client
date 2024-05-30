@@ -28,7 +28,7 @@ const Job = ({ job }) => {
 
   const isImage = (url) => {
     if (url === null) return false;
-    const imageExtensions = [".jpg", ".jpeg", ".png", ".gif"];
+    const imageExtensions = [".jpg", ".jpeg", ".png", ".gif", ".heic"];
     return imageExtensions.some((ext) => url.toLowerCase().endsWith(ext));
   };
   

@@ -544,7 +544,7 @@ const Share = ({categ}) => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
+              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a, .heic"
               multiple
               onChange={handleFileChange}
             />
