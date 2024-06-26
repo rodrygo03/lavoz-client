@@ -229,7 +229,7 @@ const Share = ({categ}) => {
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
       try {
-        const uploadedUrls = await upload(files.slice(0, 10));
+        const uploadedUrls = await upload(files.slice(0, 2));
   
         uploadedUrls.forEach((url, index) => {
           if (url !== null) {
