@@ -194,9 +194,11 @@ const Share = ({categ}) => {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
         const formData = new FormData();
         formData.append("file", file);
+        console.log("upload function in Share, line 197 in for loop, before makeRequest")
         const res = await makeRequest.post("/uploadPost", formData);
         return res.data;
       }));
+      console.log("upload function in Share, line 200, after makeRequest")
       return uploadedUrls;
     } catch (err) {
       if (err.response && err.response.status === 400 && err.response.data.error) {
@@ -216,6 +218,7 @@ const Share = ({categ}) => {
       setError("no-category");
       return;
     }
+    console.log("files.length: " + files.length);
     if (desc === "" && files.length === 0) return;
     if (files.length > 10) {
       setTooManyFiles(true);

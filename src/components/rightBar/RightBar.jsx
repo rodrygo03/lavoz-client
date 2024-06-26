@@ -1,11 +1,11 @@
 import "./rightBar.scss";
 import { Link } from "react-router-dom";
 
-import Free from "../../assets/cart-line-icon.png";
-import Merch from "../../assets/tamu.jpg";
-import Events from "../../assets/calendar-checkmark-line-icon.png";
-import Games from "../../assets/ball-american-football-icon.png";
-import Jobs from "../../assets/briefcase-icon.png";
+import Free from "../../assets/cart-line-icon.jpg";
+import Merch from "../../assets/outdoor-market.jpg";
+import Events from "../../assets/food-trucks.jpg";
+import Games from "../../assets/ball-american-football-icon.jpg";
+import Jobs from "../../assets/briefcase-icon.jpg";
 
 const RightBar = () => {
   return (
@@ -22,7 +22,7 @@ const RightBar = () => {
           </Link>
           <Link to={"/events"}  className="circle-icon">
             <img src={Events}/>
-            <p>BCS events</p>
+            <p>BCS Events</p>
           </Link>
           <Link to={"/tamu"}  className="circle-icon">
             <img src={Games}/>

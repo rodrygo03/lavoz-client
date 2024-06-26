@@ -2,7 +2,7 @@
 
 .home {
   @include themify($themes) {
-    padding: 20px 70px;
+    padding: 20px 0px;
     background-color: themed("bgSoft");
     display: flex;
     flex-direction: row;
@@ -16,9 +16,10 @@
     }
 
     .leftHome {
+      padding: 0px 50px;
       display: flex;
       flex-direction: column;
-      flex: 8;
+      flex: 9;
     }
 
     .section {

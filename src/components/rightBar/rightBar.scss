@@ -2,12 +2,13 @@
 
 .rightBar {
   @include themify($themes) {
-    flex: 2;
-    // position: sticky;
+    //position: sticky;
     // top: 70px;
     // height: calc(100vh - 70px);
     // overflow: scroll;
     background-color: themed("bgSoft");
+    padding-right: 20px;
+    
 
     @include mobile{
       display: none;
@@ -27,15 +28,17 @@
       margin: 30px 0px;
 
       img {
-        width: 100px;
-        height: 100px;
+        width: 130px;
+        height: 130px;
         border: 1px themed("border") solid;
         border-radius: 100%;
         object-fit: contain;
       }
 
       p {
-        color: themed("text");
+        color: themed("textColor");
+        font-weight: light;
+        font-size: large;
       }
       
     }
@@ -45,7 +48,6 @@
     }
 
     .container {
-      padding: 20px;
       padding-top: 0px;
       .item {
         //-webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
