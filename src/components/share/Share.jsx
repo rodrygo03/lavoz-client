@@ -130,7 +130,7 @@ const Share = ({categ}) => {
   const [desc,setDesc] = useState("");
   const [error, setError] = useState(null);
   const [displayMessage, setDisplayMessage] = useState(null);
-  const [gifOpen, setGifOpen] = useState(false);
+  //const [gifOpen, setGifOpen] = useState(false);
   const [gif, setGif] = useState(null);
   const [tooManyFiles, setTooManyFiles] = useState(false);
   const [flag, setFlag] = useState(false);
@@ -229,7 +229,7 @@ const Share = ({categ}) => {
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
       try {
-        const uploadedUrls = await upload(files.slice(0, 2));
+        const uploadedUrls = await upload(files.slice(0, 10));
   
         uploadedUrls.forEach((url, index) => {
           if (url !== null) {
@@ -300,14 +300,11 @@ const Share = ({categ}) => {
       }
     }
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
+    console.log(files);
     setTimeout(() => {
       setActiveSlideIndex(activeSlideIndex+1);
     },600);
   };
-
-  const debug = (type) => {
-    console.log(type)
-  }
 
   const getCarousel = () => {
     return(
