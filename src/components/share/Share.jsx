@@ -22,7 +22,7 @@ import { Link } from "react-router-dom";
 const Share = ({categ}) => {
   const [category, setCategory] = useState(categ);
   const { pathname } = useLocation();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -189,16 +189,37 @@ const Share = ({categ}) => {
     });
   };
 
-  const upload = async (files) => {
+  // FIRST WAY: (CHAT GPT), accepts files as a param
+
+  // const upload = async (files) => {
+  //   try {
+  //     const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
+  //       const formData = new FormData();
+  //       formData.append("file", file);
+  //       const res = await makeRequest.post("/uploadPost", formData);
+  //       return res.data;
+  //     }));
+  //     return uploadedUrls;
+  //   } catch (err) {
+  //     if (err.response && err.response.status === 400 && err.response.data.error) {
+  //       // Handle specific error for video duration exceeding 1 minute
+  //       setError(err.response.data.error);
+  //     } else {
+  //       // Handle other errors
+  //       console.log(err);
+  //     }
+  //   }
+  // };
+
+  
+  const upload = async () => {
     try {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
         const formData = new FormData();
         formData.append("file", file);
-        console.log("upload function in Share, line 197 in for loop, before makeRequest")
         const res = await makeRequest.post("/uploadPost", formData);
         return res.data;
       }));
-      console.log("upload function in Share, line 200, after makeRequest")
       return uploadedUrls;
     } catch (err) {
       if (err.response && err.response.status === 400 && err.response.data.error) {
@@ -218,7 +239,6 @@ const Share = ({categ}) => {
       setError("no-category");
       return;
     }
-    console.log("files.length: " + files.length);
     if (desc === "" && files.length === 0) return;
     if (files.length > 10) {
       setTooManyFiles(true);
@@ -229,7 +249,7 @@ const Share = ({categ}) => {
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
       try {
-        const uploadedUrls = await upload(files.slice(0, 10));
+        const uploadedUrls = await upload();
   
         uploadedUrls.forEach((url, index) => {
           if (url !== null) {
@@ -300,7 +320,6 @@ const Share = ({categ}) => {
       }
     }
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
-    console.log(files);
     setTimeout(() => {
       setActiveSlideIndex(activeSlideIndex+1);
     },600);
