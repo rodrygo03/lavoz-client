@@ -60,7 +60,7 @@ const Market = () => {
           {tabsOpen === true ? <KeyboardDoubleArrowUpIcon style={{color: "gray"}} onClick={handleToggle}/> : <KeyboardDoubleArrowDownIcon style={{color: "gray"}} onClick={handleToggle}/>}
         </div> */}
         <div className = "market-container">
-          {getSubmitAd()}
+          <SubmitAd/>
           <div className="mobile">
             <div className={`tabs ${tabsOpen ? "open" : "closed"}`}>
                 <button className={tab === 0 ? "tab selected" : "tab"} onClick={() => setTab(0)}>{t('categories.all')}</button>

@@ -20,8 +20,6 @@ const SubmitJob = () => {
       name: "",
       pay: "",
       schedule: "",
-      // startDate: "",
-      // employer: "",
       location: "",
       description: "",
       contact: "",
@@ -75,7 +73,7 @@ const SubmitJob = () => {
       },
   });
 
-  const upload = async () => {
+  const upload = async (file) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -88,20 +86,18 @@ const SubmitJob = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (texts.name == "" || category == null || texts.pay == "" || texts.schedule == "" || texts.location == "" || texts.contact == "") {
+    if (texts.name === "" || category === null || texts.pay === "" || texts.schedule === "" || texts.contact == "") {
       setError(true);
       return;
     }
     let imgUrl = "";
-    if (file) imgUrl = await upload();
+    if (file) imgUrl = await upload(file);
     let name = texts.name;
     let location = texts.location;
-    // let start_date = texts.startDate;
     let description = texts.description;
     let contact = texts.contact;
     let pay = texts.pay;
     let schedule = texts.schedule;
-    // let employer = texts.employer;
     mutation.mutate({ name, location, description, img: imgUrl, contact, pay, schedule, category});
     setError(false);
     setFile(null);
@@ -110,8 +106,6 @@ const SubmitJob = () => {
       name: "",
       pay: "",
       schedule: "",
-      // startDate: "",
-      // employer: "",
       location: "",
       description: "",
       contact: ""

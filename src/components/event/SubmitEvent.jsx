@@ -36,7 +36,7 @@ const SubmitEvent = () => {
       },
   });
 
-  const upload = async () => {
+  const upload = async (file) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -55,7 +55,7 @@ const SubmitEvent = () => {
       return;
     }
     let imgUrl = "";
-    if (file) imgUrl = await upload();
+    if (file) imgUrl = await upload(file);
     let name = texts.name;
     let location = texts.location;
     let date = texts.date;
@@ -93,27 +93,27 @@ const SubmitEvent = () => {
           <h2>{t('events.submit')}</h2>
       </div>
       <form>
-            <input
-              type="text"
-              value={texts.name}
-              name="name"
-              onChange={handleChange}
-              placeholder={t('events.name')}
-            />
-            <input
-              type="date"
-              value={texts.date}
-              name="date"
-              onChange={handleChange}
-              placeholder={t('events.date')}
-            />
-            <input
-              type="time"
-              value={texts.time}
-              name="time"
-              onChange={handleChange}
-              placeholder={t('events.time')}
-            />
+          <input
+            type="text"
+            value={texts.name}
+            name="name"
+            onChange={handleChange}
+            placeholder={t('events.name')}
+          />
+          <input
+            type="date"
+            value={texts.date}
+            name="date"
+            onChange={handleChange}
+            placeholder={t('events.date')}
+          />
+          <input
+            type="time"
+            value={texts.time}
+            name="time"
+            onChange={handleChange}
+            placeholder={t('events.time')}
+          />
           <input
             type="text"
             value={texts.location}

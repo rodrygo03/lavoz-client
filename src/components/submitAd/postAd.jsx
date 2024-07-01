@@ -172,13 +172,44 @@ const PostAd = () => {
     setFiles(updatedFiles);
     if (files.length <= 10) setTooManyFiles(false);
   };
-
-  const handleFileChange = (e) => {
+  const handleFileChange = async (e) => {
     if (files.length >= 10) {
       setTooManyFiles(true);
       return;
     }
     const selectedFiles = Array.from(e.target.files);
+    for (let file of selectedFiles) {
+      if (isVideo(file.name)) {
+        try {
+          const duration = await getVideoDuration(file);
+          if (duration > 60) {
+            setError("video-error");
+            setDisplayMessage(1);
+            return;
+          }
+          else {
+            setDisplayMessage(0);
+          }
+        } catch (err) {
+          console.error("error:", err);
+        }
+      }
+      else if (isAudio(file.name)) {
+        try {
+          const duration = await getVideoDuration(file);
+          if (duration > 60) {
+            setError("audio-error");
+            setDisplayMessage(1);
+            return;
+          }
+          else {
+            setDisplayMessage(0);
+          }
+        } catch (err) {
+          console.error("error:", err);
+        }
+      }
+    }
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
     setTimeout(() => {
       setActiveSlideIndex(activeSlideIndex+1);

@@ -45,11 +45,11 @@ const ShareShort = () => {
     });
   };
 
-  const upload = async () => {
+  const upload = async (file) => {
     try {
       const formData = new FormData();
       formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
+      const res = await makeRequest.post("/uploadPost", formData);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -65,7 +65,7 @@ const ShareShort = () => {
     }
     setIsSubmitting(true);
     let imgUrl = "";
-    imgUrl = await upload();
+    imgUrl = await upload(file);
     mutation.mutate({ imgUrl, desc });
     setError(null);
     setFile(null);
