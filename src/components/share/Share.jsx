@@ -271,6 +271,7 @@ const Share = ({categ}) => {
     }
     const selectedFiles = Array.from(e.target.files);
     for (let file of selectedFiles) {
+      console.log(file.name)
       if (isVideo(file.name)) {
         try {
           const duration = await getVideoDuration(file);
@@ -568,7 +569,7 @@ const Share = ({categ}) => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a, .heic, .heics"
+              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
               multiple
               onChange={handleFileChange}
             />
