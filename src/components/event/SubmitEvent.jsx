@@ -157,6 +157,7 @@ const SubmitEvent = () => {
             type="file"
             id="file"
             style={{ display: "none" }}
+            accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
             onChange={(e) => setFile(e.target.files[0])}
           />
           <label htmlFor="file">

@@ -271,7 +271,6 @@ const Share = ({categ}) => {
     }
     const selectedFiles = Array.from(e.target.files);
     for (let file of selectedFiles) {
-      console.log(file.name)
       if (isVideo(file.name)) {
         try {
           const duration = await getVideoDuration(file);
@@ -302,28 +301,6 @@ const Share = ({categ}) => {
           console.error("error:", err);
         }
       }
-      // else if (isHeic(file.name)) {
-      //   // fetching the heic image
-      //   console.log("heic block");
-      //   fetch(file)
-      //     .then((res) => res.blob())
-      //     .then((blob) =>
-      //         heic2any({
-      //             blob,
-      //             toType: "image/jpeg",
-      //             quality: 0.5, // cuts the quality and size by half
-      //         })
-      //     )
-      //     .then((conversionResult) => {
-      //         // conversionResult is a BLOB
-      //         // of the JPEG formatted image
-      //         // with low quality
-      //         file = conversionResult;
-      //     })
-      //     .catch((e) => {
-      //         // see error handling section
-      //     });
-      // }
     }
     setFiles(prevFiles => [...prevFiles, ...selectedFiles]);
     setTimeout(() => {

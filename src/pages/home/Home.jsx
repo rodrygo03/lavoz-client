@@ -1,13 +1,11 @@
 import React, { useContext } from "react";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
-
 import Stories from "../../components/stories/Stories";
 import Posts from "../../components/posts/Posts";
 import Share from "../../components/share/Share";
 import MostLiked from "../../components/posts/MostLiked";
 import RightBar from "../../components/rightBar/RightBar";
-
 import "./home.scss";
 
 const Home = () => {

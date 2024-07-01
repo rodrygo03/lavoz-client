@@ -118,6 +118,7 @@ const FirstLogin = () => {
                 type="file"
                 id="cover"
                 style={{ display: "none" }}
+                accept=".png, .jpg, .jpeg"
                 onChange={(e) => setCover(e.target.files[0])}
               />
               <label  style={{textAlign: "center"}} htmlFor="profile">
@@ -138,6 +139,7 @@ const FirstLogin = () => {
                 type="file"
                 id="profile"
                 style={{ display: "none" }}
+                accept=".png, .jpg, .jpeg"
                 onChange={(e) => setProfile(e.target.files[0])}
               />
             </div>

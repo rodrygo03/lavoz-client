@@ -98,7 +98,7 @@ const ShareShort = () => {
             <div style={{display: "flex", gap: 15, flexDirection: "column", justifyContent: "spaceBetween", alignItems: "center"}}>
                 <input
                   type="file"
-                  id="file"
+                  id="filefile"
                   style={{ display: "none" }}
                   accept=".mp4, .mp3, .mov, .m4a"
                   onChange={handleChange}

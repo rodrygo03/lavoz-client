@@ -38,7 +38,6 @@ const Update = ({ setOpenUpdate, user, first }) => {
     };
   
     const upload = async (file) => {
-      console.log(file)
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -115,6 +114,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
               <input
                 type="file"
                 id="cover"
+                accept=".png, .jpg, .jpeg"
                 style={{ display: "none" }}
                 onChange={(e) => setCover(e.target.files[0])}
               />
@@ -135,6 +135,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
               <input
                 type="file"
                 id="profile"
+                accept=".png, .jpg, .jpeg"
                 style={{ display: "none" }}
                 onChange={(e) => setProfile(e.target.files[0])}
               />

@@ -23,7 +23,7 @@
       overflow: hidden;
 
       @include mobile {
-        padding: 5px;
+        padding: 0px;
       }
   
       @include tablet {

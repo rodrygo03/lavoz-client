@@ -14,7 +14,7 @@ const SubmitJob = () => {
   const [category, setCategory] = useState(null);
   const [file,setFile] = useState(null);
   const [date, setDate] = useState(new Date());
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [texts, setTexts] = useState({
       name: "",
@@ -164,24 +164,6 @@ const SubmitJob = () => {
                 onChange={handleChange}
                 placeholder={t('jobs.schedule')}
                 />
-            {/* <div className="row">
-                <label>Desired Start Date</label>
-                <input
-                type="date"
-                value={texts.startDate}
-                name="startDate"
-                onChange={handleChange}
-                />
-            </div>
-            <div className="row">
-              <label>Employer Name</label>
-              <input
-                type="text"
-                value={texts.employer}
-                name="employer"
-                onChange={handleChange}
-              />
-            </div> */}
               <input
                 type="text"
                 value={texts.location}
@@ -227,6 +209,7 @@ const SubmitJob = () => {
             <input
               type="file"
               id="file"
+              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
               style={{ display: "none" }}
               onChange={(e) => setFile(e.target.files[0])}
             />

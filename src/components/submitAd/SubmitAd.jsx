@@ -195,7 +195,7 @@ const SubmitAd = () => {
       if (isVideo(file.name)) {
         try {
           const duration = await getVideoDuration(file);
-          if (duration > 15) {
+          if (duration > 60) {
             setError("video-error");
             setDisplayMessage(1);
             return;
@@ -230,7 +230,6 @@ const SubmitAd = () => {
   };
 
   const getCarousel = () => {
-    console.log(files[0].type)
     return(
       <div style={{flexWrap: "nowrap"}}>
         <ReactSimplyCarousel
@@ -364,12 +363,6 @@ const SubmitAd = () => {
             <div className="content" style={{marginTop: 50}}>
                 <hr />
                 <div className="row" style={{marginTop: 0}}>
-                  {/* <Link to={"/register"}>
-                    <button className="guest-button">Sign Up</button>  
-                  </Link>
-                  <Link to={"/login"}>
-                    <button className="guest-button" style={{backgroundColor: "gray"}}>Login</button>  
-                  </Link> */}
                   <Link to={"/register"}>
                     <button className="guest-button">Learn More</button>
                   </Link>
