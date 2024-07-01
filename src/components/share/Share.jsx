@@ -146,13 +146,6 @@ const Share = ({categ}) => {
     return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
   }
 
-  const isHeic = (url) => {
-    if (url) {
-      const heicExtensions = [".heic", ".heics"];
-      return heicExtensions.some((ext) => url.toLowerCase().endsWith(ext));
-    }
-  }
-
   const containerStyle = {
     height: 0,
     paddingBottom: '15%',

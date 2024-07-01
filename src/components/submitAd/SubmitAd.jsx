@@ -96,7 +96,7 @@ const SubmitAd = () => {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
         const formData = new FormData();
         formData.append("file", file);
-        const res = await makeRequest.post("/upload", formData);
+        const res = await makeRequest.post("/uploadPost", formData);
         return res.data;
       }));
       return uploadedUrls;
