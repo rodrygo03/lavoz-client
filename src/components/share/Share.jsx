@@ -303,6 +303,7 @@ const Share = ({categ}) => {
       }
       else if (isHeic(file.name)) {
         // fetching the heic image
+        console.log("heic block");
         fetch(file)
           .then((res) => res.blob())
           .then((blob) =>
