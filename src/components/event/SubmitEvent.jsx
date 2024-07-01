@@ -1,19 +1,14 @@
 import "./submitEvent.scss";
 import Image from "../../assets/img.png";
-import Map from "../../assets/map.png";
-import Friend from "../../assets/friend.png";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
-import { useMutation, QueryClient, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { makeRequest } from "../../axios"
-import { Dropdown } from 'react-nested-dropdown';
 import { useTranslation } from "react-i18next";
 
 const SubmitEvent = () => {
-  const { t, i18n } = useTranslation();
-  const [category, setCategory] = useState(null);
+  const { t } = useTranslation();
   const [file,setFile] = useState(null);
-  const [date, setDate] = useState(new Date());
 
   const [texts, setTexts] = useState({
     name: "",

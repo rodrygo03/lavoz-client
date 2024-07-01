@@ -10,7 +10,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { makeRequest } from "../../axios"
 import { Dropdown } from 'react-nested-dropdown';
 import 'react-nested-dropdown/dist/styles.css';
-import ReactGiphySearchbox from 'react-giphy-searchbox';
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 import { useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -130,7 +129,6 @@ const Share = ({categ}) => {
   const [desc,setDesc] = useState("");
   const [error, setError] = useState(null);
   const [displayMessage, setDisplayMessage] = useState(null);
-  //const [gifOpen, setGifOpen] = useState(false);
   const [gif, setGif] = useState(null);
   const [tooManyFiles, setTooManyFiles] = useState(false);
   const [flag, setFlag] = useState(false);
@@ -540,7 +538,7 @@ const Share = ({categ}) => {
               type="file"
               id="file"
               style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a, .heic"
+              accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a, .heic, .heics"
               multiple
               onChange={handleFileChange}
             />
