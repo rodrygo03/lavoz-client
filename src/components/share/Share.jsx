@@ -189,30 +189,7 @@ const Share = ({categ}) => {
     });
   };
 
-  // FIRST WAY: (CHAT GPT), accepts files as a param
-
-  // const upload = async (files) => {
-  //   try {
-  //     const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
-  //       const formData = new FormData();
-  //       formData.append("file", file);
-  //       const res = await makeRequest.post("/uploadPost", formData);
-  //       return res.data;
-  //     }));
-  //     return uploadedUrls;
-  //   } catch (err) {
-  //     if (err.response && err.response.status === 400 && err.response.data.error) {
-  //       // Handle specific error for video duration exceeding 1 minute
-  //       setError(err.response.data.error);
-  //     } else {
-  //       // Handle other errors
-  //       console.log(err);
-  //     }
-  //   }
-  // };
-
-  
-  const upload = async () => {
+  const upload = async (files) => {
     try {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
         const formData = new FormData();
@@ -249,7 +226,7 @@ const Share = ({categ}) => {
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
       try {
-        const uploadedUrls = await upload();
+        const uploadedUrls = await upload(files);
   
         uploadedUrls.forEach((url, index) => {
           if (url !== null) {
