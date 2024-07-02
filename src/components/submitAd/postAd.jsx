@@ -82,6 +82,33 @@ const PostAd = () => {
   const [submitted, setSubmitted] = useState(false);
   const [tooManyFiles, setTooManyFiles] = useState(false);
 
+  const isVideo = (url) => {
+    if (url === null) return false;
+    const videoExtensions = [".mp4", ".mov", ".webp", ".webm", ".ogg"];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  };
+
+  const isAudio = (url) => {
+    if (url === null) return false;
+    const videoExtensions = [".mp3", ".m4a"];
+    return videoExtensions.some((ext) => url.toLowerCase().endsWith(ext));
+  }
+
+  const getVideoDuration = async (file) => {
+    return new Promise((resolve, reject) => {
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+      video.onloadedmetadata = function () {
+        window.URL.revokeObjectURL(video.src);
+        const duration = video.duration;
+        resolve(duration);
+      };
+      video.onerror = reject;
+  
+      video.src = URL.createObjectURL(file);
+    });
+  };
+
   const upload = async (files) => {
     try {
       const uploadedUrls = await Promise.all(files.slice(0, 10).map(async (file) => {
