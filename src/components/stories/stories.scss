@@ -19,7 +19,8 @@
       position: absolute;
       top: 0;
       right: 0;
-      color: black;
+      color: themed("text");
+      background-color: themed("bg");
       border-radius: 100px;
       border: none;
       text-align: center;
@@ -58,8 +59,7 @@
     }
 
 
-    .share {
-      @include themify($themes) {
+    .shareStory {
         position: fixed;
         top: 0;
         left: 0;
@@ -72,10 +72,10 @@
         z-index: 999;
     
         .wrapper {
-          overflow: auto;
           margin: auto;
+          width: 50%;
+          height: fit-content;
           background-color: themed("bg");
-          min-height: 50%;
           padding: 50px;
           z-index: 999;
           display: flex;
@@ -85,20 +85,27 @@
           -moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
           box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
           position: relative;
+          color: themed("textColor");
 
           @include mobile {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 50%;
+            padding: 20px;
           }
           
           .post {
-            padding: 10px;
+            padding: 10px 15px;
             background-color: #6D1D1D;
             color: white;
-            width: 70px;
+            width: fit-content;
             border-radius: 10px;
-            font-size: 16px;
+            font-size: 14px;
             border: none;
+            cursor: pointer;
+            align-self: flex-end;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
           }
 
           .close {
@@ -118,19 +125,15 @@
           }
 
           h2 {
-            font-weight: lighter;
+            font-weight: bold;
+            color: themed("logo");
           }
 
           .file {
             width: 200px;
-            height: 350px;  
+            aspect-ratio: 0.85;
             object-fit: cover;
             border-radius: 20px;
-
-            @include mobile {
-              width: 50px;
-              height: 50px;
-            }
           }
 
           .item {
@@ -163,21 +166,16 @@
       }
       span {
         position: absolute;
-        bottom: 45px;
         left: 10px;
         color: black;
         background-color: #f6f3f3;
         border-radius: 5px;
         padding: 1px 5px;
         font-weight: 500;
-        @include mobile {
-          display: none;
-        }
       }
 
       button {
         position: absolute;
-        bottom: 45px;
         right: 10px;
         color: white;
         background-color: #6D1D1D;
@@ -190,19 +188,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
-
-        @include mobile {
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        }
       }
 
       .lower {
         bottom: 45px;
       }
     }
-  }
 }

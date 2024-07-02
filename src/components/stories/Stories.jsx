@@ -12,7 +12,7 @@ const Stories = () => {
   const { t } = useTranslation();
   const {currentUser} = useContext(AuthContext);
   const [shareOpen, setShareOpen] = useState(false);
-  const [file,setFile] = useState(null);
+  const [story,setStory] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { isLoading, error, data } = useQuery({
@@ -43,8 +43,8 @@ const Stories = () => {
   const upload = async () => {
     try {
       const formData = new FormData();
-      formData.append("file", file);
-      const res = await makeRequest.post("/upload", formData);
+      formData.append("file", story);
+      const res = await makeRequest.post("/uploadPost", formData);
       return res.data;
     } catch (err) {
       console.log(err);
@@ -55,9 +55,9 @@ const Stories = () => {
     e.preventDefault();
     setIsSubmitting(true);
     let imgUrl = "";
-    if (file) imgUrl = await upload();
+    if (story) imgUrl = await upload();
     mutation.mutate({ img: imgUrl });
-    setFile(null);
+    setStory(null);
     setShareOpen(false);
   };
 
@@ -107,40 +107,39 @@ const Stories = () => {
         </div>
       ))}
       {shareOpen && 
-      <div className="share">
+      <div className="shareStory">
         <div className="wrapper">
-          <button className="close" onClick = {() => setShareOpen(false)}>
-            <DisabledByDefault style = {{color: "red"}}/>
-          </button>
-          <h2>{t('story.upload')}</h2>
+          <div style={{display: 'flex', flexDirection: "row", justifyContent: 'spaceBetween', width: "100"}}>
+            <h2>{t('story.upload')}</h2>
+            <button className="close" onClick = {() => setShareOpen(false)}>
+              <DisabledByDefault style = {{color: "red"}}/>
+            </button>
+          </div>
           <span>{t('story.desc')}</span>
-          {file && (
-            <>
-              {file.type.startsWith("image/") ? (
-                <img className="file" alt="" src={URL.createObjectURL(file)} />
-              ) : (
-                <video className="file" controls>
-                  <source src={URL.createObjectURL(file)} type={file.type} />
-                  Your browser does not support the video tag.
-                </video>
-              )}
-            </>
-          )}
+
+            {story && 
+              <>
+                {story.type.startsWith("image/") && 
+                  <img className="file" alt="" src={URL.createObjectURL(story)} />
+                }
+              </>
+            }
+
           <input
-              type="file"
-              id="file"
-              style={{ display: "none" }}
-              accept=".png, .jpg, .jpeg"
-              onChange={(e) => setFile(e.target.files[0])}
+            type="file"
+            id="story"
+            style={{ display: "none" }}
+            accept=".png, .jpg, .jpeg"
+            onChange={(e) => setStory(e.target.files[0])}
           />
-          <label htmlFor="file">
+          <label htmlFor="story">
             <div className="item">
               <img src={Image} alt="" />
               <span>{t('story.choose')}</span>
             </div>
           </label>
-          {file && isVideo(file.name) && <span className="error-msg">{t('story.error')}</span>}
-          {file && !isVideo(file.name) && <button onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>}
+          {story && isVideo(story.name) && <span className="error-msg">{t('story.error')}</span>}
+          {story && !isVideo(story.name) && <button className="post" onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>}
         </div>
       </div>
       }

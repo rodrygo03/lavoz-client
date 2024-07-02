@@ -32,6 +32,7 @@ const Home = () => {
             }
           </div>
         </div>
+        <h3 className="title">Moments</h3>
         <Stories />
         <h3 className="title">Social</h3>
         <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
