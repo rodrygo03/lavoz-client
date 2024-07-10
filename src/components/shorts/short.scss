@@ -52,6 +52,12 @@
     .x {
         background-color: transparent;
         border: none;
+        position: relative;
+        right: -50%;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        cursor: pointer;
+        top: 0;
     }
     
     .container {
@@ -140,10 +146,13 @@
     margin: 20px 0px;
     width: fit-content;
 
+    p {
+      margin-top: 10px;
+    }
+
     .container {
       padding: 20px;
     }
-
     .userInfo {
       display: flex;
       gap: 15px;

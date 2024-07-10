@@ -12,7 +12,7 @@ const ShareShort = () => {
   const [file, setFile] = useState(null);
   const { t } = useTranslation();
   const [error, setError] = useState(null);
-  const [desc, setDesc] = useState("");
+  const [caption, setCaption] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {currentUser} = useContext(AuthContext);
@@ -66,10 +66,10 @@ const ShareShort = () => {
     setIsSubmitting(true);
     let imgUrl = "";
     imgUrl = await upload(file);
-    mutation.mutate({ imgUrl, desc });
+    mutation.mutate({ imgUrl, caption });
     setError(null);
     setFile(null);
-    setDesc(null);
+    setCaption(null);
     setIsSubmitting(false);
   };
 
@@ -98,7 +98,7 @@ const ShareShort = () => {
             <div style={{display: "flex", gap: 15, flexDirection: "column", justifyContent: "spaceBetween", alignItems: "center"}}>
                 <input
                   type="file"
-                  id="filefile"
+                  id="file"
                   style={{ display: "none" }}
                   accept=".mp4, .mp3, .mov, .m4a"
                   onChange={handleChange}
@@ -110,7 +110,7 @@ const ShareShort = () => {
             </div>
         :
             <div className="preview">
-                <button className="x" style={{marginLeft: 300}} onClick={()=>setFile(null)}>
+                <button className="x" onClick={()=>setFile(null)}>
                 <DisabledByDefault style={{color: 'gray'}}/>
                 </button>
                 <video controls>
@@ -129,8 +129,8 @@ const ShareShort = () => {
             <input
                 type="text" 
                 placeholder={t('shorts.caption')} 
-                onChange={e=>setDesc(e.target.value)} 
-                value={desc}
+                onChange={e=>setCaption(e.target.value)} 
+                value={caption}
             />
           </div>
           <div className="right">

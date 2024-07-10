@@ -174,7 +174,7 @@ const SubmitJob = () => {
               />
               <input
                 type="text"
-                value={texts.contact}
+                value={texts.contact + "*"}
                 name="contact"
                 onChange={handleChange}
                 placeholder={t('jobs.contact')}

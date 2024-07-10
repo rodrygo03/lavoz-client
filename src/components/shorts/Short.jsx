@@ -7,6 +7,7 @@ import { useQuery, useQueryClient, useMutation } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
+import ShortReactions from "../reactionBar/ShortReactions";
 
 const Short = ({ short }) => {
   const { t } = useTranslation();
@@ -53,10 +54,9 @@ const Short = ({ short }) => {
                     <source src={short.videoURL} className="video" type="video/mp4" />
                     Your browser does not support the video tag.
                 </video>
-                {short.desc}
               </div>
             </div>
-
+            
             <div className="userInfo">
                 <img src={short.profilePic} alt="" />
                 <div className="details">
@@ -68,6 +68,12 @@ const Short = ({ short }) => {
                     </Link>
                     <span className="date">{moment(short.createdAt).fromNow()}</span>
                 </div>
+            </div>
+
+            <p>{short.desc}</p>
+
+            <div>
+              <ShortReactions shortId={short.id} shortUserId={short.userId} currentUser={currentUser}/>
             </div>
         </div>
     </div>
