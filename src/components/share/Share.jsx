@@ -383,7 +383,7 @@ const Share = ({categ}) => {
                 <DisabledByDefault style={{color: 'gray'}}/>
               </button>
               <video controls>
-                <source src={URL.createObjectURL(file)} className="file" type={"video/mp4"} />
+                <source src={URL.createObjectURL(file) + "#t=0.001"} className="file" type={"video/mp4"} />
                 Your browser does not support the video tag.
               </video>
             </div>

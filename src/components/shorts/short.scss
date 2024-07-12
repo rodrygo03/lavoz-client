@@ -153,6 +153,18 @@
     .container {
       padding: 20px;
     }
+    
+    .deleteMenu {
+      display: flex;
+      justify-content: flex-end;
+      gap: 15px;
+      cursor: pointer;
+
+      button {
+        padding: 0px 5px;
+      }
+    }
+
     .userInfo {
       display: flex;
       gap: 15px;

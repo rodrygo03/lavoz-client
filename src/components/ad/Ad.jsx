@@ -306,7 +306,7 @@ const Ad = ({ ad }) => {
             {isImage(imageUrl) ? <img className="image" src={imageUrl}/> 
             : 
             <video controls>
-              <source src={imageUrl} className="image" type="video/mp4" />
+              <source src={imageUrl + "#t=0.001"} className="image" type="video/mp4" />
               Your browser does not support the video tag.
             </video>
             }
@@ -323,7 +323,7 @@ const Ad = ({ ad }) => {
     else if (isVideo(ad.img0)) { 
       return (
         <video controls>
-          <source src={ad.img0} className="video" type="video/mp4" />
+          <source src={ad.img0 + "#t=0.001"} className="video" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
       )

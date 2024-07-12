@@ -66,7 +66,7 @@ const ShareShort = () => {
     setIsSubmitting(true);
     let imgUrl = "";
     imgUrl = await upload(file);
-    mutation.mutate({ imgUrl, caption });
+    mutation.mutate({ imgUrl, desc: caption });
     setError(null);
     setFile(null);
     setCaption(null);
@@ -114,7 +114,7 @@ const ShareShort = () => {
                 <DisabledByDefault style={{color: 'gray'}}/>
                 </button>
                 <video controls>
-                    <source src={URL.createObjectURL(file)} type={"video/mp4"} />
+                    <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
                     Your browser does not support the video tag.
                 </video>
             </div>
@@ -123,14 +123,14 @@ const ShareShort = () => {
         <div className="bottom">
           <div className="left">
             <img
-                src={currentUser.profilePic}
-                alt=""
+              src={currentUser.profilePic}
+              alt=""
             />
             <input
-                type="text" 
-                placeholder={t('shorts.caption')} 
-                onChange={e=>setCaption(e.target.value)} 
-                value={caption}
+              type="text" 
+              placeholder={t('shorts.caption')} 
+              onChange={e=>setCaption(e.target.value)} 
+              value={caption}
             />
           </div>
           <div className="right">
