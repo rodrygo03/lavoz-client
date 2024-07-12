@@ -100,6 +100,7 @@ i18n
             desc: "Share short videos to have a laugh and stay updated.",
             post: "Upload a video shorter than 30 seconds.",
             caption: "Add a caption...",
+            guest: "Howdy! To upload shorts, please login or make an account.",
           },
           update: {
             welcome: "Welcome to Postsstation!",
@@ -243,7 +244,7 @@ i18n
             resetPassword: "Reset Your Password",
             enterPassword: "Enter your new password below to securely reset your password.",
             change: "Change Password"
-          }
+          },
         }
       },
 
@@ -402,7 +403,7 @@ i18n
             location: "Lugar*",
             description: "Descripción",
             url: "URL",
-            upcoming: "Eventos que Viene"
+            upcoming: "Eventos que Vienen"
           },
           login: {
             login: "Acceso",
@@ -462,8 +463,13 @@ i18n
             enterPassword: "Escribe tu nueva contraseña para cambiarlo.",
             change: "Cambiar Contraseña"
           }
-          
-        }
+        },
+        shorts: {
+          desc: "Subir y ver videos cortos para reírse y quedarse actualizada hoy en dia.",
+          post: "Subir un video más corto que 30 segundos.",
+          caption: "Escribir título...",
+          guest: "Howdy! Para subir videos cortos, por favor hacer el login o abra una cuenta.",
+        },
       }
     }
   });

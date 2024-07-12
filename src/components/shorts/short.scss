@@ -59,6 +59,46 @@
         cursor: pointer;
         top: 0;
     }
+
+    .guest-container {
+      padding: 20px;
+
+      .top {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        img {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
+          object-fit: cover;
+          aspect-ratio: 1.0;
+        }
+
+        span {
+          color: themed("textColorSoft");
+        }
+      }
+
+      hr {
+        margin: 20px 0px;
+        border: none;
+        height: 0.5px;
+        background-color: themed("border");
+      }
+
+      .guest-button {
+        padding: 5px 10px;
+        background-color: #6d1d1d;
+        color: white;
+        border: none;
+        cursor: pointer;
+        min-width: 75px;
+        border-radius: 4px;
+        justify-self: flex-end;
+      }
+    }
     
     .container {
       padding: 20px;
@@ -196,9 +236,19 @@
 
     video {
       height: 75vh;
+      max-width: 90vw;
       object-fit: contain;
       align-self: center;
       margin: 10px 0px;
+
+      @include tablet {
+        width: 90vw;
+        height: fit-content;
+      }
+      @include mobile {
+        width: 90vw;
+        height: fit-content;
+      }
     }
   }
 }

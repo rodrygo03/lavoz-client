@@ -17,7 +17,6 @@ import ReactSimplyCarousel from "react-simply-carousel";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
-import heic2any from "heic2any";
 
 const Share = ({categ}) => {
   const [category, setCategory] = useState(categ);

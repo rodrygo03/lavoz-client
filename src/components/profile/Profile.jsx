@@ -12,6 +12,7 @@ import { useContext, useState } from "react";
 import Update from "../../components/update/Update"
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Profile = ({userId}) => {
 
@@ -19,6 +20,7 @@ const Profile = ({userId}) => {
   const [openUpdate, setOpenUpdate] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
@@ -42,6 +44,10 @@ const Profile = ({userId}) => {
   });
   
   const handleFollow = () => {
+    if (!currentUser) {
+      navigate("/guest");
+      return;
+    }
     mutation.mutate(relationshipData.includes(currentUser.id));
   }
   
@@ -117,7 +123,7 @@ const Profile = ({userId}) => {
                   </div>
                   }
                 </div>
-                {userId === currentUser.id ? (
+                {currentUser && userId === currentUser.id ? (
                   <button onClick={()=>setOpenUpdate(true)}>{t('update.update')}</button>
                 ) :
                 rIsLoading || rError ? (
@@ -125,7 +131,7 @@ const Profile = ({userId}) => {
                 ) : 
                 (
                   <button onClick={handleFollow}>
-                    {relationshipData.includes(currentUser.id)
+                    {currentUser && relationshipData.includes(currentUser.id)
                       ? t('users.following')
                       : t('users.follow')}
                   </button>

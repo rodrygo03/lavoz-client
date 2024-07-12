@@ -182,7 +182,7 @@ const ShortReactions = ({ shortId, shortUserId, currentUser }) => {
                 <div className='section'>
                 <div className={`reaction ${reaction === 4 ? 'enlarged' : ''}`} onClick={() => handleSelect(4)}>
                     <div className="reaction-icon">
-                    <img src={'https://www.postsstation.com/static/media/laughing.79d0779eb66c8604971e.png'} className="reaction-img" />
+                    <img src={'https://www.postsstation.com/reactions/laughing.png'} className="reaction-img" />
                     <div className="label">{t('reactions.laughing')}</div>
                     </div>
                 </div>

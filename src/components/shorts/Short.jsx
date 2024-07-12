@@ -51,7 +51,7 @@ const Short = ({ short }) => {
     <div className="short">
         <div className="container">
             <div className="deleteMenu">
-              {menuOpen && (short.userId === currentUser.id || currentUser.account_type === 'admin') && (
+              {currentUser && menuOpen && (short.userId === currentUser.id || currentUser.account_type === 'admin') && (
                 <button onClick={handleDelete}>delete</button>
               )}
               <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />

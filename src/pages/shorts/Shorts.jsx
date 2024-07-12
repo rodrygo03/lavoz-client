@@ -8,7 +8,7 @@ import { makeRequest } from "../../axios";
 import { useQueryClient, useQuery } from "@tanstack/react-query";
 
 const Shorts = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("tamu");
 
   const queryClient = useQueryClient();
@@ -16,15 +16,6 @@ const Shorts = () => {
     setSelectedCategory(category);
   };
 
-  const getPostCategories = () => {
-    if (selectedCategory === "tamu") {
-      return ["tamu", "games", "advice", "fans"]
-    } else {
-      return selectedCategory;
-    }
-  }
-
-  
   const { isLoading, error, data } = useQuery({
     queryKey: ["shorts"],
     queryFn: () => makeRequest.get("/posts/shorts").then((res) => {return res.data})

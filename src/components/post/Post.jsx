@@ -437,7 +437,7 @@ const Post = ({ post, openComments = false }) => {
             </div>
           </div>
           <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
-          {menuOpen && (post.userId === currentUser.id || currentUser.account_type === 'admin') && (
+          {currentUser && menuOpen && (post.userId === currentUser.id || currentUser.account_type === 'admin') && (
             <button onClick={handleDelete}>delete</button>
           )}
         </div>

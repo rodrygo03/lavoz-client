@@ -7,6 +7,8 @@ import { makeRequest } from "../../axios"
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 import { useTranslation } from "react-i18next";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
+import DefaultUser from "../../assets/pfp.jpg";
+import { Link } from "react-router-dom";
 
 const ShareShort = () => {
   const [file, setFile] = useState(null);
@@ -93,52 +95,72 @@ const ShareShort = () => {
 
   return (
     <div className="share-short">
-      <div className="container">
-        {!file ?
-            <div style={{display: "flex", gap: 15, flexDirection: "column", justifyContent: "spaceBetween", alignItems: "center"}}>
-                <input
-                  type="file"
-                  id="file"
-                  style={{ display: "none" }}
-                  accept=".mp4, .mp3, .mov, .m4a"
-                  onChange={handleChange}
-                />
-                <label htmlFor="file">
-                    <AddCircleIcon style={{cursor: "pointer", fontSize: 75}}/>
-                </label>
-                <span className="directions">{t("shorts.post")}</span>
-            </div>
-        :
-            <div className="preview">
-                <button className="x" onClick={()=>setFile(null)}>
-                <DisabledByDefault style={{color: 'gray'}}/>
-                </button>
-                <video controls>
-                    <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
-                    Your browser does not support the video tag.
-                </video>
-            </div>
-        }
-        <hr />
-        <div className="bottom">
-          <div className="left">
+      { !currentUser ?
+        <div className="guest-container">
+          <div className="top">
             <img
-              src={currentUser.profilePic}
+              src={DefaultUser}
               alt=""
             />
-            <input
-              type="text" 
-              placeholder={t('shorts.caption')} 
-              onChange={e=>setCaption(e.target.value)} 
-              value={caption}
-            />
+            <span className="textInput">{t("shorts.guest")}</span>
           </div>
-          <div className="right">
-            <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>
+          <div className="content">
+              <hr />
+              <div className="row" style={{marginTop: 0, display: "flex", flexDirection: "row"}}>
+                <Link to={"/register"}>
+                  <button className="guest-button">Learn More</button>
+                </Link>
+              </div>
           </div>
         </div>
-        {error != null && <span className="error-msg">{t('shorts.post')}</span>}
-      </div>
+        :
+        <div className="container">
+          {!file ?
+              <div style={{display: "flex", gap: 15, flexDirection: "column", justifyContent: "spaceBetween", alignItems: "center"}}>
+                  <input
+                    type="file"
+                    id="file"
+                    style={{ display: "none" }}
+                    accept=".mp4, .mp3, .mov, .m4a"
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="file">
+                      <AddCircleIcon style={{cursor: "pointer", fontSize: 75}}/>
+                  </label>
+                  <span className="directions">{t("shorts.post")}</span>
+              </div>
+          :
+              <div className="preview">
+                  <button className="x" onClick={()=>setFile(null)}>
+                  <DisabledByDefault style={{color: 'gray'}}/>
+                  </button>
+                  <video controls>
+                      <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
+                      Your browser does not support the video tag.
+                  </video>
+              </div>
+          }
+          <hr />
+          <div className="bottom">
+            <div className="left">
+              <img
+                src={currentUser.profilePic}
+                alt=""
+              />
+              <input
+                type="text" 
+                placeholder={t('shorts.caption')} 
+                onChange={e=>setCaption(e.target.value)} 
+                value={caption}
+              />
+            </div>
+            <div className="right">
+              <button onClick={handleClick} disabled={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>
+            </div>
+          </div>
+          {error != null && <span className="error-msg">{t('shorts.post')}</span>}
+        </div>
+      }
     </div>
   );
 };
