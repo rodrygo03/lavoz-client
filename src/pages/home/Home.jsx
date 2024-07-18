@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 import i18next from "i18next";
 import Stories from "../../components/stories/Stories";
@@ -10,6 +11,7 @@ import "./home.scss";
 
 const Home = () => {
   const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
 
   return (
     <div className="home">
@@ -32,8 +34,12 @@ const Home = () => {
             }
           </div>
         </div>
-        <h3 className="title">Moments</h3>
-        <Stories />
+        { currentUser &&
+          <div>
+            <h3 className="title">Moments</h3>
+            <Stories />
+          </div>
+        }
         <h3 className="title">Social</h3>
         <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
 

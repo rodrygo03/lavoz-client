@@ -20,6 +20,7 @@ import AddGif from "@mui/icons-material/GifBox";
 import ReactGiphySearchbox from 'react-giphy-searchbox';
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 import Reactions from "../reactionBar/Reactions";
+import InsertLink from "@mui/icons-material/InsertLink";
 
 const Post = ({ post, openComments = false }) => {
   const { t } = useTranslation();
@@ -420,6 +421,20 @@ const Post = ({ post, openComments = false }) => {
     }
   }
 
+  
+  function ensureAbsoluteUrl(url) {
+    // Check if the URL starts with http://, https://, or www.
+    if (!url.match(/^(https?:\/\/|www\.)/)) {
+      // If it doesn't start with any, add https://www.
+      return `https://www.${url}`;
+    } else if (url.match(/^www\./)) {
+      // If it starts with www., add https:// only.
+      return `https://${url}`;
+    }
+    // If it starts with http:// or https://, return as is.
+    return url;
+  }
+
   return (
     <div className="post">
       <div className="container">
@@ -443,7 +458,21 @@ const Post = ({ post, openComments = false }) => {
         </div>
         
         <div className="content">
-          {post.desc}
+            {post.url && post.url != "" &&
+              <div className="row" style={{alignItems: "center", gap: 10, display: "flex", marginBottom: 5}}>
+                  <InsertLink/>
+                  <a className="link" href={ensureAbsoluteUrl(post.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{post.url}</a>
+              </div>
+            }
+            {post.article != null ?
+              <div style={{whiteSpace: "pre-line"}}> 
+                {post.article}
+              </div>
+            :
+              <div style={{whiteSpace: "pre-line"}}> 
+                {post.desc}
+              </div>
+            }
           <div className="centered" style={{marginTop: 10}}>
             {post.img1 === null ? getSingleFile() : getCarousel()}
           </div>

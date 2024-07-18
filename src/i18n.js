@@ -79,7 +79,9 @@ i18n
             uploading: "Uploading...",
             error: "Videos must be shorter than 60 seconds. Audio must be shorter than 60 seconds.",
             ten: "You can only select up to 10 files.",
-            addMore: "Add more +"
+            addMore: "Add more +",
+            guest: "Howdy! To upload posts, please sign in or make an account.",
+            url: "Add URL"
           },
           sections: {
             topPosts: "Most Liked Posts",
@@ -303,7 +305,9 @@ i18n
             pleaseSelect: "Hay que seleccionar la categoría",
             error: "Sólo están autorizados los videos menos que 60 segundos y los audios menos que 60 segundos.",
             ten: "Sólo se puede elegir 10 fotos, videos, o audios.",
-            addMore: "Agregar más +"
+            addMore: "Agregar más +",
+            guest: "Howdy! Por favor registra una cuenta para subir posts.",
+            url: "Agregar URL"
           },
           sections: {
             topPosts: "Los Posts más Gustados",

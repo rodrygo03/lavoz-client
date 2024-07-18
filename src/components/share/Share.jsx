@@ -17,6 +17,8 @@ import ReactSimplyCarousel from "react-simply-carousel";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
+import TextareaAutosize from 'react-textarea-autosize';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
 const Share = ({categ}) => {
   const [category, setCategory] = useState(categ);
@@ -132,6 +134,7 @@ const Share = ({categ}) => {
   const [gif, setGif] = useState(null);
   const [tooManyFiles, setTooManyFiles] = useState(false);
   const [flag, setFlag] = useState(false);
+  const [url, setURL] = useState(null);
 
   const isVideo = (url) => {
     if (url === null) return false;
@@ -220,6 +223,10 @@ const Share = ({categ}) => {
       return;
     }
     setIsSubmitting(true);
+    let article = null;
+    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
+      article = desc;
+    }
   
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
@@ -240,9 +247,10 @@ const Share = ({categ}) => {
     setFiles([]);
     setError(false);
     setDisplayMessage(0);
-    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, gifUrl: gif, hasFlag: flag });
+    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, gifUrl: gif, hasFlag: flag, article, url });
     setDesc("");
     setGif(null);
+    setURL("");
     setCategory(categ);
     setFlag(false);
     setTooManyFiles(false);
@@ -453,12 +461,23 @@ const Share = ({categ}) => {
               src={currentUser.profilePic}
               alt=""
             />
-            <textarea
-              type="text" 
-              placeholder={t('share.create')} 
-              onChange={e=>setDesc(e.target.value)} 
-              value={desc}
-            />
+            {
+              (category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
+              <TextareaAutosize
+                type="text" 
+                placeholder={t('share.create')} 
+                onChange={e=>setDesc(e.target.value)} 
+                value={desc}
+              />
+              :
+              <TextareaAutosize
+                type="text" 
+                placeholder={t('share.create')} 
+                onChange={e=>setDesc(e.target.value)} 
+                value={desc}
+                maxRows={10}
+              />
+            }
         </div>
         
         <div className="middle">
@@ -556,6 +575,19 @@ const Share = ({categ}) => {
                 <span>{t('share.gif')}</span>
               </div>
             </label> */}
+            <label>
+              <div className="item">
+                <InsertLinkIcon style={{color: "gray"}}/>
+                <input
+                  name="url"
+                  type="text"
+                  placeholder={t('share.url')}
+                  value={url}
+                  style={{border: "none", fontSize: 12, color: "blue"}}
+                  onChange={e => setURL(e.target.value)}
+                />
+              </div>
+            </label>
             {pathname === '/tamu' &&
               <label onClick={()=>setFlag(!flag)}>
                 <div className="item">

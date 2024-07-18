@@ -59,6 +59,7 @@ const Stories = () => {
     mutation.mutate({ img: imgUrl });
     setStory(null);
     setShareOpen(false);
+    setIsSubmitting(false);
   };
 
   const deleteMutation = useMutation({
@@ -90,10 +91,10 @@ const Stories = () => {
   return (
     <div className="stories">
       {!isLoading && data && currentUser &&
-      <div className="story">
-        <img src={currentUser.profilePic} alt="" />
-        <button className={data.length < 5 && "lower"} onClick = {() => {setShareOpen((true))}}>+</button>
-      </div>
+        <div className="story">
+          <img src={currentUser.profilePic} alt="" />
+          <button className={data.length < 5 && "lower"} onClick = {() => {setShareOpen((true))}}>+</button>
+        </div>
       }
       {!isLoading && data && data.map(story=>(
         <div className="story" key={story.id}>
@@ -107,41 +108,41 @@ const Stories = () => {
         </div>
       ))}
       {shareOpen && 
-      <div className="shareStory">
-        <div className="wrapper">
-          <div style={{display: 'flex', flexDirection: "row", justifyContent: 'spaceBetween', width: "100"}}>
-            <h2>{t('story.upload')}</h2>
-            <button className="close" onClick = {() => setShareOpen(false)}>
-              <DisabledByDefault style = {{color: "red"}}/>
-            </button>
-          </div>
-          <span>{t('story.desc')}</span>
-
-            {story && 
-              <>
-                {story.type.startsWith("image/") && 
-                  <img className="file" alt="" src={URL.createObjectURL(story)} />
-                }
-              </>
-            }
-
-          <input
-            type="file"
-            id="story"
-            style={{ display: "none" }}
-            accept=".png, .jpg, .jpeg"
-            onChange={(e) => setStory(e.target.files[0])}
-          />
-          <label htmlFor="story">
-            <div className="item">
-              <img src={Image} alt="" />
-              <span>{t('story.choose')}</span>
+        <div className="shareStory">
+          <div className="wrapper">
+            <div style={{display: 'flex', flexDirection: "row", justifyContent: 'spaceBetween', width: "100"}}>
+              <h2>{t('story.upload')}</h2>
+              <button className="close" onClick = {() => setShareOpen(false)}>
+                <DisabledByDefault style = {{color: "red"}}/>
+              </button>
             </div>
-          </label>
-          {story && isVideo(story.name) && <span className="error-msg">{t('story.error')}</span>}
-          {story && !isVideo(story.name) && <button className="post" onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>}
+            <span>{t('story.desc')}</span>
+
+              {story && 
+                <>
+                  {story.type.startsWith("image/") && 
+                    <img className="file" alt="" src={URL.createObjectURL(story)} />
+                  }
+                </>
+              }
+
+            <input
+              type="file"
+              id="story"
+              style={{ display: "none" }}
+              accept=".png, .jpg, .jpeg"
+              onChange={(e) => setStory(e.target.files[0])}
+            />
+            <label htmlFor="story">
+              <div className="item">
+                <img src={Image} alt="" />
+                <span>{t('story.choose')}</span>
+              </div>
+            </label>
+            {story && isVideo(story.name) && <span className="error-msg">{t('story.error')}</span>}
+            {story && !isVideo(story.name) && <button className="post" onClick={handleClick} active={isSubmitting}> {isSubmitting ? t('share.uploading') : t('share.post') } </button>}
+          </div>
         </div>
-      </div>
       }
     </div>
   )

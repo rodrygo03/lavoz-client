@@ -101,7 +101,22 @@ const Register = () => {
   
   return (
     <div className="register">
+          <button className = "language-toggle pc" onClick={toggleLng}>
+              {language ?
+                <img src={MX} className="flag"/> : <img src={US} className="flag"/>
+              }
+          </button>
       <div className="card">
+
+          <button className = "language-toggle mobile" onClick={toggleLng}>
+              {language ?
+                <img src={MX} className="flag"/> : <img src={US} className="flag"/>
+              }
+          </button>
+          <Link to="/login" className="login-button mobile">
+            <button>{t('login.login')}</button>
+          </Link>
+
         <div className="left">
           <h1>PostsStation</h1>
           <p>
@@ -111,19 +126,8 @@ const Register = () => {
           <Link to="/login">
             <button>{t('login.login')}</button>
           </Link>
-          <Link className="mobile login-button"to="/login">
-              <button style={{backgroundColor: "#6D1D1D"}}>{t('login.login')}</button>
-          </Link>
         </div>
         <div className="right">
-          <button className = "language-toggle" onClick={toggleLng}>
-              {language ?
-                <img src={MX} className="flag"/> : <img src={US} className="flag"/>
-              }
-          </button>
-          <Link to="/login" className="login-button mobile">
-            <button>{t('login.login')}</button>
-          </Link>
           <h1>{t('login.register')}</h1>
           {page === 0 ?
               <div className = "question">

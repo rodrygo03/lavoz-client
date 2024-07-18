@@ -45,8 +45,13 @@ const Login = () => {
 
   return (
     <div className="login">
+        <button className = "language-toggle pc" onClick={toggleLng}>
+            {language ?
+              <img src={MX} className="flag"/> : <img src={US} className="flag"/>
+            }
+        </button>
       <div className="card">
-        <button className = "language-toggle" onClick={toggleLng}>
+        <button className = "language-toggle mobile" onClick={toggleLng}>
             {language ?
               <img src={MX} className="flag"/> : <img src={US} className="flag"/>
             }
@@ -65,8 +70,11 @@ const Login = () => {
           <h1>{t('login.login')}</h1>
           <form>
             <input type="text" placeholder="Email" name="email" onChange={handleChange} />
-            {visible === true ? <input placeholder="Password" type="text" name = "password" onChange = {handleChange}/> : <input placeholder="Password" type="password" name = "password" onChange = {handleChange}/>}
-            {visible === false ? <VisibilityIcon className="eye" onClick={() => setVisible(!visible)}/> : <VisibilityOffIcon className="eye" onClick={() => setVisible(!visible)}/>}
+            <div style={{position: "relative", padding: 0}}>
+              {visible === true ? <input className="pw" placeholder="Password" type="text" name = "password" onChange = {handleChange}/> : <input placeholder="Password" className="pw" type="password" name = "password" onChange = {handleChange}/>}
+              {visible === false ? <VisibilityIcon className="eye" onClick={() => setVisible(!visible)}/> : <VisibilityOffIcon className="eye" onClick={() => setVisible(!visible)}/>}
+            </div>
+            
             
             {err && <div className='error'>{err}</div>}
             <div className="buttons">
