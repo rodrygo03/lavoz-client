@@ -27,7 +27,7 @@ const Share = ({categ}) => {
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [descLengthErr, setDescLengthErr] = useState(false);
-
+  
   const items = [
     {
       label: t('categories.general'),
@@ -213,31 +213,32 @@ const Share = ({categ}) => {
   
   const handleClick = async (e) => {
     e.preventDefault();
-    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
-      if (desc.length > 1500) setDescLengthErr(true);
-      else if (descLengthErr === true) setDescLengthErr(false);
-    } else {
-      if (desc.length > 500) setDescLengthErr(true)
-      else if (descLengthErr === true) setDescLengthErr(false);
-    }
-
-    if (descLengthErr) {
-      return;
-    }
 
     if (category === null || !category) {
       //setCategory("general");
       setError("no-category");
       return;
     }
+    
     if (desc === "" && files.length === 0) return;
+
+    if ((category != 'global' && category != 'latam' && category != 'local' && category != 'usa') && desc.length > 500) {
+      setDescLengthErr(true);
+      return;
+    } else if ((category === 'global' || category === 'latam' || category === 'local' || category === 'usa') && desc.length > 1500) {
+      setDescLengthErr(true);
+      return;
+    } else {
+      setDescLengthErr(false);
+    }
+
     if (files.length > 10) {
       setTooManyFiles(true);
       return;
     }
     setIsSubmitting(true);
     let article = null;
-    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
+    if (category === 'global' || category === 'latam' || category === 'local' || category === 'usa') {
       article = desc;
     }
   
@@ -444,7 +445,7 @@ const Share = ({categ}) => {
 
   const handleCategoryChange = (categoryInput) => {
     setCategory(categoryInput);
-    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
+    if (category === 'global' || category === 'latam' || category === 'local' || category === 'usa') {
       if (desc.length > 1500) setDescLengthErr(true);
       else if (descLengthErr === true) setDescLengthErr(false);
     } else {
@@ -489,7 +490,7 @@ const Share = ({categ}) => {
                 alt=""
               />
               {
-                (category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
+                (category === 'global' || category === 'latam' || category === 'local' || category === 'usa') ?
                 <TextareaAutosize
                   type="text" 
                   placeholder={t('share.create')} 
@@ -550,7 +551,7 @@ const Share = ({categ}) => {
 
           <div className="character-count"> 
             <span style={{ color: "darkgray", fontSize: 12 }}>{desc.length}</span>
-            {(category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
+            {(category === 'global' || category === 'latam' || category === 'local' || category === 'usa') ?
              <span style={{color: "gray", fontSize: 12}}> / 1500</span> 
              :
              <span style={{color: "gray", fontSize: 12}}> / 500</span>
@@ -642,7 +643,7 @@ const Share = ({categ}) => {
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
-        {descLengthErr && <span className="error-msg">Character max exceeded.</span>}
+        {((category != 'global' && category != 'latam' && category != 'local' && category != 'usa') && desc.length > 500) && <span className="error-msg">Character max exceeded.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {/* {gifOpen &&
