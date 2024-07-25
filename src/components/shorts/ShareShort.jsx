@@ -71,8 +71,9 @@ const ShareShort = () => {
     mutation.mutate({ imgUrl, desc: caption });
     setError(null);
     setFile(null);
-    setCaption(null);
+    setCaption("");
     setIsSubmitting(false);
+    console.log("done uploading short");
   };
 
   const handleChange = async (e) => {

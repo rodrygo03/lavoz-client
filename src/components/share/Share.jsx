@@ -26,6 +26,7 @@ const Share = ({categ}) => {
   const { t } = useTranslation();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [descLengthErr, setDescLengthErr] = useState(false);
 
   const items = [
     {
@@ -212,6 +213,18 @@ const Share = ({categ}) => {
   
   const handleClick = async (e) => {
     e.preventDefault();
+    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
+      if (desc.length > 1500) setDescLengthErr(true);
+      else if (descLengthErr === true) setDescLengthErr(false);
+    } else {
+      if (desc.length > 500) setDescLengthErr(true)
+      else if (descLengthErr === true) setDescLengthErr(false);
+    }
+
+    if (descLengthErr) {
+      return;
+    }
+
     if (category === null || !category) {
       //setCategory("general");
       setError("no-category");
@@ -255,6 +268,7 @@ const Share = ({categ}) => {
     setFlag(false);
     setTooManyFiles(false);
     setIsSubmitting(false);
+    setDescLengthErr(false);
   };
 
   const handleX = (index) => {
@@ -428,6 +442,18 @@ const Share = ({categ}) => {
     else return;
   };
 
+  const handleCategoryChange = (categoryInput) => {
+    setCategory(categoryInput);
+    if (category === 'global' || category === 'latam' || category === 'local' || category === 'us') {
+      if (desc.length > 1500) setDescLengthErr(true);
+      else if (descLengthErr === true) setDescLengthErr(false);
+    } else {
+      if (desc.length > 500) setDescLengthErr(true)
+      else if (descLengthErr === true) setDescLengthErr(false);
+    }
+  }
+
+
   return (
     <div className="share">
     { !currentUser ? 
@@ -456,70 +482,83 @@ const Share = ({categ}) => {
     </div>
     :
       <div className="container">
-        <div className="top">
-            <img
-              src={currentUser.profilePic}
+        <div style={{position: "relative"}}>
+          <div className="top">
+              <img
+                src={currentUser.profilePic}
+                alt=""
+              />
+              {
+                (category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
+                <TextareaAutosize
+                  type="text" 
+                  placeholder={t('share.create')} 
+                  onChange={e=>setDesc(e.target.value)} 
+                  value={desc}
+                  maxLength={1500}
+                />
+                :
+                <TextareaAutosize
+                  type="text" 
+                  placeholder={t('share.create')} 
+                  onChange={e=>setDesc(e.target.value)} 
+                  value={desc}
+                  maxLength={500}
+                />
+              }
+          </div>
+          
+          <div className="middle">
+            {renderFilePreviews()}
+          </div>
+          {gif && 
+            <div>
+              <button className="x" style={{position: "relative", left: "70%"}}onClick={()=>setGif(null)}>
+                <DisabledByDefault style={{color: "gray"}}/>
+              </button>
+            <div style={containerStyle}>
+              <iframe
+                src={gif}
+                width="100%"
+                height="100%"
+                style={iframeStyle}
+                frameBorder="0"
+                className="giphy-embed"
+                allowFullScreen
+                title="Giphy Embed"
+              ></iframe>
+              {/* <p>
+                <a href={gif}>
+                  via GIPHY
+                </a>
+              </p> */}
+            </div>
+            </div>
+          }
+          
+          {flag && 
+          <div>
+            <img className="flag"
+              src={Flag}
               alt=""
             />
-            {
-              (category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
-              <TextareaAutosize
-                type="text" 
-                placeholder={t('share.create')} 
-                onChange={e=>setDesc(e.target.value)} 
-                value={desc}
-              />
-              :
-              <TextareaAutosize
-                type="text" 
-                placeholder={t('share.create')} 
-                onChange={e=>setDesc(e.target.value)} 
-                value={desc}
-                maxRows={10}
-              />
-            }
-        </div>
-        
-        <div className="middle">
-          {renderFilePreviews()}
-        </div>
-        {gif && 
-          <div>
-            <button className="x" style={{position: "relative", left: "70%"}}onClick={()=>setGif(null)}>
+            <button className="x" onClick={()=>setFlag(false)}>
               <DisabledByDefault style={{color: "gray"}}/>
             </button>
-          <div style={containerStyle}>
-            <iframe
-              src={gif}
-              width="100%"
-              height="100%"
-              style={iframeStyle}
-              frameBorder="0"
-              className="giphy-embed"
-              allowFullScreen
-              title="Giphy Embed"
-            ></iframe>
-            {/* <p>
-              <a href={gif}>
-                via GIPHY
-              </a>
-            </p> */}
+            </div>
+          }
+
+          <div className="character-count"> 
+            <span style={{ color: "darkgray", fontSize: 12 }}>{desc.length}</span>
+            {(category === 'global' || category === 'latam' || category === 'local' || category === 'us') ?
+             <span style={{color: "gray", fontSize: 12}}> / 1500</span> 
+             :
+             <span style={{color: "gray", fontSize: 12}}> / 500</span>
+            }
           </div>
-          </div>
-        }
-        
-        {flag && 
-        <div>
-          <img className="flag"
-            src={Flag}
-            alt=""
-          />
-          <button className="x" onClick={()=>setFlag(false)}>
-            <DisabledByDefault style={{color: "gray"}}/>
-          </button>
-          </div>
-        }
-        <hr />
+          <hr />
+        </div>
+
         <div className="bottom">
           <div className="left">
             <div className="item">
@@ -603,6 +642,7 @@ const Share = ({categ}) => {
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
+        {descLengthErr && <span className="error-msg">Character max exceeded.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {/* {gifOpen &&

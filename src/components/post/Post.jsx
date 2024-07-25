@@ -458,12 +458,6 @@ const Post = ({ post, openComments = false }) => {
         </div>
         
         <div className="content">
-            {post.url && post.url != "" &&
-              <div className="row" style={{alignItems: "center", gap: 10, display: "flex", marginBottom: 5}}>
-                  <InsertLink/>
-                  <a className="link" href={ensureAbsoluteUrl(post.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{post.url}</a>
-              </div>
-            }
             {post.article != null ?
               <div style={{whiteSpace: "pre-line"}}> 
                 {post.article}
@@ -476,6 +470,12 @@ const Post = ({ post, openComments = false }) => {
           <div className="centered" style={{marginTop: 10}}>
             {post.img1 === null ? getSingleFile() : getCarousel()}
           </div>
+          {post.url && post.url != "" &&
+              <div className="row" style={{alignItems: "center", gap: 10, display: "flex", marginTop: 15}}>
+                  <InsertLink/>
+                  <a className="link" href={ensureAbsoluteUrl(post.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{post.url}</a>
+              </div>
+            }
             {post.flag === 1 &&
               <div className="centered">
                 <img style={{width: "50%"}} src={Tamu}/>
@@ -499,6 +499,7 @@ const Post = ({ post, openComments = false }) => {
                 </a>
               </p> */}
             </div>
+            
             }
         </div>
         
