@@ -17,7 +17,8 @@
     }
 
     .flag {
-      width: 20%;
+      border-radius: 5px !important;
+      justify-self: flex-end;
     }
 
     .bottom {
@@ -139,6 +140,7 @@
 
         .userInfo {
           display: flex;
+          position: relative;
           gap: 20px;
 
           img {

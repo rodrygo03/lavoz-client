@@ -451,6 +451,9 @@ const Post = ({ post, openComments = false }) => {
               </Link>
               <span className="date">{moment(post.createdAt).fromNow()}</span>
             </div>
+            {post.flag === 1 &&
+              <img className="flag" src={Tamu}/>
+            }
           </div>
           <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)} />
           {currentUser && menuOpen && (post.userId === currentUser.id || currentUser.account_type === 'admin') && (
@@ -476,11 +479,6 @@ const Post = ({ post, openComments = false }) => {
                   <InsertLink/>
                   <a className="link" href={ensureAbsoluteUrl(post.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{post.url}</a>
               </div>
-            }
-            {post.flag === 1 &&
-              <div className="centered">
-                <img style={{width: "50%"}} src={Tamu}/>
-              </div> 
             }
             {post.gifUrl && 
             <div style={containerStyle}>

@@ -615,6 +615,14 @@ const Share = ({categ}) => {
                 <span>{t('share.gif')}</span>
               </div>
             </label> */}
+            {pathname === '/tamu' &&
+              <label onClick={()=>setFlag(!flag)}>
+                <div className="item">
+                  <img src={Tamu}/>
+                  <span>{t('share.flag')}</span>
+                </div>
+              </label>
+            }
             <label>
               <div className="item">
                 <InsertLinkIcon style={{color: "gray"}}/>
@@ -628,14 +636,6 @@ const Share = ({categ}) => {
                 />
               </div>
             </label>
-            {pathname === '/tamu' &&
-              <label onClick={()=>setFlag(!flag)}>
-                <div className="item">
-                  <img src={Tamu}/>
-                  <span>{t('share.flag')}</span>
-                </div>
-              </label>
-            }
 
           </div>
           <div className="right">
