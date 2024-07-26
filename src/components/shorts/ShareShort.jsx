@@ -73,7 +73,7 @@ const ShareShort = () => {
     setFile(null);
     setCaption("");
     setIsSubmitting(false);
-    console.log("done uploading short");
+
   };
 
   const handleChange = async (e) => {

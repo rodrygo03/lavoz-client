@@ -205,6 +205,7 @@ const Post = ({ post, openComments = false }) => {
 
   // FOR COMMENTS 
   const handleClick = () => {
+    if (desc === "" || desc === null) return;
     const postId = post.id;
     const postUserId = post.userId;
     commentMutation.mutate({ desc, postId, postUserId, gif });

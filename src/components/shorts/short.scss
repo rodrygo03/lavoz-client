@@ -232,7 +232,6 @@
           color: gray;
         }
       }
-      
     }
 
     video {
@@ -245,10 +244,12 @@
       @include tablet {
         width: 90vw;
         height: fit-content;
+        max-height: 90vh;
       }
       @include mobile {
         width: 90vw;
         height: fit-content;
+        max-height: 90vh;
       }
     }
   }

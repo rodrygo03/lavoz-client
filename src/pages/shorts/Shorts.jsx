@@ -29,7 +29,7 @@ const Shorts = () => {
         </div>
         <div className="news-container">
           <ShareShort categ={null}/>
-            { isLoading ? "loading" :
+            { isLoading || error || !data ? "loading" :
               <div className="shorts-grid">
                 {data.map((short) => <Short short={short}/>)}
               </div>
