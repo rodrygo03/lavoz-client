@@ -244,12 +244,12 @@
       @include tablet {
         width: 90vw;
         height: fit-content;
-        max-height: 90vh;
+        max-height: 80vh;
       }
       @include mobile {
         width: 90vw;
         height: fit-content;
-        max-height: 90vh;
+        max-height: 80vh;
       }
     }
   }
