@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import DefaultUser from "../../assets/pfp.jpg";
 import { Link } from "react-router-dom";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const ShareShort = () => {
   const [file, setFile] = useState(null);
@@ -16,6 +17,7 @@ const ShareShort = () => {
   const [error, setError] = useState(null);
   const [caption, setCaption] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const {currentUser} = useContext(AuthContext);
   const queryClient = useQueryClient();
@@ -66,6 +68,9 @@ const ShareShort = () => {
       return;
     }
     setIsSubmitting(true);
+    setTimeout(() => {
+      setShowConfirmation(true);
+    }, 500);
     let imgUrl = "";
     imgUrl = await upload(file);
     mutation.mutate({ imgUrl, desc: caption });
@@ -73,7 +78,7 @@ const ShareShort = () => {
     setFile(null);
     setCaption("");
     setIsSubmitting(false);
-
+    setShowConfirmation(false);
   };
 
   const handleChange = async (e) => {
@@ -114,6 +119,14 @@ const ShareShort = () => {
               </div>
           </div>
         </div>
+        :
+          showConfirmation ?
+          <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
+            <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
+            <p className="confirmationText">{t('share.confirmationText')}</p>
+            {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
+          </div>
         :
         <div className="container">
           {!file ?

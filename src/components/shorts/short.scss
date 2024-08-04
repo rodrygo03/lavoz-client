@@ -60,6 +60,13 @@
         top: 0;
     }
 
+    .confirmationHeading {
+      margin: 8px 0px;
+    }
+    .confirmationText {
+      color: themed("textColorSoft");
+    }
+
     .guest-container {
       padding: 20px;
 

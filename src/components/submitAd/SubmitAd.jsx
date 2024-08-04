@@ -18,12 +18,14 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
 import DefaultUser from "../../assets/pfp.jpg";
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const SubmitAd = () => {
   const { t } = useTranslation();
   const [category, setCategory] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const items = [
     {
@@ -151,6 +153,9 @@ const SubmitAd = () => {
       return;
     }
     setIsSubmitting(true);
+    setTimeout(() => {
+      setShowConfirmation(true);
+    }, 500);
   
     let imgUrls = [null, null, null, null, null, null, null, null, null, null];
     if (files.length > 0) {
@@ -176,6 +181,7 @@ const SubmitAd = () => {
     setGif(null);
     setTooManyFiles(false);
     setIsSubmitting(false);
+    setShowConfirmation(false);
   };
 
   const handleX = (index) => {
@@ -368,6 +374,14 @@ const SubmitAd = () => {
                   </Link>
                 </div>
             </div>
+          </div>
+    :
+      showConfirmation ?
+          <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+            <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
+            <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
+            <p className="confirmationText">{t('share.confirmationText')}</p>
+            {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
           </div>
     :
           <div className="container">

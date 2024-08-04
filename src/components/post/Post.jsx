@@ -316,20 +316,9 @@ const Post = ({ post, openComments = false }) => {
     return(
       <div>
         <Carousel
-          containerProps={{
-            style: {
-              justifyContent: "space-between",
-              width: "fit-content",
-              display: "flex",
-              alignItems: "center",
-              margin: "auto",
-              padding: "auto",
-              userSelect: "none"
-            }
-          }}
           userSelect={true}
           activeSlideIndex={activeSlide}
-          swipeTreshold={20}
+          swipeTreshold={70}
           onRequestChange={setActiveSlide}
           forwardBtnProps={{
             children: <ArrowForwardIosIcon style={{color: "gray"}} fontSize="medium"/>,

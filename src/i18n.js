@@ -81,7 +81,10 @@ i18n
             ten: "You can only select up to 10 files.",
             addMore: "Add more +",
             guest: "Howdy! To upload posts, please sign in or make an account.",
-            url: "Add URL"
+            url: "Add URL",
+            confirmationHeading: "Upload was successful!",
+            confirmationText: "Thank you for your contribution.",
+            submitMore: "Share another",
           },
           sections: {
             topPosts: "Most Liked Posts",
@@ -281,7 +284,7 @@ i18n
             us: "Estados Unidos",
             latam: "Latinoamérica",
             global: "Globales",
-            tamu: "Universidad Texas A&M",
+            tamu: "Texas A&M",
             games: "Partidos de los Aggies",
             advice: "Consejos",
             greatThings: "Cosas geniales",
@@ -307,7 +310,10 @@ i18n
             ten: "Sólo se puede elegir 10 fotos, videos, o audios.",
             addMore: "Agregar más +",
             guest: "Howdy! Por favor registra una cuenta para subir posts.",
-            url: "Agregar URL"
+            url: "Agregar URL",
+            confirmationHeading: "Subida realizada correctamente!",
+            confirmationText: "Gracias por tu publicación.",
+            submitMore: "Subir otro"
           },
           sections: {
             topPosts: "Los Posts más Gustados",

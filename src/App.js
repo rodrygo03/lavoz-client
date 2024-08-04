@@ -51,8 +51,8 @@ function App() {
         <div className={`theme-${darkMode ? "dark" : "light"}`} style={{height: '100%'}}>
           <Navbar style={{height: '5%'}} />
           <div style={{ display: "flex", height: '95%', width: '100%' }}>
-            <LeftBar style={{ width: "5%"}}/>
-            <div style={{ width: "100%", margin: 0, flex: 10 }}>
+            <LeftBar/>
+            <div className="mainSection" style={{ width: "100%", margin: 0, flex: 10 }}>
               <Outlet />
             </div>
             {/* <RightBar /> */}

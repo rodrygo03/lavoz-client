@@ -19,6 +19,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
 import TextareaAutosize from 'react-textarea-autosize';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
 const Share = ({categ}) => {
   const [category, setCategory] = useState(categ);
@@ -26,7 +27,7 @@ const Share = ({categ}) => {
   const { t } = useTranslation();
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [descLengthErr, setDescLengthErr] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
   
   const items = [
     {
@@ -222,21 +223,14 @@ const Share = ({categ}) => {
     
     if (desc === "" && files.length === 0) return;
 
-    if ((category != 'global' && category != 'latam' && category != 'local' && category != 'usa') && desc.length > 500) {
-      setDescLengthErr(true);
-      return;
-    } else if ((category === 'global' || category === 'latam' || category === 'local' || category === 'usa') && desc.length > 1500) {
-      setDescLengthErr(true);
-      return;
-    } else {
-      setDescLengthErr(false);
-    }
-
     if (files.length > 10) {
       setTooManyFiles(true);
       return;
     }
     setIsSubmitting(true);
+    setTimeout(() => {
+      setShowConfirmation(true);
+    }, 500);
     let article = null;
     if (category === 'global' || category === 'latam' || category === 'local' || category === 'usa') {
       article = desc;
@@ -269,7 +263,7 @@ const Share = ({categ}) => {
     setFlag(false);
     setTooManyFiles(false);
     setIsSubmitting(false);
-    setDescLengthErr(false);
+    setShowConfirmation(false);
   };
 
   const handleX = (index) => {
@@ -443,17 +437,6 @@ const Share = ({categ}) => {
     else return;
   };
 
-  const handleCategoryChange = (categoryInput) => {
-    setCategory(categoryInput);
-    if (category === 'global' || category === 'latam' || category === 'local' || category === 'usa') {
-      if (desc.length > 1500) setDescLengthErr(true);
-      else if (descLengthErr === true) setDescLengthErr(false);
-    } else {
-      if (desc.length > 500) setDescLengthErr(true)
-      else if (descLengthErr === true) setDescLengthErr(false);
-    }
-  }
-
 
   return (
     <div className="share">
@@ -481,6 +464,14 @@ const Share = ({categ}) => {
           </div>
       </div>
     </div>
+    :
+      showConfirmation ?
+      <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
+        <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
+        <p className="confirmationText">{t('share.confirmationText')}</p>
+        {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
+      </div>
     :
       <div className="container">
         <div style={{position: "relative"}}>
@@ -564,7 +555,7 @@ const Share = ({categ}) => {
           <div className="left">
             <div className="item">
               <img src={Friend}/>
-              {categ != null ?
+              {categ !== null ?
               <span>{categ}</span>
                 :
                  pathname === '/tamu' ?
@@ -587,7 +578,7 @@ const Share = ({categ}) => {
                 <Dropdown items={items}>
                   {({ isOpen, onClick }) => (
                     <button type="button" onClick={onClick} className={"category-label"}>
-                      {categ != null ? categ : category === null ? "Select Category *" : category}
+                      {categ !== null ? categ : category === null ? "Select Category *" : category}
                     </button>
                   )}
                 </Dropdown>
@@ -643,7 +634,7 @@ const Share = ({categ}) => {
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
-        {((category != 'global' && category != 'latam' && category != 'local' && category != 'usa') && desc.length > 500) && <span className="error-msg">Character max exceeded.</span>}
+        {((category !== 'global' && category !== 'latam' && category !== 'local' && category !== 'usa') && desc.length > 500) && <span className="error-msg">Character max exceeded.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {/* {gifOpen &&

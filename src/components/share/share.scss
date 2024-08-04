@@ -163,6 +163,25 @@
       }
     }
 
+    .confirmationHeading {
+      margin: 8px 0px;
+    }
+    .confirmationText {
+      color: themed("textColorSoft");
+    }
+    .confirmationButton {
+      border: none;
+      padding: 8px 30px;
+      color: white;
+      cursor: pointer;
+      background: #6D1D1D;
+      border-radius: 50px;
+      margin: 20px;
+    }
+    .confirmationButton:hover {
+      animation: floating 2s ease-in-out infinite;
+    }
+
     .thanks-container {
       padding: 20px;
       display: flex;
@@ -188,7 +207,7 @@
       }
 
       h2 {
-        margin-bottom: 8px;
+        margin-bottom: 10px;
         font-weight: 600;
       }
     }
