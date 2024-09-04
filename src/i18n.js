@@ -84,6 +84,8 @@ i18n
             url: "Add URL",
             confirmationHeading: "Upload was successful!",
             confirmationText: "Thank you for your contribution.",
+            processingHeading: "Processing",
+            processingText: "Thank you for your patience. This process may take up to 1 minute.",
             submitMore: "Share another",
           },
           sections: {
@@ -313,6 +315,8 @@ i18n
             url: "Agregar URL",
             confirmationHeading: "Subida realizada correctamente!",
             confirmationText: "Gracias por tu publicación.",
+            processingHeading: "Procesando",
+            processingText: "Gracias por tu pacienca. Este proceso puede tardar hasta 1 minuto.",
             submitMore: "Subir otro"
           },
           sections: {

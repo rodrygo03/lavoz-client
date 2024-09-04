@@ -26,6 +26,7 @@ const PostAd = () => {
   const [category, setCategory] = useState(null);
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const items = [
     {
@@ -191,6 +192,10 @@ const PostAd = () => {
     setCategory(null);
     setTooManyFiles(false);
     setIsSubmitting(false);
+    setShowConfirmation(true);
+    setTimeout(() => {
+      setShowConfirmation(false);
+    },3000);
   };
 
   const handleX = (index) => {
@@ -373,6 +378,44 @@ const PostAd = () => {
         <button onClick={() => setSubmitted(false)}>{t("adConfirmation.postAnother")}</button>
       </div>
       :
+      isSubmitting && files.length !== 0 ?
+      <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center", userSelect: "none"}}>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
+          <h2 className="confirmationHeading" style={{margin: 0}}>{t('share.processingHeading')}</h2>
+          <div className="loading-text" style={{margin: 0, marginLeft: 2}}>
+            <span>.</span>
+            <span>.</span>
+            <span>.</span>
+          </div>
+        </div>
+        <div className="confirmationText" style={{textAlign: "center", margin: 5}}>
+          <p>{t('share.processingText')}</p>
+        </div>
+        {files && files[0] &&
+        <div style={{position: "relative"}}>
+          {files[0].type.startsWith("image/") ? (
+            <img className="filePreview" alt="" src={URL.createObjectURL(files[0])} />
+            ) : 
+            (
+            <video className="filePreview">
+              <source src={URL.createObjectURL(files[0])} type={"video/mp4"} />
+              Your browser does not support the video tag.
+            </video>
+            )
+          }
+          <div className="loading-circle"></div>
+        </div>
+        }
+      </div>
+    :
+      showConfirmation ?
+      <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
+        <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
+        <p className="confirmationText">{t('share.confirmationText')}</p>
+        {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
+      </div>
+    :
       <div className="container">
       <div className="top">
           <img

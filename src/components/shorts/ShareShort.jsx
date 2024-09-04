@@ -68,9 +68,6 @@ const ShareShort = () => {
       return;
     }
     setIsSubmitting(true);
-    setTimeout(() => {
-      setShowConfirmation(true);
-    }, 500);
     let imgUrl = "";
     imgUrl = await upload(file);
     mutation.mutate({ imgUrl, desc: caption });
@@ -78,7 +75,10 @@ const ShareShort = () => {
     setFile(null);
     setCaption("");
     setIsSubmitting(false);
-    setShowConfirmation(false);
+    setShowConfirmation(true);
+    setTimeout(() => {
+      setShowConfirmation(false);
+    },3000);
   };
 
   const handleChange = async (e) => {
@@ -119,6 +119,36 @@ const ShareShort = () => {
               </div>
           </div>
         </div>
+          :
+            isSubmitting && file ?
+            <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center", userSelect: "none"}}>
+              <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexWrap: "wrap"}}>
+                <h2 className="confirmationHeading" style={{margin: 0}}>{t('share.processingHeading')}</h2>
+                <div className="loading-text" style={{margin: 0, marginLeft: 2}}>
+                  <span>.</span>
+                  <span>.</span>
+                  <span>.</span>
+                </div>
+              </div>
+              <div className="confirmationText" style={{textAlign: "center", margin: 5}}>
+                <p>{t('share.processingText')}</p>
+              </div>
+              {file &&
+              <div style={{position: "relative"}}>
+                {file.type.startsWith("image/") ? (
+                  <img className="filePreview" alt="" src={URL.createObjectURL(file)} />
+                  ) : 
+                  (
+                  <video className="filePreview">
+                    <source src={URL.createObjectURL(file)} type={"video/mp4"} />
+                    Your browser does not support the video tag.
+                  </video>
+                  )
+                }
+                <div className="loading-circle"></div>
+              </div>
+              }
+            </div>
         :
           showConfirmation ?
           <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
