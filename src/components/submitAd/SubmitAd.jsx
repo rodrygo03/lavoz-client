@@ -19,6 +19,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import { Link } from "react-router-dom";
 import DefaultUser from "../../assets/pfp.jpg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import TextareaAutosize from 'react-textarea-autosize';
 
 const SubmitAd = () => {
   const { t } = useTranslation();
@@ -420,17 +421,24 @@ const SubmitAd = () => {
                   src={currentUser.profilePic}
                   alt=""
                 />
-                <input 
+                <TextareaAutosize
                   type="text" 
                   placeholder={t('share.sellItem')} 
                   onChange={e=>setDesc(e.target.value)} 
                   value={desc}
+                  maxLength={500}
                 />
             </div>
             
             <div className="middle">
               {renderFilePreviews()}
             </div>
+
+            <div className="character-count"> 
+              <span style={{ color: "darkgray", fontSize: 12 }}>{desc.length}</span>
+              <span style={{color: "gray", fontSize: 12}}> / 500</span>
+            </div>
+            
             <hr />
             <div className="bottom">
               <div className="left">

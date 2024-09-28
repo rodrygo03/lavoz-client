@@ -79,7 +79,7 @@ const Viral = () => {
     <div className="viral">
         <div className="section" style={{display: "flex", justifyContent: "center", padding: 30 }}>
             {i18next.language == 'en' ? 
-            <iframe width="350" height="700" src="https://rss.app/embed/v1/feed/_WFZEboCZQYPItoIQ" frameborder="0"></iframe>
+            <iframe width="350" height="700" src="https://rss.app/embed/v1/carousel/0J6EbydwqRDge2wR" frameborder="0"></iframe>
             :
             <iframe width="350" height="700" src="https://rss.app/embed/v1/feed/_DMvof61NN3rH5dAj" frameborder="0"></iframe>
             }

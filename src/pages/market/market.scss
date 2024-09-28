@@ -55,7 +55,7 @@
           font-size: 0.8em;
         }
         @include mobile {
-          font-size: 0.8em;
+          font-size: 0.85em;
         }
       }
     }
@@ -119,7 +119,7 @@
               align-items: center;
               display: flex;
               gap: 10px;
-              font-size: 12px;
+              font-size: 1em !important;
               width: fit-content;
               background-color: themed("bg");
             }

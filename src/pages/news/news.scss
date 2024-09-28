@@ -43,7 +43,7 @@
         font-style: italic;
 
         @include mobile {
-          font-size: 0.8em;
+          font-size: 0.85em;
         }
       }
     }
@@ -83,6 +83,10 @@
       align-items: center;
       display: flex;
       gap: 10px;
+
+      @include mobile {
+        font-size: 1em !important;
+      }
     }
 
     .inactive {
