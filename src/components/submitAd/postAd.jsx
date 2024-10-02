@@ -397,10 +397,10 @@ const PostAd = () => {
             <img className="filePreview" alt="" src={URL.createObjectURL(files[0])} />
             ) : 
             (
-            <video className="filePreview">
-              <source src={URL.createObjectURL(files[0])} type={"video/mp4"} />
-              Your browser does not support the video tag.
-            </video>
+              <video controls className="filePreview">
+                <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
+                Your browser does not support the video tag.
+              </video>
             )
           }
           <div className="loading-circle"></div>
