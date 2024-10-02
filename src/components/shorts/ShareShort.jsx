@@ -139,8 +139,8 @@ const ShareShort = () => {
                   <img className="filePreview" alt="" src={URL.createObjectURL(file)} />
                   ) : 
                   (
-                  <video className="filePreview">
-                    <source src={URL.createObjectURL(file)} type={"video/mp4"} />
+                  <video controls className="filePreview">
+                    <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
                     Your browser does not support the video tag.
                   </video>
                   )

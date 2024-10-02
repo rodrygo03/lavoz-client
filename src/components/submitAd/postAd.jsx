@@ -398,7 +398,7 @@ const PostAd = () => {
             ) : 
             (
               <video controls className="filePreview">
-                <source src={URL.createObjectURL(file) + "#t=0.001"} type={"video/mp4"} />
+                <source src={URL.createObjectURL(files[0]) + "#t=0.001"} type={"video/mp4"} />
                 Your browser does not support the video tag.
               </video>
             )
