@@ -7,8 +7,22 @@
 }
 
 .toggle-closed {
-  position: fixed;
-  z-index: 999;
+  @include themify($themes) {
+    position: fixed;
+    z-index: 999;
+  }
+}
+
+.mobile {
+  @include pc {
+    display: none !important;
+  }
+}
+
+.pc {
+  @include mobile {
+    display: none !important;
+  }
 }
 
 .leftBar {

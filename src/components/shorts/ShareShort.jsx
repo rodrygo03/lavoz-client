@@ -72,12 +72,12 @@ const ShareShort = () => {
     imgUrl = await upload(file);
     mutation.mutate({ imgUrl, desc: caption });
     setError(null);
-    setFile(null);
     setCaption("");
     setIsSubmitting(false);
     setShowConfirmation(true);
     setTimeout(() => {
       setShowConfirmation(false);
+      setFile(null);
     },3000);
   };
 

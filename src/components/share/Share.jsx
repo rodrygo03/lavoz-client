@@ -249,7 +249,6 @@ const Share = ({categ}) => {
         setIsSubmitting(false);
       }
     }
-    setFiles([]);
     setError(false);
     setDisplayMessage(0);
     mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, gifUrl: gif, hasFlag: flag, article, url });
@@ -263,6 +262,7 @@ const Share = ({categ}) => {
     setShowConfirmation(true);
     setTimeout(() => {
       setShowConfirmation(false);
+      setFiles([]);
     },3000);
   };
 

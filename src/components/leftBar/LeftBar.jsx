@@ -26,34 +26,125 @@ const LeftBar = () => {
   const navigate = useNavigate();
   const [err, setErr] = useState(null);
   const { currentUser, clearUser } = useContext(AuthContext);
-  const [menuOpen, setMenuOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
 
-  const logout = async () => {
-    clearUser();
-    const res = await makeRequest.post("/auth/logout", {
-    });
-  };
-
-  const handleLogout = async (e) => {
-    e.preventDefault()
-    try{
-      await logout();
-      navigate("/login");
-    } catch (err) {
-      setErr(err.response.data);
-    }
-  };
 
   return (
     <div className='soft'>
-      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
-      <div className={`leftBar ${sidebarOpen ? "open" : "closed"}`}>
+      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed pc" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
+
+      {sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed mobile" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
+
+
+      <div className={`pc leftBar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="container">
           <div className='menu'>
             <div className = "toggle">
               {sidebarOpen ? <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}}/>
               : <KeyboardDoubleArrowRightIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
+              }
+            </div>
+
+            {
+              currentUser && 
+              <div className="row">
+                <Link to={"/profile/"+currentUser.id} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div className="user">
+                    <img
+                      src={currentUser.profilePic}
+                      alt=""
+                    />
+                    <span>{currentUser.username}</span>
+                  </div>
+                </Link>
+                {/* <div className="logout">
+                  <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)}/>
+                  {menuOpen && <button onClick={handleLogout}>Logout</button>}
+                </div> */}
+              </div>
+            }
+
+            <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Groups} alt="" />
+                  <span>{t('sections.home')}</span>
+              </div>
+            </Link>
+            <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Market} alt="" />
+                  <span>Market</span>
+              </div>
+            </Link>
+            <Link to={"/jobs"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Jobs} alt="" />
+                  <span>{t('categories.jobs')}</span>
+              </div>
+            </Link>
+            <Link to={"/events"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Events} alt="" />
+                  <span>{t('categories.events')}</span>
+              </div>
+            </Link>
+            <Link to={"/news"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={News} alt="" />
+                  <span>{t('categories.news')}</span>
+              </div>
+            </Link>
+            <Link to={"/greatThings"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Image} alt="" />
+                  <span>{t('categories.greatThings')}</span>
+              </div>
+            </Link>
+            <Link to={"/tamu"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Tamu} alt="" />
+                  <span>{t('categories.tamu')}</span>
+              </div>
+            </Link>
+            <Link to={"/viral"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Video} alt="" />
+                  <span>{t('sections.discover')}</span>
+              </div>
+            </Link>
+            <Link to={"/shorts"} style={{ textDecoration: "none", color: "inherit" }}>
+              <div className="item">
+                  <img src={Camera} alt="" />
+                  <span>{t('sections.shorts')}</span>
+              </div>
+            </Link>
+            {
+              currentUser &&
+              <Link to={"/users"} style={{ textDecoration: "none", color: "inherit" }}>
+                <div className="item">
+                    <img src={Friends} alt="" />
+                    <span>{t('sections.friends')}</span>
+                </div>
+              </Link>
+            }
+            {currentUser && currentUser.account_type != 'personal' &&
+              <Link to={"/postad"} style={{ textDecoration: "none", color: "inherit" }}>
+                  <div className="item">
+                      <img src={Ad} alt="" />
+                      <span>{t('sections.postAd')}</span>
+                  </div>
+              </Link>
+            }
+          </div>
+        </div>
+      </div>
+
+      <div className={`mobile leftBar ${sidebarOpen ? "closed" : "open"}`}>
+        <div className="container">
+          <div className='menu'>
+            <div className = "toggle">
+              {sidebarOpen ? <KeyboardDoubleArrowRightIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}}/>
+              : <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
               }
             </div>
 
