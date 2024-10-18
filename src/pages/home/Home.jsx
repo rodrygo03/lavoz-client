@@ -20,14 +20,14 @@ const Home = () => {
         <MostLiked />
         <div className="section">
           <h3 className="title">{t('categories.news')}</h3>
-          {i18next.language === 'en' ?
+          {i18next.language != 'es' ?
             <iframe title="news-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameBorder="0"></iframe>
             :
             <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameBorder="0"></iframe>
           }
           <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {i18next.language === 'en' ?
+            {i18next.language !== 'es' ?
               <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/0J6EbydwqRDge2wR" frameBorder="0"></iframe>
               :
               <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_DMvof61NN3rH5dAj" frameBorder="0"></iframe>
