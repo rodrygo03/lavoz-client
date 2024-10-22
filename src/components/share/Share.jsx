@@ -484,8 +484,8 @@ const Share = ({categ}) => {
             <img className="filePreview" alt="" src={URL.createObjectURL(files[0])} />
             ) : 
             (
-              <video controls className="filePreview">
-                <source src={URL.createObjectURL(files[0]) + "#t=0.001"} type={"video/mp4"} />
+              <video controls>
+                <source src={URL.createObjectURL(files[0]) + "#t=0.001"} type={"video/mp4"} className="filePreview"/>
                 Your browser does not support the video tag.
               </video>
             )
