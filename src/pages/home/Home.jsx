@@ -28,9 +28,9 @@ const Home = () => {
           <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {i18next.language !== 'es' ?
-              <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/0J6EbydwqRDge2wR" frameBorder="0"></iframe>
+              <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/zSH4hCtsZz0XJDmA" frameBorder="0"></iframe>
               :
-              <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_DMvof61NN3rH5dAj" frameBorder="0"></iframe>
+              <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/NYJw8aOMWIZClNzi" frameBorder="0"></iframe>
             }
           </div>
         </div>
