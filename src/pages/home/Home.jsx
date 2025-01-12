@@ -30,7 +30,7 @@ const Home = () => {
             {i18next.language !== 'es' ?
               <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/zSH4hCtsZz0XJDmA" frameBorder="0"></iframe>
               :
-              <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/NYJw8aOMWIZClNzi" frameBorder="0"></iframe>
+              <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/d8GmDRgqSgMFd8FD" frameBorder="0"></iframe>
             }
           </div>
         </div>
