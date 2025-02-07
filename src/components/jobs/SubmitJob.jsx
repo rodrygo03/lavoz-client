@@ -9,6 +9,7 @@ import { makeRequest } from "../../axios"
 import { Dropdown } from 'react-nested-dropdown';
 import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 import { useTranslation } from "react-i18next";
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
 const SubmitJob = () => {
   const [category, setCategory] = useState(null);
@@ -24,6 +25,7 @@ const SubmitJob = () => {
       description: "",
       contact: "",
   });
+  const [url, setURL] = useState(null);
 
   const items = [
     {
@@ -98,9 +100,10 @@ const SubmitJob = () => {
     let contact = texts.contact;
     let pay = texts.pay;
     let schedule = texts.schedule;
-    mutation.mutate({ name, location, description, img: imgUrl, contact, pay, schedule, category});
+    mutation.mutate({ name, location, description, img: imgUrl, contact, pay, schedule, category, url});
     setError(false);
     setFile(null);
+    setURL("");
     setCategory(null);
     setTexts({
       name: "",
@@ -174,7 +177,7 @@ const SubmitJob = () => {
               />
               <input
                 type="text"
-                value={texts.contact + "*"}
+                value={texts.contact}
                 name="contact"
                 onChange={handleChange}
                 placeholder={t('jobs.contact')}
@@ -211,6 +214,19 @@ const SubmitJob = () => {
               <div className="item">
                 <img src={Image} alt="" />
                 <span>{t('share.add')}</span>
+              </div>
+            </label>
+            <label>
+              <div className="item">
+                <InsertLinkIcon style={{color: "gray"}}/>
+                <input
+                  name="url"
+                  type="text"
+                  placeholder={t('share.url')}
+                  value={url}
+                  style={{border: "none", fontSize: 12, color: "blue"}}
+                  onChange={e => setURL(e.target.value)}
+                />
               </div>
             </label>
           </div>

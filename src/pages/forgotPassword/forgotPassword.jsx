@@ -53,7 +53,8 @@ const ForgotPassword = () => {
 
     const handlePress = (e) => {
         e.preventDefault();
-        if (!email.match(EMAIL_REGEX)) {
+        if (!emailInput) return;
+        if (!emailInput.match(EMAIL_REGEX)) {
             setErr(t('register.email'));
             return;
         }

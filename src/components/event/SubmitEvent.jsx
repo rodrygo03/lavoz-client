@@ -5,6 +5,7 @@ import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { makeRequest } from "../../axios"
 import { useTranslation } from "react-i18next";
+import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 
 const SubmitEvent = () => {
   const { t } = useTranslation();
@@ -139,12 +140,23 @@ const SubmitEvent = () => {
         {file && (
           <>
             {file.type.startsWith("image/") ? (
-              <img className="file" alt="" src={URL.createObjectURL(file)} />
+              <div className="fileContainer">
+                <button className="x" style={{marginLeft: 300}} onClick={() => setFile("")}>
+                  <DisabledByDefault style={{color: 'gray'}}/>
+                </button>
+                <img className="file" alt="" src={URL.createObjectURL(file)} />
+              </div>
+              
             ) : (
-              <video className="file" controls>
-                <source src={URL.createObjectURL(file)} type={"video/mp4"} />
-                Your browser does not support the video tag.
-              </video>
+              <div className="fileContainer">
+                <button className="x" style={{marginLeft: 300}} onClick={() => setFile("")}>
+                  <DisabledByDefault style={{color: 'gray'}}/>
+                </button>
+                <video className="file" controls>
+                  <source src={URL.createObjectURL(file)} type={"video/mp4"} />
+                  Your browser does not support the video tag.
+                </video>
+              </div>
             )}
           </>
         )}

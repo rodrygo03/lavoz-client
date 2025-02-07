@@ -20,6 +20,7 @@ import { Link } from "react-router-dom";
 import DefaultUser from "../../assets/pfp.jpg";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import TextareaAutosize from 'react-textarea-autosize';
+import InsertLinkIcon from '@mui/icons-material/InsertLink';
 
 const SubmitAd = () => {
   const { t } = useTranslation();
@@ -66,6 +67,7 @@ const SubmitAd = () => {
   const [gifOpen, setGifOpen] = useState(false);
   const [gif, setGif] = useState(null);
   const [tooManyFiles, setTooManyFiles] = useState(false);
+  const [url, setURL] = useState(null);
 
   const isVideo = (url) => {
     if (url === null) return false;
@@ -173,9 +175,10 @@ const SubmitAd = () => {
     }
     setError(false);
     setDisplayMessage(0);
-    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, hasFlag: false });
+    mutation.mutate({ desc, img0: imgUrls[0], img1: imgUrls[1], img2: imgUrls[2], img3: imgUrls[3], img4: imgUrls[4], img5: imgUrls[5], img6: imgUrls[6], img7: imgUrls[7], img8: imgUrls[8], img9: imgUrls[9], category, hasFlag: false, url });
     setDesc("");
     setGif(null);
+    setURL("");
     setTooManyFiles(false);
     setIsSubmitting(false);
     setShowConfirmation(true);
@@ -466,6 +469,19 @@ const SubmitAd = () => {
                     {files.length >= 1 ? <span>{t('share.addMore')}</span>
                     : <span>{t('share.add')}</span>
                     }
+                  </div>
+                </label>
+                <label>
+                  <div className="item">
+                    <InsertLinkIcon style={{color: "gray"}}/>
+                    <input
+                      name="url"
+                      type="text"
+                      placeholder={t('share.url')}
+                      value={url}
+                      style={{border: "none", fontSize: 12, color: "blue"}}
+                      onChange={e => setURL(e.target.value)}
+                    />
                   </div>
                 </label>
               </div>

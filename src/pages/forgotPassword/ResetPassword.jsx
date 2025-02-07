@@ -58,8 +58,7 @@ const ResetPassword = () => {
 
         try {
           // Update password
-          await makeRequest.put("https://poststation-api-391b2ced2a59.herokuapp.com/api/auth/resetPassword", {email, password: inputs.password});
-        //   await makeRequest.put("http://localhost:8800/api/auth/resetPassword", {email, password: inputs.password});
+          await makeRequest.put("/auth/resetPassword", {email, password: inputs.password});
           setDone(true);
           console.log("done")
         } catch (err) {
