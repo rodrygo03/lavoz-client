@@ -160,12 +160,12 @@ const Register = () => {
         {/* Similar modification for confirmPassword */}
         {visible === true ? (
           <div className="passwords">
-            <input placeholder={t('register.confirm')} type="text" name="confirmPassword" onChange={handleChange} />
+            <input placeholder={t('register.confirm')} type="text" name="confirmPassword" onChange={handleChange} onKeyDown={(e) => e.key === 'Enter' ? handleClick : ""}/>
             <VisibilityIcon className="eye" onClick={() => setVisible(!visible)} />
           </div>
         ) : (
           <div className="passwords">
-            <input placeholder={t('register.confirm')} type="password" name="confirmPassword" onChange={handleChange} />
+            <input placeholder={t('register.confirm')} type="password" name="confirmPassword" onChange={handleChange} onKeyDown={(e) => e.key === 'Enter' ? handleClick : ""}/>
             <VisibilityOffIcon className="eye" onClick={() => setVisible(!visible)} />
           </div>
         )}
