@@ -152,7 +152,7 @@ const SubmitEvent = () => {
                 <button className="x" style={{marginLeft: 300}} onClick={() => setFile("")}>
                   <DisabledByDefault style={{color: 'gray'}}/>
                 </button>
-                <video className="file" controls preload="auto" muted>
+                <video className="file" controls playsInline muted preload="metadata" poster={URL.createObjectURL(file)}>
                   <source src={URL.createObjectURL(file)} type={"video/mp4"} />
                   Your browser does not support the video tag.
                 </video>
