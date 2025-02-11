@@ -90,7 +90,9 @@ const SubmitEvent = () => {
             src={currentUser.profilePic}
             alt=""
           />
-          <h2>{t('events.submit')}</h2>
+          {/* <h2>{t('events.submit')}</h2> */}
+          <h2>THIS IS A TEST CHANGE</h2>
+
       </div>
       <form>
           <input
@@ -179,8 +181,7 @@ const SubmitEvent = () => {
           </label>
         </div>
         <div className="right">
-          {/* <button onClick={handleClick}>{t('share.post')}</button> */}
-          <button onClick={handleClick}>POST TEST 🚀</button>
+          <button onClick={handleClick}>{t('share.post')}</button>
           console.log("SubmitEvent component is loaded");
 
 
