@@ -181,6 +181,8 @@ const SubmitEvent = () => {
         <div className="right">
           {/* <button onClick={handleClick}>{t('share.post')}</button> */}
           <button onClick={handleClick}>POST TEST 🚀</button>
+          console.log("SubmitEvent component is loaded");
+
 
         </div>
       </div>
