@@ -53,6 +53,7 @@ function App() {
           <div style={{ display: "flex", height: '95%', width: '100%' }}>
             <LeftBar/>
             <div className="mainSection" style={{ width: "100%", margin: 0, flex: 10 }}>
+              <h1 style={{ color: "red", textAlign: "center" }}>TEST DEPLOYMENT</h1>
               <Outlet />
             </div>
             {/* <RightBar /> */}

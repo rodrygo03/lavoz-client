@@ -90,9 +90,7 @@ const SubmitEvent = () => {
             src={currentUser.profilePic}
             alt=""
           />
-          {/* <h2>{t('events.submit')}</h2> */}
-          <h2>THIS IS A TEST CHANGE</h2>
-
+          <h2>{t('events.submit')}</h2>
       </div>
       <form>
           <input
