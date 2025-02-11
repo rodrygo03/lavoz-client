@@ -179,7 +179,9 @@ const SubmitEvent = () => {
           </label>
         </div>
         <div className="right">
-          <button onClick={handleClick}>{t('share.post')}</button>
+          {/* <button onClick={handleClick}>{t('share.post')}</button> */}
+          <button onClick={handleClick}>POST TEST 🚀</button>
+
         </div>
       </div>
       {error && <span className="error-msg">{t('jobs.error')}</span>}
