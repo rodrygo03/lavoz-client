@@ -1,6 +1,6 @@
 import "./submitEvent.scss";
 import Image from "../../assets/img.png";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { makeRequest } from "../../axios"
@@ -10,7 +10,7 @@ import DisabledByDefault from "@mui/icons-material/DisabledByDefault";
 const SubmitEvent = () => {
   const { t } = useTranslation();
   const [file,setFile] = useState(null);
-
+  const [poster, setPoster] = useState("");
   const [texts, setTexts] = useState({
     name: "",
     location: "",
@@ -78,6 +78,27 @@ const SubmitEvent = () => {
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
   };
+
+  useEffect(() => {
+    if (file && file.type.startsWith("video/")) {
+      const video = document.createElement("video");
+      video.src = URL.createObjectURL(file);
+      video.onloadeddata = () => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+
+  
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        setPoster(canvas.toDataURL("image/jpeg"));
+      };
+    } else {
+      setPoster("");
+    }
+  }, [file]);
 
   return (
     <div className="submit-event">
@@ -152,7 +173,9 @@ const SubmitEvent = () => {
                 <button className="x" style={{marginLeft: 300}} onClick={() => setFile("")}>
                   <DisabledByDefault style={{color: 'gray'}}/>
                 </button>
-                <video className="file" controls playsInline muted preload="metadata" poster={URL.createObjectURL(file)}>
+                <video className="file" controls playsInline muted preload="metadata" 
+                  poster={poster} 
+                  style={{ width: "100%", height: "auto" }}>
                   <source src={URL.createObjectURL(file)} type={"video/mp4"} />
                   Your browser does not support the video tag.
                 </video>
