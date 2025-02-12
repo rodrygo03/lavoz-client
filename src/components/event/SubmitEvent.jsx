@@ -102,6 +102,9 @@ const SubmitEvent = () => {
 
   return (
     <div className="submit-event">
+      <div className="deployment-check">
+        <h2 style={{ color: "green" }}>Deployment is successful!</h2>
+      </div>
       {!currentUser ?
         <div/>
       :
