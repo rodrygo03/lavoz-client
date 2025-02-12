@@ -102,9 +102,6 @@ const SubmitEvent = () => {
 
   return (
     <div className="submit-event">
-      <div className="deployment-check">
-        <h2 style={{ color: "green" }}>Deployment is successful!</h2>
-      </div>
       {!currentUser ?
         <div/>
       :
@@ -200,7 +197,7 @@ const SubmitEvent = () => {
           <label htmlFor="file">
             <div className="item">
               <img src={Image} alt="" />
-              <span>{t('share.add')}</span>
+              <span>{t('share.flag')}</span>
             </div>
           </label>
         </div>
