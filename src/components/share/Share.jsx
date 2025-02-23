@@ -667,7 +667,7 @@ const Share = ({categ}) => {
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
-        {((category !== 'global' && category !== 'latam' && category !== 'local' && category !== 'usa') && desc.length > 500) && <span className="error-msg">Character max exceeded.</span>}
+        {((category !== 'global' && category !== 'latam' && category !== 'local' && category !== 'usa') && desc.length > 4500) && <span className="error-msg">Character max exceeded.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {/* {gifOpen &&
