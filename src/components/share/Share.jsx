@@ -576,9 +576,9 @@ const Share = ({categ}) => {
           <div className="character-count"> 
             <span style={{ color: "darkgray", fontSize: 12 }}>{desc.length}</span>
             {(category === 'global' || category === 'latam' || category === 'local' || category === 'usa') ?
-             <span style={{color: "gray", fontSize: 12}}> / 1500</span> 
+             <span style={{color: "gray", fontSize: 12}}> / 4500</span> 
              :
-             <span style={{color: "gray", fontSize: 12}}> / 500</span>
+             <span style={{color: "gray", fontSize: 12}}> / 4500</span>
             }
           </div>
           <hr />
