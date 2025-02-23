@@ -102,6 +102,9 @@ const SubmitEvent = () => {
 
   return (
     <div className="submit-event">
+      <div style={{ padding: "20px", textAlign: "center", color: "green", fontSize: "24px" }}>
+      <h2>Deployment is successful!</h2>
+      </div>
       {!currentUser ?
         <div/>
       :
@@ -197,7 +200,7 @@ const SubmitEvent = () => {
           <label htmlFor="file">
             <div className="item">
               <img src={Image} alt="" />
-              <span>{t('share.flag')}</span>
+              <span>{t('share.add')}</span>
             </div>
           </label>
         </div>

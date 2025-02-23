@@ -517,7 +517,9 @@ const Share = ({categ}) => {
                   placeholder={t('share.create')} 
                   onChange={e=>setDesc(e.target.value)} 
                   value={desc}
-                  maxLength={1500}
+                  maxLength={4500}
+                  minRows={15}  
+                  // style={{ width: "100%", padding: "10px", fontSize: "16px" }} 
                 />
                 :
                 <TextareaAutosize
@@ -525,7 +527,8 @@ const Share = ({categ}) => {
                   placeholder={t('share.create')} 
                   onChange={e=>setDesc(e.target.value)} 
                   value={desc}
-                  maxLength={500}
+                  maxLength={4500}
+                  minRows={15}  
                 />
               }
           </div>
