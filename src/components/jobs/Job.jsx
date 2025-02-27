@@ -20,6 +20,7 @@ import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonIcon from '@mui/icons-material/Person';
 import EmailIcon from '@mui/icons-material/Email';
 import { useTranslation } from "react-i18next";
+import InsertLink from "@mui/icons-material/InsertLink";
 
 const Job = ({ job }) => {
   const { t, i18n } = useTranslation();
@@ -70,6 +71,19 @@ const Job = ({ job }) => {
     }
   };
 
+  function ensureAbsoluteUrl(url) {
+    // Check if the URL starts with http://, https://, or www.
+    if (!url.match(/^(https?:\/\/|www\.)/)) {
+      // If it doesn't start with any, add https://www.
+      return `https://www.${url}`;
+    } else if (url.match(/^www\./)) {
+      // If it starts with www., add https:// only.
+      return `https://${url}`;
+    }
+    // If it starts with http:// or https://, return as is.
+    return url;
+  };
+
   return (
     <div className="job">
       <div className="container">
@@ -99,6 +113,14 @@ const Job = ({ job }) => {
         </div>
         
         <div className="content">
+          {job.url && job.url != "" &&
+            <div className="row">
+                <InsertLink/>
+                <span>
+                  <a className="link" href={ensureAbsoluteUrl(job.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{job.url}</a>
+                </span>
+            </div>
+          }
             <div className="row">
                 <PaidIcon/>
                 <span>{job.pay}</span>

@@ -407,14 +407,14 @@ const PostAd = () => {
         </div>
         }
       </div>
-    :
-      showConfirmation ?
-      <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
-        <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
-        <p className="confirmationText">{t('share.confirmationText')}</p>
-        {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
-      </div>
+    // :
+    //   showConfirmation ?
+    //   <div className="container" style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+    //     <CheckCircleIcon style={{color: "grey", fontSize: "3em"}}/>
+    //     <h2 className="confirmationHeading">{t('share.confirmationHeading')}</h2>
+    //     <p className="confirmationText">{t('share.confirmationText')}</p>
+    //     {/* <button className="confirmationButton" onClick={() => setShowConfirmation(false)}>{t('share.submitMore')}</button> */}
+    //   </div>
     :
       <div className="container">
       <div className="top">
