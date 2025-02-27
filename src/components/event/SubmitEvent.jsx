@@ -102,9 +102,6 @@ const SubmitEvent = () => {
 
   return (
     <div className="submit-event">
-      <div style={{ padding: "20px", textAlign: "center", color: "green", fontSize: "24px" }}>
-      <h2>Deployment is successful!</h2>
-      </div>
       {!currentUser ?
         <div/>
       :
@@ -206,9 +203,6 @@ const SubmitEvent = () => {
         </div>
         <div className="right">
           <button onClick={handleClick}>{t('share.post')}</button>
-          console.log("SubmitEvent component is loaded");
-
-
         </div>
       </div>
       {error && <span className="error-msg">{t('jobs.error')}</span>}
