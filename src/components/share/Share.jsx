@@ -517,7 +517,9 @@ const Share = ({categ}) => {
                   placeholder={t('share.create')} 
                   onChange={e=>setDesc(e.target.value)} 
                   value={desc}
-                  maxLength={1500}
+                  maxLength={4500}
+                  minRows={15}  
+                  // style={{ width: "100%", padding: "10px", fontSize: "16px" }} 
                 />
                 :
                 <TextareaAutosize
@@ -525,7 +527,8 @@ const Share = ({categ}) => {
                   placeholder={t('share.create')} 
                   onChange={e=>setDesc(e.target.value)} 
                   value={desc}
-                  maxLength={500}
+                  maxLength={4500}
+                  minRows={15}  
                 />
               }
           </div>
@@ -573,9 +576,9 @@ const Share = ({categ}) => {
           <div className="character-count"> 
             <span style={{ color: "darkgray", fontSize: 12 }}>{desc.length}</span>
             {(category === 'global' || category === 'latam' || category === 'local' || category === 'usa') ?
-             <span style={{color: "gray", fontSize: 12}}> / 1500</span> 
+             <span style={{color: "gray", fontSize: 12}}> / 4500</span> 
              :
-             <span style={{color: "gray", fontSize: 12}}> / 500</span>
+             <span style={{color: "gray", fontSize: 12}}> / 4500</span>
             }
           </div>
           <hr />
@@ -664,7 +667,7 @@ const Share = ({categ}) => {
           </div>
         </div>
         {error === 'no-category' && <span className="error-msg">Please select a category.</span>}
-        {((category !== 'global' && category !== 'latam' && category !== 'local' && category !== 'usa') && desc.length > 500) && <span className="error-msg">Character max exceeded.</span>}
+        {((category !== 'global' && category !== 'latam' && category !== 'local' && category !== 'usa') && desc.length > 4500) && <span className="error-msg">Character max exceeded.</span>}
         {tooManyFiles && <span className="error-msg">{t('share.ten')}</span>}
         {displayMessage === 1 && <span className="error-msg">{t('share.error')}</span>}
         {/* {gifOpen &&
