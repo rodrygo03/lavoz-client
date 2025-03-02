@@ -32,28 +32,18 @@
     }
 
     .section {
-      width: 100%;
-      max-width: 1400px;
-      justify-content: center;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
 
     .section iframe {
-      width: 1400px; 
-      height: 500px;
-      transform: scale(1.5); 
-      transform-origin: center;
-      overflow: hidden;
+      width: 200%;  
+      height: 440px;
+      max-width: 800px;
+      margin: auto;
     }
-    .section iframe {
-      pointer-events: none; 
-    }
-    
-    .section iframe *:nth-child(n+2) {
-      display: none; 
-    }
+
     
     .title {
       margin: 50px 0px 20px 0px; 
