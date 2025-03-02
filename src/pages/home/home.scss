@@ -47,7 +47,14 @@
       transform-origin: center;
       overflow: hidden;
     }
-
+    .section iframe {
+      pointer-events: none; 
+    }
+    
+    .section iframe *:nth-child(n+2) {
+      display: none; 
+    }
+    
     .title {
       margin: 50px 0px 20px 0px; 
       font-size: 25px;
