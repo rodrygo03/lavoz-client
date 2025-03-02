@@ -32,16 +32,17 @@
     }
 
     .section {
+      width: 100%;
+      max-width: 1400px;
+      justify-content: center;
       display: flex;
-      flex-direction: column;
-      align-items: center;
     }
 
     .section iframe {
       width: 100%; 
+      min-width: 900px;  
       max-width: 1400px; 
       height: 500px;
-      margin-bottom: 20px;
     }
 
     .title {
