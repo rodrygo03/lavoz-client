@@ -41,9 +41,14 @@
       width: 100%; 
       max-width: 1400px; 
       height: 500px;
-      transform: scale(1.2);  
-      transform-origin: center;
+      margin-bottom: 20px;
     }
+
+    .title {
+      margin: 50px 0px 20px 0px; 
+      font-size: 25px;
+    }
+    
 
     .categories {
       padding-bottom: 20px;
