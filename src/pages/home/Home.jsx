@@ -46,7 +46,8 @@ const Home = () => {
         <h3 className="title">{t('categories.newsArticles')}</h3>
         <Posts categories={["news", "local", "latam", "usa"]} />
       </div>
-      <RightBar style={{alignSelf: "center"}}/>
+      <RightBar style={{ width: "100%", maxWidth: "600px", margin: "auto" }} />
+      {/* <RightBar style={{alignSelf: "center"}}/> */}
     </div>
   );
 }
