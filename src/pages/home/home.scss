@@ -1,5 +1,75 @@
 @import "../../style.scss";
 
+// .home {
+//   @include themify($themes) {
+//     padding: 20px 0px;
+//     background-color: themed("bgSoft");
+//     display: flex;
+//     flex-direction: row;
+
+//     @include mobile {
+//       padding: 5px;
+//     }
+
+//     @include tablet {
+//       padding: 10px;
+//     }
+
+//     .leftHome {
+//       padding: 0px 50px;
+//       display: flex;
+//       flex-direction: column;
+//       flex: 9;
+//       overflow: hidden;
+
+//       @include mobile {
+//         padding: 0px;
+//       }
+  
+//       @include tablet {
+//         padding: 0px;
+//       }
+//     }
+
+//     .section {
+//       display: flex;
+//       flex-direction: column;
+//     }
+
+//     .categories {
+//       padding-bottom: 20px;
+//       display: flex;
+//       flex-wrap: wrap;
+//       gap: 10px;
+//     }
+
+//     .title {
+//       margin: 35px 0px 20px 0px;
+//       color: themed("textColor");
+//       font-size: 25px;
+
+//       @include mobile {
+//         font-size: 18px;  // smaller font size for mobile
+//       }
+//     }
+
+//     .widget {
+//       border-radius: 10px;
+//       padding: 5px 10px;
+//       background-color: #6D1D1D;
+//       color: white;
+//       border: 1px lightgray solid;
+//       align-items: center;
+//       display: flex;
+//       gap: 10px;
+
+//       &.inactive {
+//         background-color: themed("bg");
+//         color: themed("textColor");
+//       }
+//     }
+//   }
+// }
 .home {
   @include themify($themes) {
     padding: 20px 0px;
@@ -25,7 +95,7 @@
       @include mobile {
         padding: 0px;
       }
-  
+
       @include tablet {
         padding: 0px;
       }
@@ -36,11 +106,43 @@
       flex-direction: column;
     }
 
-    .categories {
-      padding-bottom: 20px;
+    .carousel {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      iframe {
+        width: 100%;
+        max-width: 600px;
+        height: 440px;
+        border-radius: 10px;
+      }
+
+      .nav-button {
+        position: absolute;
+        background-color: rgba(0, 0, 0, 0.5);
+        color: white;
+        border: none;
+        padding: 10px 15px;
+        font-size: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        z-index: 10;
+        transition: background 0.3s ease;
+
+        &.left {
+          left: 10px;
+        }
+
+        &.right {
+          right: 10px;
+        }
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.7);
+        }
+      }
     }
 
     .title {
@@ -49,23 +151,7 @@
       font-size: 25px;
 
       @include mobile {
-        font-size: 18px;  // smaller font size for mobile
-      }
-    }
-
-    .widget {
-      border-radius: 10px;
-      padding: 5px 10px;
-      background-color: #6D1D1D;
-      color: white;
-      border: 1px lightgray solid;
-      align-items: center;
-      display: flex;
-      gap: 10px;
-
-      &.inactive {
-        background-color: themed("bg");
-        color: themed("textColor");
+        font-size: 18px; // smaller font size for mobile
       }
     }
   }
