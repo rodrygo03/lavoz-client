@@ -5,9 +5,7 @@
     padding: 20px 0px;
     background-color: themed("bgSoft");
     display: flex;
-    // flex-direction: row;
-    flex-direction: column; 
-    align-items: center; 
+    flex-direction: row;
 
     @include mobile {
       padding: 5px;
