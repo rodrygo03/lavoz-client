@@ -41,10 +41,11 @@
     }
 
     .section iframe {
-      width: 100%; 
-      min-width: 900px;  
-      max-width: 1400px; 
+      width: 1400px; 
       height: 500px;
+      transform: scale(1.5); 
+      transform-origin: center;
+      overflow: hidden;
     }
 
     .title {
