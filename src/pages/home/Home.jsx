@@ -20,13 +20,11 @@ const Home = () => {
         <MostLiked />
         <div className="section">
           <h3 className="title">{t('categories.news')}</h3>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {i18next.language != 'es' ?
-              <iframe title="news-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameBorder="0"></iframe>
-              :
-              <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameBorder="0"></iframe>
-            }
-          </div>
+          {i18next.language != 'es' ?
+            <iframe title="news-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameBorder="0"></iframe>
+            :
+            <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameBorder="0"></iframe>
+          }
           <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {i18next.language !== 'es' ?
@@ -35,18 +33,18 @@ const Home = () => {
               <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/d8GmDRgqSgMFd8FD" frameBorder="0"></iframe>
             }
           </div>
-            { currentUser &&
-            <div>
-              <h3 className="title">Moments</h3>
-              <Stories />
-            </div>
-          }
-          <h3 className="title">Social</h3>
-          <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
-
-          <h3 className="title">{t('categories.newsArticles')}</h3>
-          <Posts categories={["news", "local", "latam", "usa"]} />
         </div>
+        { currentUser &&
+          <div>
+            <h3 className="title">Moments</h3>
+            <Stories />
+          </div>
+        }
+        <h3 className="title">Social</h3>
+        <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
+
+        <h3 className="title">{t('categories.newsArticles')}</h3>
+        <Posts categories={["news", "local", "latam", "usa"]} />
       </div>
       <RightBar style={{alignSelf: "center"}}/>
     </div>

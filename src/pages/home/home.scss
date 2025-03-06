@@ -34,27 +34,7 @@
     .section {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      // width: 100%; 
-      // margin: 20px 0;
     }
-
-    .section iframe {
-      width: 100%;  
-      height: 440px;
-      max-width: 800px;
-      transform: scaleX(1.3);
-      transform-origin: top; 
-      border: none;
-      overflow: hidden;
-    }
-
-    
-    .title {
-      margin: 50px 0px 20px 0px; 
-      font-size: 25px;
-    }
-    
 
     .categories {
       padding-bottom: 20px;
