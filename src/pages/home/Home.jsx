@@ -35,18 +35,18 @@ const Home = () => {
               <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/d8GmDRgqSgMFd8FD" frameBorder="0"></iframe>
             }
           </div>
-        </div>
-        { currentUser &&
-          <div>
-            <h3 className="title">Moments</h3>
-            <Stories />
-          </div>
-        }
-        <h3 className="title">Social</h3>
-        <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
+            { currentUser &&
+            <div>
+              <h3 className="title">Moments</h3>
+              <Stories />
+            </div>
+          }
+          <h3 className="title">Social</h3>
+          <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
 
-        <h3 className="title">{t('categories.newsArticles')}</h3>
-        <Posts categories={["news", "local", "latam", "usa"]} />
+          <h3 className="title">{t('categories.newsArticles')}</h3>
+          <Posts categories={["news", "local", "latam", "usa"]} />
+        </div>
       </div>
       <RightBar style={{alignSelf: "center"}}/>
     </div>
