@@ -25,6 +25,9 @@ const Home = () => {
             :
             <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameBorder="0"></iframe>
           }
+        </div>
+
+        <div className="section">
           <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             {i18next.language !== 'es' ?
@@ -34,17 +37,22 @@ const Home = () => {
             }
           </div>
         </div>
-        { currentUser &&
-          <div>
+
+        { currentUser && (
+          <div className="section">
             <h3 className="title">Moments</h3>
             <Stories />
           </div>
-        }
-        <h3 className="title">Social</h3>
-        <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
+        )}
+        <div className="section">
+          <h3 className="title">Social</h3>
+          <Posts categories={["general", "greatThings", "tamu", "games", "fans", "advice", "more", "events", "jobs", "ads"]} />
+        </div>
 
-        <h3 className="title">{t('categories.newsArticles')}</h3>
-        <Posts categories={["news", "local", "latam", "usa"]} />
+        <div className="section">
+          <h3 className="title">{t('categories.newsArticles')}</h3>
+          <Posts categories={["news", "local", "latam", "usa"]} />
+        </div>
       </div>
       <RightBar style={{alignSelf: "center"}}/>
     </div>
