@@ -50,7 +50,7 @@ const SubmitEvent = () => {
 
   const handleClick = async (e) => {
     e.preventDefault();
-    if (!texts.name || !texts.location || !texts.date || !texts.time ) {
+    if (texts.name === "" || texts.location  === "" || texts.date  === "" || texts.time === "") {
       setError(true);
       return;
     }
@@ -77,6 +77,7 @@ const SubmitEvent = () => {
 
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+    setError(false);
   };
 
   useEffect(() => {
