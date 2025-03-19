@@ -38,7 +38,11 @@ const Post = ({ post, openComments = false }) => {
   const [gifOpen, setGifOpen] = useState(false);
   const [gif, setGif] = useState(null);
   const navigate = useNavigate();
-
+  
+  
+  const MAX_LENGTH = 2250;
+  const PREVIEW_LENGTH = 400;
+  
   const containerStyle = {
     height: 0,
     paddingBottom: '25%',
@@ -451,24 +455,47 @@ const Post = ({ post, openComments = false }) => {
         </div>
         
         <div className="content">
-            {post.article != null ?
-              <div style={{whiteSpace: "pre-line"}}> 
-                {post.article}
+            {(() => {
+              const [isExpanded, setIsExpanded] = useState(false);
+              const postText = post.article != null ? post.article : post.desc;
+              const truncatedPostText = postText.length > MAX_LENGTH ? postText.substring(0, MAX_LENGTH) : postText;
+
+              return (
+                <div style={{ whiteSpace: "pre-line" }}>
+                  {isExpanded
+                    ? truncatedPostText
+                    : truncatedPostText.substring(0, PREVIEW_LENGTH)
+                  }
+                  {truncatedPostText.length > PREVIEW_LENGTH && (
+                    <span
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      style={{ color: "blue", cursor: "pointer", marginLeft: 5 }}
+                    >
+                      {isExpanded ? t('post.seeLess') : t('post.seeMore')}
+                    </span>
+                  )}
+                </div>
+              );
+            })()}
+
+            <div className="centered" style={{ marginTop: 10 }}>
+              {post.img1 === null ? getSingleFile() : getCarousel()}
+            </div>
+
+            {post.url && post.url !== "" && (
+              <div className="row" style={{ alignItems: "center", gap: 10, display: "flex", marginTop: 15 }}>
+                <InsertLink />
+                <a
+                  className="link"
+                  href={ensureAbsoluteUrl(post.url)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ fontSize: 14 }}
+                >
+                  {post.url}
+                </a>
               </div>
-            :
-              <div style={{whiteSpace: "pre-line"}}> 
-                {post.desc}
-              </div>
-            }
-          <div className="centered" style={{marginTop: 10}}>
-            {post.img1 === null ? getSingleFile() : getCarousel()}
-          </div>
-          {post.url && post.url != "" &&
-              <div className="row" style={{alignItems: "center", gap: 10, display: "flex", marginTop: 15}}>
-                  <InsertLink/>
-                  <a className="link" href={ensureAbsoluteUrl(post.url)} target="_blank" rel="noopener noreferrer" style={{fontSize: 14}}>{post.url}</a>
-              </div>
-            }
+            )}
             {post.gifUrl && 
             <div style={containerStyle}>
               <iframe
