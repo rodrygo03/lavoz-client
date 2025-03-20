@@ -38,7 +38,7 @@ const Post = ({ post, openComments = false }) => {
   const [gifOpen, setGifOpen] = useState(false);
   const [gif, setGif] = useState(null);
   const navigate = useNavigate();
-  
+  const [isExpanded, setIsExpanded] = useState(false);
   
   const MAX_LENGTH = 2250;
   const PREVIEW_LENGTH = 400;
@@ -456,7 +456,6 @@ const Post = ({ post, openComments = false }) => {
         
         <div className="content">
             {(() => {
-              const [isExpanded, setIsExpanded] = useState(false);
               const postText = post.article != null ? post.article : post.desc;
               const truncatedPostText = postText.length > MAX_LENGTH ? postText.substring(0, MAX_LENGTH) : postText;
 
