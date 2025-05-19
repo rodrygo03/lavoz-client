@@ -116,3 +116,10 @@
     }
   }
 }
+
+.logo {
+  height: auto;
+  max-width: 200px; // optional cap to prevent it from being too large
+  object-fit: contain;
+  display: block;
+}

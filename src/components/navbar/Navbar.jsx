@@ -18,6 +18,8 @@ import { makeRequest } from "../../axios";
 
 import "./navbar.scss";
 
+import Logo from "../../assets/Postsstationlogo.png";
+
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
   const { currentUser, clearUser } = useContext(AuthContext);
@@ -50,7 +52,7 @@ const Navbar = () => {
     <div className="navbar">
       <div className="left">
         <Link to="/" style={{ textDecoration: "none" }}>
-          <span>Postsstation</span>
+          <img src={Logo} alt="Postsstation Logo" className="logo" />
         </Link>
         <Link to='/' className="pc" style={{ textDecoration: "none", color: "inherit", display: 'flex' }}>
           <HomeOutlinedIcon className="pc" style={{ justifyContent: "center", alignItems: "center" }} />
