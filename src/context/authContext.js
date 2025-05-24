@@ -15,18 +15,23 @@ export const AuthContextProvider = ({ children }) => {
     });
 
     setCurrentUser(res.data)
+    localStorage.setItem("user", JSON.stringify(res.data));
   };
 
   const updateUser = (userData) => {
     setCurrentUser(userData);
+    localStorage.setItem("user", JSON.stringify(userData));
   };
 
   const clearUser = () => {
     localStorage.removeItem("user");
+    setCurrentUser(null);
   }
 
   useEffect(() => {
-    localStorage.setItem("user", JSON.stringify(currentUser));
+    if (currentUser)  {
+      localStorage.setItem("user", JSON.stringify(currentUser));
+    }
   }, [currentUser]);
 
   return (

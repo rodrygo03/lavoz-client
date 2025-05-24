@@ -192,7 +192,8 @@ i18n
             location: "Location*",
             description: "Description",
             url: "URL",
-            upcoming: "Upcoming Events"
+            upcoming: "Upcoming Events",
+            error: "Please fill in the following fields: "
           },
           login: {
             login: "Login",
@@ -417,7 +418,8 @@ i18n
             location: "Lugar*",
             description: "Descripción",
             url: "URL",
-            upcoming: "Eventos que Vienen"
+            upcoming: "Eventos que Vienen",
+            error: "Por favor, rellene los siguientes campos: "
           },
           login: {
             login: "Acceso",
