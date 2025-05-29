@@ -30,7 +30,7 @@ const Events = () => {
         <div className="market-container">
             <div>
                 <div className="centered">
-                    <SubmitEvent/>
+                    <SubmitEvent key="submit-event"/>
                 </div>
                 <h3 className="subtitle">{t('events.upcoming')}</h3>
                 <div className="grid">
@@ -41,7 +41,7 @@ const Events = () => {
                 <div className="section">
                     <h3 className="subtitle">Posts</h3>
                     <div style={{marginBottom: 20}}/>
-                    <Share categ={"events"}/>
+                    <Share key="share-event" categ={"events"}/>
                     <Posts categories={["events"]}/>
                 </div>  
             </div>   

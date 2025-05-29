@@ -58,7 +58,7 @@ const SubmitEvent = () => {
     if (!texts.location) missingFields.push(t("events.location"));
 
     if (missingFields.length > 0) {
-      setError(`${missingFields.join(", ")}`);
+      setError(`${missingFields.join(", e")}`);
       return;
     }
 
@@ -86,6 +86,7 @@ const SubmitEvent = () => {
   };
 
   useEffect(() => {
+    console.log("SubmitEvent file state:", file);
     if (file && file.type.startsWith("video/")) {
       const video = document.createElement("video");
       video.src = URL.createObjectURL(file);
@@ -195,7 +196,7 @@ const SubmitEvent = () => {
             <div className="left">
               <input
                 type="file"
-                id="file"
+                id="file-event"
                 style={{ display: "none" }}
                 accept=".png, .jpg, .jpeg, .mp4, .mp3, .mov, .m4a"
                 onChange={(e) => setFile(e.target.files[0])}
