@@ -10,6 +10,8 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
+import AnnouncementIcon from '@mui/icons-material/Announcement';
+
 
 const Event = ({ event }) => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -101,6 +103,10 @@ const Event = ({ event }) => {
         </div>
         
         <div className="content">
+            <div className="row">
+              <AnnouncementIcon />
+              <span className="event-category">{event.category}</span>
+            </div>
             <div className="row">
                 <AccessTimeIcon/>
                 <span className="date">{moment(event.date).format('MMMM D, YYYY hh:mm')}</span>

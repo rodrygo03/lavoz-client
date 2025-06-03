@@ -9,10 +9,11 @@
     background-color: themed("bg");
     color: themed("textColor");
     overflow: hidden;
+
     .container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
       .top {
         background-color: #6D1D1D;
@@ -20,9 +21,17 @@
         border-radius: 20px 20px 0px 0px;
         text-align: center;
         padding: 10px 0px;
+
         h3 {
           font-weight: lighter;
           font-size: 25px;
+        }
+
+        .event-category {
+          font-size: 0.75em;
+          font-weight: 500;
+          margin-top: 5px;
+          text-align: center;
         }
       }
 
@@ -43,7 +52,7 @@
         justify-content: center;
 
         span {
-            font-size: 12px;
+          font-size: 12px;
         }
 
         .userInfo {
@@ -71,7 +80,6 @@
               font-size: 12px;
             }
           }
-          
         }
       }
 
@@ -97,10 +105,10 @@
         }
 
         video {
-            width: 100%;
-            max-height: 500px;
-            object-fit: cover;
-            margin-top: 20px;
+          width: 100%;
+          max-height: 500px;
+          object-fit: cover;
+          margin-top: 20px;
         }
       }
 
@@ -122,7 +130,7 @@
           gap: 10px;
           cursor: pointer;
           font-size: 14px;
-          
+
           img {
             width: 22px;
             height: 22px;

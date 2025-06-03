@@ -30,7 +30,7 @@ const Events = () => {
         <div className="market-container">
             <div>
                 <div className="centered">
-                    <SubmitEvent key="submit-event"/>
+                    <SubmitEvent categ={null} key="submit-event"/>
                 </div>
                 <h3 className="subtitle">{t('events.upcoming')}</h3>
                 <div className="grid">

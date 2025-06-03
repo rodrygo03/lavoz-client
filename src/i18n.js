@@ -193,7 +193,8 @@ i18n
             description: "Description",
             url: "URL",
             upcoming: "Upcoming Events",
-            error: "Please fill in the following fields: "
+            error: "Please fill in the following fields: ",
+            categ: "Category"
           },
           login: {
             login: "Login",
@@ -419,7 +420,8 @@ i18n
             description: "Descripción",
             url: "URL",
             upcoming: "Eventos que Vienen",
-            error: "Por favor, rellene los siguientes campos: "
+            error: "Por favor, rellene los siguientes campos: ",
+            categ: "Categoría"
           },
           login: {
             login: "Acceso",
