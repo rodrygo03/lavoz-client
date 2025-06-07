@@ -1,7 +1,8 @@
 import axios from "axios"
 
+const isProduction = process.env.REACT_APP_IS_PRODUCTION === "true";
+
 export const makeRequest = axios.create({
-    baseURL: "https://server.postsstation.com/api/",
-    // baseURL: "http://localhost:8800/api/",
+    baseURL: isProduction ? "https://server.postsstation.com/api/" : process.env.REACT_APP_NETWORK_ADDR,
     withCredentials: true,
 });
