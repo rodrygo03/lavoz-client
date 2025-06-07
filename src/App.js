@@ -39,6 +39,8 @@ import { RecoveryContext } from "./context/recoveryContext";
 import Shorts from "./pages/shorts/Shorts";
 
 function App() {
+  // console.log("App loaded — Env BASE URL:", process.env.REACT_APP_NETWORK_ADDR);
+
   const { currentUser } = useContext(AuthContext);
   
   const { darkMode } = useContext(DarkModeContext);
