@@ -398,7 +398,7 @@ const Share = ({categ}) => {
               <button className="x-carousel" style={{marginLeft: 300}} onClick={() => handleX(index)}>
                 <DisabledByDefault style={{color: 'gray'}}/>
               </button>
-              <video controls>
+    					<video controls>
                 <source src={URL.createObjectURL(file) + "#t=0.001"} className="file" type={"video/mp4"} />
                 Your browser does not support the video tag.
               </video>
@@ -425,10 +425,10 @@ const Share = ({categ}) => {
           <img className="file" alt="" src={URL.createObjectURL(files[0])} />
           ) : 
           (
-          <video className="file" controls>
-            <source src={URL.createObjectURL(files[0])} type={"video/mp4"} />
-            Your browser does not support the video tag.
-          </video>
+						<video controls preload="metadata" poster={URL.createObjectURL(files[0])} className="file">
+							<source src={URL.createObjectURL(files[0]) + "#t=0.001"} type={"video/mp4"} />
+							Your browser does not support the video tag.
+						</video>
           )
         }
         </>

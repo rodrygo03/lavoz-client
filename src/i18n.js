@@ -194,7 +194,7 @@ i18n
             url: "URL",
             upcoming: "Upcoming Events",
             error: "Please fill in the following fields: ",
-            categ: "Category"
+            category: "Category"
           },
           login: {
             login: "Login",
