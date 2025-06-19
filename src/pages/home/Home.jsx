@@ -21,9 +21,18 @@ const Home = () => {
         <div className="section">
           <h3 className="title">{t('categories.news')}</h3>
           {i18next.language != 'es' ?
-            <iframe title="news-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_eG80xEQg7RyXilCP" frameBorder="0"></iframe>
+            <iframe title="news-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_uyYrMmgWWaF69e0M" frameBorder="0"></iframe>
             :
-            <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_IyVFQ0LMLGfzPeU6" frameBorder="0"></iframe>
+            <iframe title="news-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_EeLNdyLLpuYAovrj" frameBorder="0"></iframe>
+          }
+        </div>
+
+        <div className="section">
+          <h3 className="title">{t('tamu.tamu')}</h3>
+          {i18next.language != 'es' ?
+            <iframe title="tamu-english" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_Vla9Lh2zzuM6diy3" frameBorder="0"></iframe>
+            :
+            <iframe title="tamu-spanish" width="100%" height="440" src="https://rss.app/embed/v1/carousel/_N0wzxrQ4tvROvxUB" frameBorder="0"></iframe>
           }
         </div>
 
