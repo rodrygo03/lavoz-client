@@ -164,6 +164,18 @@
             .date {
               font-size: 12px;
             }
+
+            .categ {
+              font-size: 10px;
+              font-weight: 500;
+              color: gray;
+              background-color: #f0f0f0;
+              padding: 2px 6px;
+              border-radius: 8px;
+              width: fit-content;
+              margin-top: 2px;
+              text-transform: capitalize;
+            }
           }
           
         }

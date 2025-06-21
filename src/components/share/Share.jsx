@@ -35,10 +35,6 @@ const Share = ({categ}) => {
       onSelect: () => setCategory("general"),
     },
     {
-      label: t('categories.jobs'),
-      onSelect: () => setCategory("jobs"),
-    },
-    {
       label: t('categories.events'),
       onSelect: () => setCategory("events"),
     },
@@ -127,6 +123,37 @@ const Share = ({categ}) => {
       label: t('categories.fans'),
       onSelect: () => setCategory("fans"),
     },   
+  ];
+  const jobOptions = 
+  [
+    {
+      label: t('categories.construction'),
+      onSelect: () => setCategory("construction")
+    },
+    {
+      label: t('jobs.restaurant'),
+      onSelect: () => setCategory("restaurant")
+    },
+    {
+      label: t('categories.general'),
+      onSelect: () => setCategory("general")
+    },
+    {
+      label: t('jobs.students'),
+      onSelect: () => setCategory("students")
+    },
+    {
+      label: t('jobs.office'),
+      onSelect: () => setCategory("office")
+    },
+    {
+      label: t('jobs.sales'),
+      onSelect: () => setCategory("sales")
+    },
+    {
+      label: t('jobs.temporary'),
+      onSelect: () => setCategory("temporary")
+    },
   ];
 
   const [files, setFiles] = useState([]);
@@ -601,6 +628,14 @@ const Share = ({categ}) => {
                 </Dropdown>
                 : pathname === '/news' ?
                 <Dropdown items={newsOptions}>
+                  {({ isOpen, onClick }) => (
+                    <button type="button" onClick={onClick} className={"category-label"}>
+                      {category === null ? "Select Category *" : category}
+                    </button>
+                  )}
+                </Dropdown>
+                : pathname === '/jobs' ?
+                <Dropdown items={jobOptions}>
                   {({ isOpen, onClick }) => (
                     <button type="button" onClick={onClick} className={"category-label"}>
                       {category === null ? "Select Category *" : category}

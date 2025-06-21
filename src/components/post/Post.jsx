@@ -429,6 +429,8 @@ const Post = ({ post, openComments = false }) => {
     return url;
   }
 
+  const jobCategories = ["construction", "restaurant", "general", "students", "office", "sales", "temporary"];
+
   return (
     <div className="post">
       <div className="container">
@@ -443,6 +445,8 @@ const Post = ({ post, openComments = false }) => {
                 <span className="name">{post.username}</span>
               </Link>
               <span className="date">{moment(post.createdAt).fromNow()}</span>
+              {/* Display only if job: displays job category */}
+              {jobCategories.includes(post.category) && (<span className="categ">{post.category}</span>)}
             </div>
             {post.flag === 1 &&
               <img className="flag" src={Tamu}/>

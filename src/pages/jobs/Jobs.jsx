@@ -34,6 +34,8 @@ const Jobs = () => {
     }
   }
 
+  const jobCategories = ["construction", "restaurant", "general", "students", "office", "sales", "temporary"];
+
   return (
     <div className="jobs">
         <div className="background">
@@ -78,7 +80,7 @@ const Jobs = () => {
                     {t('jobs.sales')}
                 </button>
                 <button className={selectedCategory === "temporary" ? "widget" : "widget inactive"} onClick={() => handleCategoryPress("temporary")}>
-                    {t('jobs.temporary')}
+                    {t('jobs.temporary')} 
                 </button>
             </div>
             <div className="grid">
@@ -89,8 +91,8 @@ const Jobs = () => {
                 <div className="section">
                     <h3 className="subtitle">Posts</h3>
                     <div style={{marginBottom: 20}}/>
-                    <Share categ={"jobs"}/>
-                    <Posts categories={["jobs"]}/>
+                    <Share categ={null}/>
+                    <Posts categories={jobCategories}/>
                 </div> 
             </div>
         </div>
