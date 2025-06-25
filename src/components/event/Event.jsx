@@ -109,7 +109,7 @@ const Event = ({ event }) => {
             </div>
             <div className="row">
                 <AccessTimeIcon/>
-                <span className="date">{moment(event.date).format('MMMM D, YYYY hh:mm')}</span>
+                <span className="date">{moment(event.date).format('MMMM D, YYYY hh:mm A')}</span>
             </div>
             <div className="row">
                 <LocationOnIcon/>
