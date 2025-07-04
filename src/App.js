@@ -6,7 +6,9 @@ import {
   Route,
   Outlet,
   Navigate,
+  useNavigate,
 } from "react-router-dom";
+import { setNavigate } from "./utils/navigation";
 import Navbar from "./components/navbar/Navbar";
 import LeftBar from "./components/leftBar/LeftBar";
 import RightBar from "./components/rightBar/RightBar";
@@ -47,6 +49,16 @@ function App() {
 
   const queryClient = new QueryClient();
 
+  const NavigationWrapper = () => {
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+      setNavigate(navigate);
+    }, [navigate]);
+
+    return <Layout />;
+  };
+
   const Layout = () => {
     return (
       <QueryClientProvider client={queryClient}>
@@ -86,7 +98,7 @@ function App() {
   const router = createBrowserRouter([
     {
       path: "/",
-      element: <Layout />,
+      element: <NavigationWrapper />,
       children: [
         {
           path: "/",
@@ -146,7 +158,7 @@ function App() {
       path: "/",
       element: (
         <ProtectedRoute>
-          <Layout />
+          <NavigationWrapper />
         </ProtectedRoute>
       ),
       children: [
