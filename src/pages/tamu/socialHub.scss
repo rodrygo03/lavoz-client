@@ -1,0 +1,100 @@
+@import "../../style.scss";
+
+.social-hub {
+  @include themify($themes) {
+    padding: 30px 50px;
+    @include mobile {
+      padding: 10px;
+    }
+    @include tablet {
+      padding: 20px;
+    }
+
+    .social-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      
+      .social-header {
+        text-align: center;
+        margin-bottom: 40px;
+        
+        h2 {
+          color: themed("textColor");
+          margin-bottom: 15px;
+          font-size: 32px;
+          font-weight: bold;
+          
+          @include mobile {
+            font-size: 24px;
+          }
+        }
+        
+        .tagline {
+          color: themed("textColorSoft");
+          font-size: 18px;
+          font-style: italic;
+          
+          @include mobile {
+            font-size: 16px;
+          }
+        }
+      }
+      
+      .social-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        width: 100%;
+        
+        @include mobile {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+        
+        .social-button {
+          .main-button {
+            width: 100%;
+            padding: 30px;
+            border: none;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #6D1D1D 0%, #8B2F2F 100%);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(109, 29, 29, 0.3);
+            
+            &:hover {
+              transform: translateY(-5px);
+              box-shadow: 0 10px 25px rgba(109, 29, 29, 0.4);
+              background: linear-gradient(135deg, #8B2F2F 0%, #6D1D1D 100%);
+            }
+            
+            h3 {
+              font-size: 22px;
+              font-weight: bold;
+              margin-bottom: 10px;
+              
+              @include mobile {
+                font-size: 18px;
+              }
+            }
+            
+            p {
+              font-size: 16px;
+              opacity: 0.9;
+              line-height: 1.4;
+              margin: 0;
+              
+              @include mobile {
+                font-size: 14px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
