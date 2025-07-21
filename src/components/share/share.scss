@@ -256,7 +256,7 @@
         input {
           border: none;
           outline: none;
-          padding: 20px 10px;
+          padding: 10px;
           background-color: transparent;
           width: 60%;
           color: themed("textColor");
@@ -288,8 +288,8 @@
           display: flex;
           justify-content: flex-end;
           .file {
-            width: 300px;
-            height: 300px;
+            width: 200px;
+            height: 200px;
             object-fit: contain;
             border-radius: 0px;
           }
@@ -297,24 +297,24 @@
       }
 
       video {
-        width: 300px;
+        width: 200px;
         object-fit: contain;
         align-self: center;
       }
 
       .file {
-        width: 300px;
-        height: 300px;
+        width: 200px;
+        height: 200px;
         object-fit: contain;
-        max-width: 500px;
+        max-width: 250px;
       }
 
       .filePreview {
-        width: 150px;
-        height: 150px;
+        width: 120px;
+        height: 120px;
         object-fit: contain;
         background-color: themed("border");
-        padding: 10px;
+        padding: 0px;
       }
 
       .loading-circle {
@@ -365,9 +365,9 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: 10px 20px;
+        padding: 1px 10px;
       }
-
+  
       hr {
         margin: 20px 0px;
         border: none;
