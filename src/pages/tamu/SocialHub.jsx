@@ -1,13 +1,13 @@
-import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 import StudyGroups from "./StudyGroups";
 import RecTeams from "./RecTeams";
 import OrgDiscords from "./OrgDiscords";
 import "./socialHub.scss";
 
-const SocialHub = () => {
+const SocialHub = ({ socialView, setSocialView }) => {
   const { t } = useTranslation();
-  const [currentView, setCurrentView] = useState("hub");
+  const currentView = socialView || "hub";
+  const setCurrentView = setSocialView || (() => {});
 
   return (
     <div className="social-hub">

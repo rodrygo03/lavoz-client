@@ -10,6 +10,7 @@ const Tamu = () => {
   const { t, i18n } = useTranslation();
   const [selectedCategory, setSelectedCategory] = useState("tamu");
   const [currentView, setCurrentView] = useState("home");
+  const [socialView, setSocialView] = useState("hub");
 
   const handleCategoryPress = (category) => {
     setSelectedCategory(category);
@@ -30,7 +31,12 @@ const Tamu = () => {
             <span>{t('tamu.desc')}</span>
         </div>
   
-        <TamuNavbar currentView={currentView} setCurrentView={setCurrentView} />
+        <TamuNavbar 
+          currentView={currentView} 
+          setCurrentView={setCurrentView}
+          socialView={socialView}
+          setSocialView={setSocialView}
+        />
         
         {currentView === "home" && (
             <div className="news-container">
@@ -61,7 +67,7 @@ const Tamu = () => {
             </div>
         )}
         
-        {currentView === "social" && <SocialHub />}
+        {currentView === "social" && <SocialHub socialView={socialView} setSocialView={setSocialView} />}
     </div>
   )
 }
