@@ -14,7 +14,7 @@ const Tamu = () => {
 
   const getPostCategories = () => {
     if (selectedCategory === "tamu") {
-      return ["tamu", "games", "advice", "fans"]
+      return ["tamu", "games", "advice", "fans", "deals"]
     } else {
       return selectedCategory;
     }
@@ -47,6 +47,9 @@ const Tamu = () => {
                     </button>
                     <button className={selectedCategory === "fans" ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('fans')}>
                         {t('categories.fans')}
+                    </button>
+                    <button className={selectedCategory === "deals" ? "widget" : "widget inactive"}  onClick = {() => handleCategoryPress('deals')}>
+                        {t('categories.deals')}
                     </button>
                 </div>
                 <Posts categories={getPostCategories()}/>

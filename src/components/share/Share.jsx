@@ -78,6 +78,10 @@ const Share = ({categ}) => {
           label: t('categories.fans'),
           onSelect: () => setCategory("fans"),
         },       
+        {
+          label: t('categories.deals'),
+          onSelect: () => setCategory("deals"),
+        },       
       ],
     },
     {
@@ -122,7 +126,11 @@ const Share = ({categ}) => {
     {
       label: t('categories.fans'),
       onSelect: () => setCategory("fans"),
-    },   
+    },
+    {
+      label: t('categories.deals'),
+      onSelect: () => setCategory("deals"),
+    },     
   ];
   const jobOptions = 
   [

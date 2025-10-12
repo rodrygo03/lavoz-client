@@ -64,7 +64,8 @@ i18n
             home: "Home",
             landscape: "Landscape",
             property: "Property Rental",
-            vehicle: "Vehicles"
+            vehicle: "Vehicles",
+            deals: "Aggie Deals",
           },
           share: {
             create: "Howdy! Create a new post...",
@@ -297,7 +298,8 @@ i18n
             home: "Hogar",
             landscape: "Jardínes",
             property: "Alquiler de propiedad",
-            vehicle: "Vehículos"
+            vehicle: "Vehículos",
+            deals: "Aggie Deals",
           },
           share: {
             create: "Howdy! Hacer nueva publicación...",
