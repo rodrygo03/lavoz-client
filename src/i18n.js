@@ -206,7 +206,7 @@ i18n
             error: "Can't login!"
           },
           register: {
-            desc: "We are a social media outlet, online marketplace, and news platform for Bryan/College Station!",
+            desc: "We are a local social platform for sharing posts that highlight the traditions, values, and spirit of the Aggie community!",
             do: "Do you have an account?",
             question: "Business or personal?",
             business: "Business",
@@ -433,7 +433,7 @@ i18n
             error: "No se puede hacer el login!"
           },
           register: {
-            desc: "¡Somos una red social, mercado virtual, y medio de noticias para Bryan/College Station!",
+            desc: "Somos una plataforma social local para compartir publicaciones que resaltan las tradiciones, los valores y el espíritu de la comunidad Aggie.",
             do: "¿Ya tienes cuenta?",
             question: "¿Negocios o personal?",
             business: "Negocios",
