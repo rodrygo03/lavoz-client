@@ -1,0 +1,101 @@
+@import "../../style.scss";
+
+.aggie-consulting {
+  @include themify($themes) {
+    padding: 30px 50px;
+
+    @include mobile {
+      padding: 10px;
+    }
+
+    @include tablet {
+      padding: 20px;
+    }
+
+    .consulting-header {
+      text-align: center;
+      margin-bottom: 30px;
+
+      h2 {
+        color: themed("textColor");
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+
+        @include mobile {
+          font-size: 24px;
+        }
+      }
+
+      .tagline {
+        color: themed("textColorSoft");
+        font-size: 16px;
+      }
+    }
+
+    .consulting-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .consulting-card {
+      background-color: themed("bgSoft");
+      border: 1px solid rgba(109, 29, 29, 0.15);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(109, 29, 29, 0.3);
+        box-shadow: 0 6px 20px rgba(109, 29, 29, 0.15);
+      }
+    }
+
+    .consulting-type {
+      width: fit-content;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: themed("textColor");
+      background-color: rgba(109, 29, 29, 0.08);
+
+      &.paid {
+        background-color: rgba(46, 125, 50, 0.15);
+        color: #2E7D32;
+      }
+
+      &.unpaid {
+        background-color: rgba(109, 29, 29, 0.12);
+        color: #6D1D1D;
+      }
+    }
+
+    .consulting-company {
+      margin: 0;
+      color: themed("textColor");
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .consulting-project {
+      margin: 0;
+      color: themed("textColor");
+      font-size: 15px;
+    }
+
+    .consulting-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: themed("textColorSoft");
+      font-size: 13px;
+    }
+  }
+}

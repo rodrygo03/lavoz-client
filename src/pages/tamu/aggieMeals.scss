@@ -1,0 +1,87 @@
+@import "../../style.scss";
+
+.aggie-meals {
+  @include themify($themes) {
+    padding: 30px 50px;
+
+    @include mobile {
+      padding: 10px;
+    }
+
+    @include tablet {
+      padding: 20px;
+    }
+
+    .meals-header {
+      text-align: center;
+      margin-bottom: 30px;
+
+      h2 {
+        color: themed("textColor");
+        font-size: 32px;
+        font-weight: 700;
+        margin-bottom: 10px;
+
+        @include mobile {
+          font-size: 24px;
+        }
+      }
+
+      .tagline {
+        color: themed("textColorSoft");
+        font-size: 16px;
+      }
+    }
+
+    .meals-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 20px;
+    }
+
+    .meal-card {
+      background-color: themed("bgSoft");
+      border: 1px solid rgba(109, 29, 29, 0.15);
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+      &:hover {
+        transform: translateY(-2px);
+        border-color: rgba(109, 29, 29, 0.3);
+        box-shadow: 0 6px 20px rgba(109, 29, 29, 0.15);
+      }
+    }
+
+    .meal-day {
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: themed("textColorSoft");
+    }
+
+    .meal-restaurant {
+      margin: 0;
+      color: themed("textColor");
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .meal-deal {
+      margin: 0;
+      color: themed("textColor");
+      font-size: 16px;
+    }
+
+    .meal-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      color: themed("textColorSoft");
+      font-size: 13px;
+    }
+  }
+}

@@ -97,6 +97,10 @@ i18n
             postAd: "Post an Ad",
             shorts : "Shorts",
           },
+          common: {
+            back: "Back",
+            cancel: "Cancel",
+          },
           post: {
             comment: " Comment",
             share: "Share",
@@ -141,6 +145,22 @@ i18n
             tamu: "Texas A&M University",
             desc: "Stay connected with your fellow Aggies.",
             filter: "Filter Posts by Category",
+            aggieMeals: "Aggie Meals",
+            aggieConsulting: "Aggie Consulting",
+            home: "Home",
+          },
+          meals: {
+            title: "Aggie Meals",
+            tagline: "Weekly deals for students around Bryan-College Station",
+            time: "Time:",
+            location: "Location:",
+          },
+          consulting: {
+            title: "Aggie Consulting",
+            tagline: "Short-term projects for students to build experience",
+            compensation: "Comp:",
+            timeframe: "Timeline:",
+            location: "Location:",
           },
           otherPages: {
             greatThings: "Share and discover fun content to connect with other users.",
@@ -331,6 +351,10 @@ i18n
             postAd: "Subir un anuncio",
             shorts: "Videos Cortos",
           },
+          common: {
+            back: "Volver",
+            cancel: "Cancelar",
+          },
           post: {
             comment: " Comentario",
             share: "Compartir",
@@ -369,6 +393,22 @@ i18n
             tamu: "Universidad Texas A&M",
             desc: "Conectar con otros Aggies.",
             filter: "Filtrar los Posts por Categoría",
+            aggieMeals: "Comidas Aggie",
+            aggieConsulting: "Consultoria Aggie",
+            home: "Inicio",
+          },
+          meals: {
+            title: "Comidas Aggie",
+            tagline: "Ofertas semanales para estudiantes en Bryan-College Station",
+            time: "Horario:",
+            location: "Lugar:",
+          },
+          consulting: {
+            title: "Consultoria Aggie",
+            tagline: "Proyectos cortos para estudiantes y experiencia",
+            compensation: "Comp:",
+            timeframe: "Tiempo:",
+            location: "Lugar:",
           },
           otherPages: {
             greatThings: "Compartir contenido divertido y conectar con otros usuarios.",
