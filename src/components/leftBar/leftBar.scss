@@ -25,6 +25,58 @@
   }
 }
 
+.leftBar.pc {
+  width: 72px;
+  padding-right: 0;
+
+  .container {
+    padding: 20px 12px;
+  }
+
+  .menu {
+    .item,
+    .user {
+      justify-content: center;
+    }
+
+    .item span,
+    .user span,
+    .categoryLabel,
+    .subcategoryLabel {
+      opacity: 0;
+      width: 0;
+      overflow: hidden;
+      white-space: nowrap;
+      transition: opacity 0.2s ease;
+    }
+  }
+
+  &:hover,
+  &:focus-within {
+    width: 240px;
+    padding-right: 50px;
+
+    .container {
+      padding: 20px;
+    }
+
+    .menu {
+      .item,
+      .user {
+        justify-content: flex-start;
+      }
+
+      .item span,
+      .user span,
+      .categoryLabel,
+      .subcategoryLabel {
+        opacity: 1;
+        width: auto;
+      }
+    }
+  }
+}
+
 .leftBar {
   @include themify($themes) {
     position: sticky;
@@ -33,7 +85,7 @@
     overflow: scroll;
     background-color: themed("bg");
     color: themed("textColor");
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.5s ease-in-out, width 0.35s ease;
     padding-right: 50px;
 
     @include mobile {
@@ -105,10 +157,10 @@
         background-color: themed("border");
       }
 
-      .menu {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+        .menu {
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
 
         span {
           font-size: 12px;
@@ -138,10 +190,22 @@
 
           img {
             width: 30px;
+            transition: transform 0.2s ease, filter 0.2s ease;
           }
 
           span {
             font-size: 16px;
+          }
+        }
+
+        .item.active {
+          img {
+            transform: scale(1.08);
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+          }
+
+          span {
+            font-weight: 600;
           }
         }
 
@@ -159,7 +223,7 @@
         
       }
 
-      .submenu {
+        .submenu {
         display: flex;
         flex-direction: column;
         gap: 15px;
@@ -192,10 +256,22 @@
 
           img {
             width: 30px;
+            transition: transform 0.2s ease, filter 0.2s ease;
           }
 
           span {
             font-size: 14px;
+          }
+        }
+
+        .item.active {
+          img {
+            transform: scale(1.08);
+            filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+          }
+
+          span {
+            font-weight: 600;
           }
         }
 

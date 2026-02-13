@@ -1,8 +1,8 @@
 import "./rightBar.scss";
 import { Link } from "react-router-dom";
 
-import Free from "../../assets/cart-line-icon.jpg";
-import Merch from "../../assets/outdoor-market.jpg";
+// import Free from "../../assets/cart-line-icon.jpg";
+// import Merch from "../../assets/outdoor-market.jpg";
 import Events from "../../assets/food-trucks.jpg";
 import Games from "../../assets/ball-american-football-icon.jpg";
 import Jobs from "../../assets/briefcase-icon.jpg";
@@ -12,14 +12,14 @@ const RightBar = () => {
     <div className="rightBar">
       <div className="container">
         <div className="item" style={{paddingTop: 0}}>
-          <Link to={"/market"} className="circle-icon" style={{marginTop: 0}}>
+          {/* <Link to={"/market"} className="circle-icon" style={{marginTop: 0}}>
             <img src={Free}/>
             <p>Free Items</p>
           </Link>
           <Link to={"/market"} className="circle-icon">
             <img src={Merch}/>
             <p>Aggie Merch</p>
-          </Link>
+          </Link> */}
           <Link to={"/events"}  className="circle-icon">
             <img src={Events}/>
             <p>BCS Events</p>

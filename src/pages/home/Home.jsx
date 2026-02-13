@@ -36,16 +36,16 @@ const Home = () => {
           }
         </div>
 
-        <div className="section">
-          <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            {i18next.language !== 'es' ?
-              <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/zSH4hCtsZz0XJDmA" frameBorder="0"></iframe>
-              :
-              <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/d8GmDRgqSgMFd8FD" frameBorder="0"></iframe>
-            }
-          </div>
-        </div>
+         {/* <div className="section">
+           <h3 className="title" style={{ marginTop: 0 }}>{t('sections.discover')}</h3>
+           <div style={{ display: 'flex', justifyContent: 'center' }}>
+             {i18next.language !== 'es' ?
+               <iframe title="social-eng" width="100%" height="440" src="https://rss.app/embed/v1/carousel/zSH4hCtsZz0XJDmA" frameBorder="0"></iframe>
+               :
+               <iframe title="social-esp" width="100%" height="440" src="https://rss.app/embed/v1/carousel/d8GmDRgqSgMFd8FD" frameBorder="0"></iframe>
+             }
+           </div>
+         </div> */}
 
         { currentUser && (
           <div className="section">
@@ -63,7 +63,7 @@ const Home = () => {
           <Posts categories={["news", "local", "latam", "usa"]} />
         </div>
       </div>
-      <RightBar style={{alignSelf: "center"}}/>
+      {/* <RightBar style={{alignSelf: "center"}}/> */}
     </div>
   );
 }

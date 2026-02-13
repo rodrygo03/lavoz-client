@@ -21,12 +21,12 @@ import Category from "./components/category/Category";
 import Tamu from "./pages/tamu/Tamu";
 import Users from "./pages/users/Users";
 import News from "./pages/news/News";
-import Market from "./pages/market/Market";
+// import Market from "./pages/market/Market";
 import Events from "./pages/events/Events";
 import Jobs from "./pages/jobs/Jobs";
 import AdPage from "./pages/adPage/AdPage";
 import FirstLogin from "./pages/firstLogin/FirstLogin";
-import Viral from "./pages/viral/Viral";
+// import Viral from "./pages/viral/Viral";
 import Guest from "./pages/guest/Guest";
 import "./style.scss";
 import { useContext, useState, useEffect } from "react";
@@ -38,7 +38,7 @@ import ForgotPassword from "./pages/forgotPassword/forgotPassword";
 import OTPInput from "./pages/forgotPassword/OTPInput";
 import ResetPassword from "./pages/forgotPassword/ResetPassword";
 import { RecoveryContext } from "./context/recoveryContext";
-import Shorts from "./pages/shorts/Shorts";
+// import Shorts from "./pages/shorts/Shorts";
 
 function App() {
   // console.log("App loaded — Env BASE URL:", process.env.REACT_APP_NETWORK_ADDR);
@@ -112,10 +112,10 @@ function App() {
           path: "/news",
           element: <News />,
         },
-        {
-          path: "/market",
-          element: <Market />,
-        },
+        // {
+        //   path: "/market",
+        //   element: <Market />,
+        // },
         {
           path: "/events",
           element: <Events />,
@@ -132,10 +132,10 @@ function App() {
           path: "/tamu",
           element: <Tamu />,
         },
-        {
-          path: "/viral",
-          element: <Viral />,
-        },
+        // {
+        //   path: "/viral",
+        //   element: <Viral />,
+        // },
         {
           path: "/post/:id",
           element: <PostPage />,
@@ -148,10 +148,10 @@ function App() {
           path: "/guest",
           element: <Guest/>
         },
-        {
-          path: "/shorts",
-          element: <Shorts />
-        }
+        // {
+        //   path: "/shorts",
+        //   element: <Shorts />
+        // }
       ],
     },
     {

@@ -1,18 +1,18 @@
 import "./leftBar.scss";
 import Friends from "../../assets/1.png";
 import Groups from "../../assets/2.png";
-import Market from "../../assets/3.png";
+// import Market from "../../assets/3.png";
 import News from "../../assets/5.png";
 import Tamu from "../../assets/tamu.jpg";
 import Jobs from "../../assets/13.png";
 import Events from "../../assets/map.png";
 import Image from "../../assets/12.png";
-import Video from "../../assets/4.png";
-import Camera from "../../assets/9.png";
+// import Video from "../../assets/4.png";
+// import Camera from "../../assets/9.png";
 import Ad from "../../assets/11.png"
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import axios from "axios";
@@ -24,9 +24,17 @@ import { makeRequest } from "../../axios";
 const LeftBar = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const location = useLocation();
   const [err, setErr] = useState(null);
   const { currentUser, clearUser } = useContext(AuthContext);
   const [sidebarOpen, setSidebarOpen] = useState(true);
+
+  const isActivePath = (path, exact = false) => {
+    if (exact) {
+      return location.pathname === path;
+    }
+    return location.pathname.startsWith(path);
+  };
 
 
   return (
@@ -65,48 +73,48 @@ const LeftBar = () => {
             }
 
             <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/", true) ? " active" : ""}`}>
                   <img src={Groups} alt="" />
                   <span>{t('sections.home')}</span>
               </div>
             </Link>
-            <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
+            {/* <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Market} alt="" />
                   <span>Market</span>
               </div>
-            </Link>
+            </Link> */}
             <Link to={"/jobs"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/jobs") ? " active" : ""}`}>
                   <img src={Jobs} alt="" />
                   <span>{t('categories.jobs')}</span>
               </div>
             </Link>
             <Link to={"/events"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/events") ? " active" : ""}`}>
                   <img src={Events} alt="" />
                   <span>{t('categories.events')}</span>
               </div>
             </Link>
             <Link to={"/news"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/news") ? " active" : ""}`}>
                   <img src={News} alt="" />
                   <span>{t('categories.news')}</span>
               </div>
             </Link>
             <Link to={"/greatThings"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/greatThings") ? " active" : ""}`}>
                   <img src={Image} alt="" />
                   <span>{t('categories.greatThings')}</span>
               </div>
             </Link>
             <Link to={"/tamu"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/tamu") ? " active" : ""}`}>
                   <img src={Tamu} alt="" />
                   <span>{t('categories.tamu')}</span>
               </div>
             </Link>
-            <Link to={"/viral"} style={{ textDecoration: "none", color: "inherit" }}>
+            {/* <Link to={"/viral"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Video} alt="" />
                   <span>{t('sections.discover')}</span>
@@ -117,7 +125,7 @@ const LeftBar = () => {
                   <img src={Camera} alt="" />
                   <span>{t('sections.shorts')}</span>
               </div>
-            </Link>
+            </Link> */}
             {
               currentUser &&
               <Link to={"/users"} style={{ textDecoration: "none", color: "inherit" }}>
@@ -168,48 +176,48 @@ const LeftBar = () => {
             }
 
             <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/", true) ? " active" : ""}`}>
                   <img src={Groups} alt="" />
                   <span>{t('sections.home')}</span>
               </div>
             </Link>
-            <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
+            {/* <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Market} alt="" />
                   <span>Market</span>
               </div>
-            </Link>
+            </Link> */}
             <Link to={"/jobs"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/jobs") ? " active" : ""}`}>
                   <img src={Jobs} alt="" />
                   <span>{t('categories.jobs')}</span>
               </div>
             </Link>
             <Link to={"/events"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/events") ? " active" : ""}`}>
                   <img src={Events} alt="" />
                   <span>{t('categories.events')}</span>
               </div>
             </Link>
             <Link to={"/news"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/news") ? " active" : ""}`}>
                   <img src={News} alt="" />
                   <span>{t('categories.news')}</span>
               </div>
             </Link>
             <Link to={"/greatThings"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/greatThings") ? " active" : ""}`}>
                   <img src={Image} alt="" />
                   <span>{t('categories.greatThings')}</span>
               </div>
             </Link>
             <Link to={"/tamu"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className="item">
+              <div className={`item${isActivePath("/tamu") ? " active" : ""}`}>
                   <img src={Tamu} alt="" />
                   <span>{t('categories.tamu')}</span>
               </div>
             </Link>
-            <Link to={"/viral"} style={{ textDecoration: "none", color: "inherit" }}>
+            {/* <Link to={"/viral"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Video} alt="" />
                   <span>{t('sections.discover')}</span>
@@ -220,7 +228,7 @@ const LeftBar = () => {
                   <img src={Camera} alt="" />
                   <span>{t('sections.shorts')}</span>
               </div>
-            </Link>
+            </Link> */}
             {
               currentUser &&
               <Link to={"/users"} style={{ textDecoration: "none", color: "inherit" }}>
