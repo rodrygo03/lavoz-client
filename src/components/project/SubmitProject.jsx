@@ -1,0 +1,103 @@
+import "./submitProject.scss";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/authContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import { useTranslation } from "react-i18next";
+
+const SubmitProject = () => {
+  const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
+
+  const [texts, setTexts] = useState({
+    title: "",
+    description: "",
+    skills: "",
+    timeline: "",
+    deliverables: "",
+  });
+  const [error, setError] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleChange = (e) => {
+    setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setError(false);
+  };
+
+  const mutation = useMutation({
+    mutationFn: (project) => makeRequest.post("/projects", project),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["projects"]);
+      setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "" });
+      setSubmitted(true);
+      setTimeout(() => setSubmitted(false), 3000);
+    },
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!texts.title.trim() || !texts.description.trim()) {
+      setError(true);
+      return;
+    }
+    mutation.mutate(texts);
+  };
+
+  return (
+    <div className="submit-project">
+      <div className="container">
+        <div className="top">
+          <img src={currentUser.profilePic} alt="" />
+          <h2>{t("projects.post")}</h2>
+        </div>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            value={texts.title}
+            onChange={handleChange}
+            placeholder={t("projects.titleField")}
+          />
+          <textarea
+            name="description"
+            value={texts.description}
+            onChange={handleChange}
+            placeholder={t("projects.descField")}
+            rows={3}
+          />
+          <input
+            type="text"
+            name="skills"
+            value={texts.skills}
+            onChange={handleChange}
+            placeholder={t("projects.skillsPlaceholder")}
+          />
+          <input
+            type="text"
+            name="timeline"
+            value={texts.timeline}
+            onChange={handleChange}
+            placeholder={t("projects.timelinePlaceholder")}
+          />
+          <textarea
+            name="deliverables"
+            value={texts.deliverables}
+            onChange={handleChange}
+            placeholder={t("projects.deliverablesPlaceholder")}
+            rows={2}
+          />
+          {error && <span className="error-msg">{t("projects.error")}</span>}
+          {submitted && <span className="success-msg">Project posted!</span>}
+          <div className="footer">
+            <button type="submit" disabled={mutation.isLoading}>
+              {t("share.post")}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default SubmitProject;

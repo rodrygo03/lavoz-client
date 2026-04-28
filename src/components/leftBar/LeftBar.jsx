@@ -9,7 +9,8 @@ import Events from "../../assets/map.png";
 import Image from "../../assets/12.png";
 // import Video from "../../assets/4.png";
 // import Camera from "../../assets/9.png";
-import Ad from "../../assets/11.png"
+import Ad from "../../assets/11.png";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -78,6 +79,14 @@ const LeftBar = () => {
                   <span>{t('sections.home')}</span>
               </div>
             </Link>
+            {currentUser &&
+              <Link to={"/projects"} style={{ textDecoration: "none", color: "inherit" }}>
+                <div className={`item${isActivePath("/projects") ? " active" : ""}`}>
+                  <WorkOutlineIcon style={{ width: 20, height: 20 }} />
+                  <span>{t('projects.browse')}</span>
+                </div>
+              </Link>
+            }
             {/* <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Market} alt="" />
@@ -181,6 +190,14 @@ const LeftBar = () => {
                   <span>{t('sections.home')}</span>
               </div>
             </Link>
+            {currentUser &&
+              <Link to={"/projects"} style={{ textDecoration: "none", color: "inherit" }}>
+                <div className={`item${isActivePath("/projects") ? " active" : ""}`}>
+                  <WorkOutlineIcon style={{ width: 20, height: 20 }} />
+                  <span>{t('projects.browse')}</span>
+                </div>
+              </Link>
+            }
             {/* <Link to={"/market"} style={{ textDecoration: "none", color: "inherit" }}>
               <div className="item">
                   <img src={Market} alt="" />

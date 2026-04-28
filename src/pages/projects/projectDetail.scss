@@ -1,0 +1,143 @@
+@import "../../style.scss";
+
+.project-detail {
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    min-height: 100%;
+
+    .back-row {
+      padding: 20px 50px 0;
+
+      @include mobile { padding: 12px; }
+      @include tablet { padding: 16px; }
+
+      a {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        color: themed("textColorSoft");
+        text-decoration: none;
+        font-size: 14px;
+
+        &:hover { color: themed("textColor"); }
+      }
+    }
+
+    .state {
+      display: block;
+      text-align: center;
+      color: themed("textColorSoft");
+      padding: 60px 0;
+      font-style: italic;
+    }
+
+    .card {
+      max-width: 700px;
+      margin: 20px 50px;
+      background-color: themed("bg");
+      border-radius: 20px;
+      box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+      overflow: hidden;
+
+      @include mobile { margin: 12px; }
+      @include tablet { margin: 16px; }
+
+      .card-header {
+        background-color: #6D1D1D;
+        color: white;
+        padding: 24px 28px;
+        text-align: center;
+
+        h1 {
+          font-size: 24px;
+          font-weight: lighter;
+          margin: 10px 0;
+        }
+
+        .status-badge {
+          display: inline-block;
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          padding: 2px 10px;
+          border-radius: 20px;
+
+          &.open   { background-color: #2ecc71; }
+          &.closed { background-color: #888; }
+        }
+
+        .posted-by {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 10px;
+          font-size: 12px;
+          opacity: 0.85;
+
+          img {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+
+          a {
+            color: white;
+            text-decoration: underline;
+          }
+        }
+      }
+
+      .section {
+        padding: 20px 28px;
+        border-bottom: 0.5px solid themed("border");
+
+        &:last-child { border-bottom: none; }
+
+        h3 {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          color: themed("textColorSoft");
+          margin: 0 0 8px;
+        }
+
+        p {
+          font-size: 14px;
+          line-height: 1.6;
+          margin: 0;
+        }
+
+        &.meta-row {
+          display: flex;
+          gap: 12px;
+          align-items: flex-start;
+
+          svg {
+            margin-top: 2px;
+            color: themed("textColorSoft");
+            flex-shrink: 0;
+          }
+        }
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+
+        .skill-tag {
+          background-color: themed("bgSoft");
+          border: 1px solid themed("border");
+          border-radius: 20px;
+          padding: 3px 12px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

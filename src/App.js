@@ -38,6 +38,8 @@ import ForgotPassword from "./pages/forgotPassword/forgotPassword";
 import OTPInput from "./pages/forgotPassword/OTPInput";
 import ResetPassword from "./pages/forgotPassword/ResetPassword";
 import { RecoveryContext } from "./context/recoveryContext";
+import BrowseProjects from "./pages/projects/BrowseProjects";
+import ProjectDetail from "./pages/projects/ProjectDetail";
 // import Shorts from "./pages/shorts/Shorts";
 
 function App() {
@@ -165,6 +167,14 @@ function App() {
         {
           path: "/firstLogin",
           element: <FirstLogin />,
+        },
+        {
+          path: "/projects",
+          element: <BrowseProjects />,
+        },
+        {
+          path: "/projects/:id",
+          element: <ProjectDetail />,
         },
         {
           path: "/notifications",

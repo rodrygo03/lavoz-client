@@ -1,0 +1,134 @@
+@import "../../style.scss";
+
+.project-card {
+  @include themify($themes) {
+    background-color: themed("bg");
+    color: themed("textColor");
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .card-top {
+      background-color: #6D1D1D;
+      color: white;
+      padding: 16px 20px;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+
+      h3 {
+        font-size: 20px;
+        font-weight: lighter;
+        margin: 8px 0;
+      }
+
+      .status-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 10px;
+        border-radius: 20px;
+
+        &.open   { background-color: #2ecc71; color: #fff; }
+        &.closed { background-color: #888;    color: #fff; }
+      }
+
+      .posted-by {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        margin-top: 8px;
+        font-size: 12px;
+        opacity: 0.85;
+
+        img {
+          width: 22px;
+          height: 22px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+
+        a {
+          color: white;
+          &:hover { text-decoration: underline; }
+        }
+      }
+    }
+
+    .card-body {
+      padding: 16px 20px;
+      flex: 1;
+
+      .description {
+        font-size: 14px;
+        line-height: 1.5;
+        margin: 0 0 12px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .skills-list {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        margin-bottom: 10px;
+
+        .skills-label {
+          font-size: 12px;
+          color: themed("textColorSoft");
+        }
+
+        .skill-tag {
+          background-color: themed("bgSoft");
+          border: 1px solid themed("border");
+          border-radius: 20px;
+          padding: 2px 10px;
+          font-size: 12px;
+        }
+      }
+
+      .meta-row {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        font-size: 13px;
+        color: themed("textColorSoft");
+      }
+    }
+
+    .card-footer {
+      padding: 12px 20px;
+      display: flex;
+      gap: 10px;
+      border-top: 1px solid themed("border");
+
+      button {
+        border-radius: 5px;
+        padding: 5px 14px;
+        font-size: 13px;
+        cursor: pointer;
+        border: none;
+
+        &.details-btn {
+          background-color: #6D1D1D;
+          color: white;
+          &:hover { background-color: #8a2424; }
+        }
+
+        &.close-btn {
+          background-color: transparent;
+          border: 1px solid themed("border");
+          color: themed("textColorSoft");
+          &:hover { border-color: #6D1D1D; color: #6D1D1D; }
+        }
+      }
+    }
+  }
+}
