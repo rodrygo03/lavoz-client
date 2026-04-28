@@ -1,0 +1,167 @@
+@import "../../style.scss";
+
+.browse-talent {
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    .header {
+      background-color: #6D1D1D;
+      padding: 50px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include mobile { padding: 10px 5px; }
+      @include tablet { padding: 10px; }
+
+      h1 {
+        font-weight: bold;
+        color: white;
+        font-size: 60px;
+        text-align: center;
+        margin: 0;
+
+        @include mobile { font-size: 20px; }
+        @include tablet { font-size: 30px; }
+      }
+    }
+
+    .content {
+      padding: 10px 50px;
+
+      @include mobile { padding: 10px; }
+      @include tablet { padding: 20px; }
+    }
+
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid themed("border");
+      margin: 20px 0;
+
+      .tab {
+        background-color: transparent;
+        border: none;
+        padding: 12px 24px;
+        color: themed("textColor");
+        font-size: 16px;
+        cursor: pointer;
+        width: 160px;
+
+        &:hover { background-color: themed("bg"); }
+
+        &.selected {
+          color: #6D1D1D;
+          font-weight: bold;
+          border-bottom: 2px solid #6D1D1D;
+        }
+      }
+    }
+
+    .search-bar {
+      margin-bottom: 20px;
+
+      input {
+        width: 75vw;
+        padding: 5px 0;
+        border: none;
+        border-bottom: 1px solid themed("border");
+        background-color: transparent;
+        color: themed("textColor");
+        font-size: 14px;
+
+        &::placeholder { color: themed("textColorSoft"); }
+        &:focus { outline: none; border-bottom-color: #6D1D1D; }
+      }
+    }
+
+    .state {
+      display: block;
+      text-align: center;
+      color: themed("textColorSoft");
+      padding: 40px 0;
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .student-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 10px 0 30px;
+
+      .student-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-color: themed("bg");
+        padding: 16px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.18);
+        width: 160px;
+        cursor: pointer;
+        transition: box-shadow 0.2s;
+
+        &:hover {
+          box-shadow: 0px 0px 25px -5px rgba(0, 0, 0, 0.25);
+        }
+
+        .profilePic {
+          width: 80px;
+          height: 80px;
+          border-radius: 50%;
+          object-fit: cover;
+
+          @include mobile { width: 60px; height: 60px; }
+        }
+
+        .name {
+          font-weight: 500;
+          margin-top: 10px;
+          text-align: center;
+          font-size: 14px;
+        }
+
+        .subtitle {
+          font-size: 11px;
+          color: themed("textColorSoft");
+          text-align: center;
+          margin-top: 4px;
+        }
+
+        .skills-list {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+          gap: 4px;
+          margin-top: 8px;
+
+          .skill-tag {
+            background-color: themed("bgSoft");
+            border: 1px solid themed("border");
+            border-radius: 20px;
+            padding: 1px 8px;
+            font-size: 11px;
+
+            &.more {
+              background-color: transparent;
+              border-color: transparent;
+              color: themed("textColorSoft");
+            }
+          }
+        }
+      }
+    }
+
+    .service-feed {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      max-width: 700px;
+      padding-bottom: 30px;
+    }
+  }
+}

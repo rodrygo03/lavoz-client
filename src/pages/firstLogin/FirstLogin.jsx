@@ -21,6 +21,7 @@ const FirstLogin = () => {
       website: currentUser.website,
       language: currentUser.language,
       bio: currentUser.bio,
+      account_type: currentUser.account_type,
       skills: currentUser.skills || '',
       university: currentUser.university || '',
       major: currentUser.major || '',

@@ -18,7 +18,7 @@ const ProjectCard = ({ project }) => {
 
   const closeMutation = useMutation({
     mutationFn: () => makeRequest.put(`/projects/${project.id}/close`),
-    onSuccess: () => queryClient.invalidateQueries(["projects"]),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
   });
 
   const isOwner = currentUser && currentUser.id === project.userId;
@@ -66,7 +66,7 @@ const ProjectCard = ({ project }) => {
           <button
             className="close-btn"
             onClick={() => closeMutation.mutate()}
-            disabled={closeMutation.isLoading}
+            disabled={closeMutation.isPending}
           >
             {t("projects.closeProject")}
           </button>

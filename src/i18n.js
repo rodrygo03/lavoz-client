@@ -261,6 +261,25 @@ i18n
             match: "Passwords don't match.",
             email: "Invalid email address."
           },
+          services: {
+            titleField: "Service title*",
+            descField: "Description*",
+            skillsPlaceholder: "Skills this covers (comma-separated)",
+            availabilityField: "Availability",
+            availabilityPlaceholder: "e.g. Weekends, 10 hrs/week",
+            error: "Title and description are required.",
+            post: "Post a Service",
+          },
+          talent: {
+            browse: "Browse Talent",
+            students: "Students",
+            services: "Services",
+            searchPlaceholder: "Search by skill or name...",
+            noStudents: "No students found.",
+            noServices: "No services listed yet.",
+            postService: "Post a Service",
+            viewProfile: "View Profile",
+          },
           projects: {
             browse: "Browse Projects",
             post: "Post a Project",
@@ -544,6 +563,25 @@ i18n
             password: "La contraseña necesita contener al menos 1 letra minúscula, 1 letra mayúscula, 1 dígito y tener entre 8 y 24 caracteres.",
             match: "Las contraseñas no coinciden.",
             email: "Dirección de correo electrónico esta mál."
+          },
+          services: {
+            titleField: "Título del servicio*",
+            descField: "Descripción*",
+            skillsPlaceholder: "Habilidades que cubre (separadas por coma)",
+            availabilityField: "Disponibilidad",
+            availabilityPlaceholder: "ej. Fines de semana, 10 hrs/semana",
+            error: "El título y la descripción son obligatorios.",
+            post: "Publicar Servicio",
+          },
+          talent: {
+            browse: "Ver Talento",
+            students: "Estudiantes",
+            services: "Servicios",
+            searchPlaceholder: "Buscar por habilidad o nombre...",
+            noStudents: "No se encontraron estudiantes.",
+            noServices: "No hay servicios publicados aún.",
+            postService: "Publicar Servicio",
+            viewProfile: "Ver Perfil",
           },
           projects: {
             browse: "Ver Proyectos",

@@ -40,6 +40,7 @@ import ResetPassword from "./pages/forgotPassword/ResetPassword";
 import { RecoveryContext } from "./context/recoveryContext";
 import BrowseProjects from "./pages/projects/BrowseProjects";
 import ProjectDetail from "./pages/projects/ProjectDetail";
+import BrowseTalent from "./pages/talent/BrowseTalent";
 // import Shorts from "./pages/shorts/Shorts";
 
 function App() {
@@ -167,6 +168,10 @@ function App() {
         {
           path: "/firstLogin",
           element: <FirstLogin />,
+        },
+        {
+          path: "/talent",
+          element: <BrowseTalent />,
         },
         {
           path: "/projects",

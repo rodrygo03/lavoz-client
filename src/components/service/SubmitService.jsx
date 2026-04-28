@@ -1,11 +1,12 @@
-import "./submitProject.scss";
+import "./submitService.scss";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useTranslation } from "react-i18next";
+import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
-const SubmitProject = () => {
+const SubmitService = ({ onClose }) => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
@@ -14,11 +15,9 @@ const SubmitProject = () => {
     title: "",
     description: "",
     skills: "",
-    timeline: "",
-    deliverables: "",
+    availability: "",
   });
   const [error, setError] = useState(false);
-  const [serverError, setServerError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
 
   const handleChange = (e) => {
@@ -26,14 +25,19 @@ const SubmitProject = () => {
     setError(false);
   };
 
+  const [serverError, setServerError] = useState(null);
+
   const mutation = useMutation({
-    mutationFn: (project) => makeRequest.post("/projects", project),
+    mutationFn: (service) => makeRequest.post("/services", service),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["projects"] });
-      setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "" });
+      queryClient.invalidateQueries({ queryKey: ["services"] });
+      setTexts({ title: "", description: "", skills: "", availability: "" });
       setServerError(null);
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+        if (onClose) onClose();
+      }, 2000);
     },
     onError: (err) => {
       setServerError(err?.response?.data || "Something went wrong. Please try again.");
@@ -50,25 +54,22 @@ const SubmitProject = () => {
   };
 
   return (
-    <div className="submit-project">
-      <div className="container">
-        <div className="top">
-          <img src={currentUser.profilePic} alt="" />
-          <h2>{t("projects.post")}</h2>
-        </div>
+    <div className="submit-service">
+      <div className="wrapper">
+        <h2>{t("services.post")}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="title"
             value={texts.title}
             onChange={handleChange}
-            placeholder={t("projects.titleField")}
+            placeholder={t("services.titleField")}
           />
           <textarea
             name="description"
             value={texts.description}
             onChange={handleChange}
-            placeholder={t("projects.descField")}
+            placeholder={t("services.descField")}
             rows={3}
           />
           <input
@@ -76,34 +77,32 @@ const SubmitProject = () => {
             name="skills"
             value={texts.skills}
             onChange={handleChange}
-            placeholder={t("projects.skillsPlaceholder")}
+            placeholder={t("services.skillsPlaceholder")}
           />
           <input
             type="text"
-            name="timeline"
-            value={texts.timeline}
+            name="availability"
+            value={texts.availability}
             onChange={handleChange}
-            placeholder={t("projects.timelinePlaceholder")}
+            placeholder={t("services.availabilityPlaceholder")}
           />
-          <textarea
-            name="deliverables"
-            value={texts.deliverables}
-            onChange={handleChange}
-            placeholder={t("projects.deliverablesPlaceholder")}
-            rows={2}
-          />
-          {error && <span className="error-msg">{t("projects.error")}</span>}
+          {error && <span className="error-msg">{t("services.error")}</span>}
           {serverError && <span className="error-msg">{serverError}</span>}
-          {submitted && <span className="success-msg">Project posted!</span>}
+          {submitted && <span className="success-msg">Service posted!</span>}
           <div className="footer">
             <button type="submit" disabled={mutation.isPending}>
               {t("share.post")}
             </button>
           </div>
         </form>
+        {onClose && (
+          <button className="close" onClick={onClose}>
+            <DisabledByDefaultIcon style={{ color: "red" }} />
+          </button>
+        )}
       </div>
     </div>
   );
 };
 
-export default SubmitProject;
+export default SubmitService;
