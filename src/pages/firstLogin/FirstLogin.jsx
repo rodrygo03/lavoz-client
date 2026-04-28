@@ -3,7 +3,6 @@ import "./firstLogin.scss";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Switch from '@mui/material/Switch';
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
@@ -21,19 +20,14 @@ const FirstLogin = () => {
       city: currentUser.city,
       website: currentUser.website,
       language: currentUser.language,
-      instagram: currentUser.instagram,
-      twitter: currentUser.twitter,
-      facebook: currentUser.facebook,
       bio: currentUser.bio,
-      business_type: currentUser.business_type,
+      skills: currentUser.skills || '',
+      university: currentUser.university || '',
+      major: currentUser.major || '',
+      grad_year: currentUser.grad_year || '',
+      org_name: currentUser.org_name || '',
+      org_type: currentUser.org_type || '',
     });
-    const [checked, setChecked] = useState(currentUser.account_type === 'business');
-
-    const handleToggle = () => {
-      setChecked(!checked);
-      // Update the account_type in the texts state based on the toggle
-      setTexts((prev) => ({ ...prev, account_type: checked ? 'personal' : 'business' }));
-    };
   
     const upload = async (file) => {
       console.log(file)
@@ -48,14 +42,14 @@ const FirstLogin = () => {
     };
   
     const handleChange = (e) => {
-      setTexts((prev) => ({ ...prev, [e.target.name]: [e.target.value] }));
+      setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
   
     const queryClient = useQueryClient();
   
     const mutation = useMutation({
         mutationFn: (user) => {
-            return makeRequest.put("/users", currentUser);
+            return makeRequest.put("/users", user);
         },
         onSuccess: () => {
           // Invalidate and refetch
@@ -94,14 +88,14 @@ const FirstLogin = () => {
 
           <h1>{t('update.welcome')}</h1>
           <div className="welcome-msg">
-            <span>{t('update.start')}</span>
+            <span>{t('update.setupDesc')}</span>
             <br />
             <p className="another-msg">{t('update.optional')}</p>
           </div>
           <form>
             <div className="files">
               <label style={{textAlign: "center"}} htmlFor="cover">
-                <span>Cover Picture</span>
+                <span>{t('update.cover')}</span>
                 <div className="imgContainer">
                   <img
                     src={
@@ -122,7 +116,7 @@ const FirstLogin = () => {
                 onChange={(e) => setCover(e.target.files[0])}
               />
               <label  style={{textAlign: "center"}} htmlFor="profile">
-                <span>Profile Picture</span>
+                <span>{t('update.profilePic')}</span>
                 <div className="imgContainer">
                   <img
                     src={
@@ -144,13 +138,13 @@ const FirstLogin = () => {
               />
             </div>
             <div className="row">
-              <label className="pc-none">Email</label>
+              <label className="pc-none">{t('update.email')}</label>
               <input
                 type="text"
                 value={texts.email}
                 name="email"
                 onChange={handleChange}
-                placeholder={"email"}
+                placeholder={t('update.email')}
               />
             </div>
 
@@ -161,7 +155,7 @@ const FirstLogin = () => {
                 value={texts.password}
                 name="password"
                 onChange={handleChange}
-                placeholder={"Password"}
+                placeholder={t('update.password')}
               />
             </div>
             <div className="row">
@@ -175,13 +169,13 @@ const FirstLogin = () => {
               />
             </div>
             <div className='row'>
-              <label className="pc-none">Bio</label>
+              <label className="pc-none">{t('update.bio')}</label>
               <input
                 type="text"
                 value={texts.bio}
                 name="bio"
                 onChange={handleChange}
-                placeholder="Bio"
+                placeholder={t('update.bio')}
               />
             </div>
             <div className="row">
@@ -235,36 +229,79 @@ const FirstLogin = () => {
               />
             </div> */}
             <div className="row">
-              <label className="pc-none">Website {t('update.link')}</label>
+              <label className="pc-none">{t('update.website')}</label>
               <input
                 type="text"
                 name="website"
                 value={texts.website}
                 onChange={handleChange}
-                placeholder={"Website"}
+                placeholder={t('update.website')}
               />
             </div>
-            <div className="row">
-              <label>{t('update.profile')}</label>
-                <Switch
-                  checked={checked}
-                  onChange={handleToggle}
-                />
-            </div>
-            {checked && 
+            {currentUser.account_type === 'student' && <>
               <div className="row">
-              <label className="pc-none">{t('update.business')}</label>
-              <input
-                type="text"
-                name="business_type"
-                value={texts.business_type}
-                className="toggle"
-                onChange={handleChange}
-                placeholder={t('update.business')}
-              />
+                <label className="pc-none">{t('update.skills')}</label>
+                <input
+                  type="text"
+                  name="skills"
+                  value={texts.skills}
+                  onChange={handleChange}
+                  placeholder={t('update.skillsPlaceholder')}
+                />
               </div>
-            }
-            <span className = "description">{t('update.msg')}</span>
+              <div className="row">
+                <label className="pc-none">{t('update.university')}</label>
+                <select name="university" value={texts.university} onChange={handleChange}>
+                  <option value="">{t('update.selectUniversity')}</option>
+                  <option value="Texas A&M University">Texas A&M University</option>
+                  <option value="Blinn College">Blinn College</option>
+                </select>
+              </div>
+              <div className="row">
+                <label className="pc-none">{t('update.major')}</label>
+                <input
+                  type="text"
+                  name="major"
+                  value={texts.major}
+                  onChange={handleChange}
+                  placeholder={t('update.major')}
+                />
+              </div>
+              <div className="row">
+                <label className="pc-none">{t('update.gradYear')}</label>
+                <input
+                  type="text"
+                  name="grad_year"
+                  value={texts.grad_year}
+                  onChange={handleChange}
+                  placeholder={t('update.gradYearPlaceholder')}
+                />
+              </div>
+            </>}
+
+            {currentUser.account_type === 'local' && <>
+              <div className="row">
+                <label className="pc-none">{t('update.orgName')}</label>
+                <input
+                  type="text"
+                  name="org_name"
+                  value={texts.org_name}
+                  onChange={handleChange}
+                  placeholder={t('update.orgNamePlaceholder')}
+                />
+              </div>
+              <div className="row">
+                <label className="pc-none">{t('update.orgType')}</label>
+                <select name="org_type" value={texts.org_type} onChange={handleChange}>
+                  <option value="">{t('update.selectOrgType')}</option>
+                  <option value="Business">{t('update.orgTypeBusiness')}</option>
+                  <option value="Non-profit">{t('update.orgTypeNonprofit')}</option>
+                  <option value="Resident">{t('update.orgTypeResident')}</option>
+                </select>
+              </div>
+            </>}
+
+            {/* <span className = "description">{t('update.msg')}</span> */}
           </form>
           
           <button className="continue" onClick={getStarted}>{t('update.start')}</button>

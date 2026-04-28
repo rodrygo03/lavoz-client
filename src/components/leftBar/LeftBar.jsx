@@ -135,7 +135,7 @@ const LeftBar = () => {
                 </div>
               </Link>
             }
-            {currentUser && currentUser.account_type != 'personal' &&
+            {currentUser && (currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
               <Link to={"/postad"} style={{ textDecoration: "none", color: "inherit" }}>
                   <div className="item">
                       <img src={Ad} alt="" />
@@ -238,7 +238,7 @@ const LeftBar = () => {
                 </div>
               </Link>
             }
-            {currentUser && currentUser.account_type != 'personal' &&
+            {currentUser && (currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
               <Link to={"/postad"} style={{ textDecoration: "none", color: "inherit" }}>
                   <div className="item">
                       <img src={Ad} alt="" />

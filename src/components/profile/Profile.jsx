@@ -74,12 +74,17 @@ const Profile = ({userId}) => {
                   <span>{data.username}</span>
                   <span className="station"> Station</span>
                 </div>
-                {data.account_type === 'admin' && 
+                {data.account_type === 'admin' &&
                   <div className="business-type">Admin</div>
                 }
-                {data.account_type === 'business' && data.business_type != null &&
-                  <div className="business-type"> 
-                    {data.business_type}
+                {data.account_type === 'local' && data.org_name &&
+                  <div className="business-type">
+                    {data.org_name}{data.org_type ? ` · ${data.org_type}` : ''}
+                  </div>
+                }
+                {data.account_type === 'student' && (data.university || data.major) &&
+                  <div className="business-type">
+                    {[data.university, data.major, data.grad_year].filter(Boolean).join(' · ')}
                   </div>
                 }
                 <div className="bio"> 
@@ -123,6 +128,13 @@ const Profile = ({userId}) => {
                   </div>
                   }
                 </div>
+                {data.account_type === 'student' && data.skills &&
+                  <div className="skills-list">
+                    {data.skills.split(',').map(s => s.trim()).filter(Boolean).map((skill, i) => (
+                      <span key={i} className="skill-tag">{skill}</span>
+                    ))}
+                  </div>
+                }
                 {currentUser && userId === currentUser.id ? (
                   <button onClick={()=>setOpenUpdate(true)}>{t('update.update')}</button>
                 ) :

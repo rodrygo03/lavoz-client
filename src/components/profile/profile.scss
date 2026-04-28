@@ -180,5 +180,22 @@
         }
       }
     }
+
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin: 8px 0;
+
+      .skill-tag {
+        background-color: themed("bgSoft");
+        border: 1px solid themed("border");
+        color: themed("textColor");
+        border-radius: 20px;
+        padding: 3px 12px;
+        font-size: 13px;
+      }
+    }
   }
 }

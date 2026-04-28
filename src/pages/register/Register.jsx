@@ -95,7 +95,7 @@ const Register = () => {
 
   const handleChoice = (choice) => {
     setAcctType(choice);
-    setInputs(prev=>({...prev, account_type: acctType }));
+    setInputs(prev=>({...prev, account_type: choice }));
     setPage(1);
   }
   
@@ -132,15 +132,15 @@ const Register = () => {
           {page === 0 ?
               <div className = "question">
                 <h2>{t('register.question')}</h2>
-                <button className="personal" onClick={() => handleChoice('personal')}>Personal</button>
-                <span className='description'>{t('register.personalDesc')}</span>
-                
-                <button className="business" onClick={() => handleChoice('business')}>{t('register.business')}</button>
-                <span className='description'>{t('register.businessDesc')}</span> 
+                <button className="personal" onClick={() => handleChoice('student')}>{t('register.student')}</button>
+                <span className='description'>{t('register.studentDesc')}</span>
+
+                <button className="business" onClick={() => handleChoice('local')}>{t('register.local')}</button>
+                <span className='description'>{t('register.localDesc')}</span>
               </div>
           : 
               <form>
-                <input type="email" placeholder="Email" name="email" onChange={handleChange}/>
+                <input type="email" placeholder={t('update.email')} name="email" onChange={handleChange}/>
                 <input type="text" placeholder={t('login.username')} name="username" onChange={handleChange}/>
                 {/* {acctType === 'business' ? <input type="text" placeholder={t('register.businessName')} name="name" onChange={handleChange}/>
                 : <input type="text" placeholder={t('update.name')} name="name" onChange={handleChange}/>
