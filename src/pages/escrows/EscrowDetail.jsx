@@ -32,7 +32,19 @@ const EscrowDetail = () => {
     queryFn: () => makeRequest.get(`/escrows/${id}`).then((res) => res.data),
   });
 
-  const invalidate = () => queryClient.invalidateQueries({ queryKey: ["escrow", id] });
+  const { data: artifacts } = useQuery({
+    queryKey: ["artifacts", id],
+    queryFn: () => makeRequest.get(`/artifacts/${id}`).then((res) => res.data),
+    enabled: !!id,
+  });
+
+  // Use the most recent artifact (backend returns newest first)
+  const artifact = artifacts?.[0] ?? null;
+
+  const invalidate = () => {
+    queryClient.invalidateQueries({ queryKey: ["escrow", id] });
+    queryClient.invalidateQueries({ queryKey: ["artifacts", id] });
+  };
 
   const upload = async (f) => {
     const formData = new FormData();
@@ -215,7 +227,7 @@ const EscrowDetail = () => {
               <input
                 id="artifact-file"
                 type="file"
-                accept=".png,.jpg,.jpeg,.pdf,.zip,.mp4,.mov"
+                accept=".png,.jpg,.jpeg,.pdf,.zip,.mp4,.mov,.js,.ts,.jsx,.tsx,.py,.java,.c,.cpp,.cs,.html,.css,.scss,.json,.md,.txt,.rb,.go,.rs,.php,.swift,.kt,.sql"
                 style={{ display: "none" }}
                 onChange={(e) => setFile(e.target.files[0])}
               />
@@ -229,64 +241,70 @@ const EscrowDetail = () => {
         )}
 
         {/* Local — review submitted artifact */}
-        {isLocal && escrow.status === ESCROW_STATUS.SUBMITTED && escrow.artifact && (
+        {isLocal && escrow.status === ESCROW_STATUS.SUBMITTED && (
           <div className="section">
             <h3>{t("escrow.artifact")}</h3>
-            <p className="artifact-desc">{escrow.artifact.description}</p>
-            {escrow.artifact.fileUrl && (
-              <a
-                className="artifact-link"
-                href={escrow.artifact.fileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                {t("share.add")} ↗
-              </a>
+            {artifact ? (
+              <>
+                <p className="artifact-desc">{artifact.description}</p>
+                {artifact.fileUrl && (
+                  <a
+                    className="artifact-link"
+                    href={artifact.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download / View ↗
+                  </a>
+                )}
+                {submitError && <span className="error-msg">{submitError}</span>}
+                <div className="action-row">
+                  <button
+                    className="approve-btn"
+                    onClick={() => approveMutation.mutate()}
+                    disabled={approveMutation.isPending}
+                  >
+                    {t("escrow.approve")}
+                  </button>
+                  <button
+                    className="changes-btn"
+                    onClick={() => requestChangesMutation.mutate()}
+                    disabled={requestChangesMutation.isPending}
+                  >
+                    {t("escrow.requestChanges")}
+                  </button>
+                </div>
+              </>
+            ) : (
+              <span className="state">{t("escrow.noArtifact")}</span>
             )}
-            {submitError && <span className="error-msg">{submitError}</span>}
-            <div className="action-row">
-              <button
-                className="approve-btn"
-                onClick={() => approveMutation.mutate()}
-                disabled={approveMutation.isPending}
-              >
-                {t("escrow.approve")}
-              </button>
-              <button
-                className="changes-btn"
-                onClick={() => requestChangesMutation.mutate()}
-                disabled={requestChangesMutation.isPending}
-              >
-                {t("escrow.requestChanges")}
-              </button>
-            </div>
           </div>
         )}
 
         {/* Show artifact to student in submitted/completed state */}
-        {isStudent && [ESCROW_STATUS.SUBMITTED, ESCROW_STATUS.COMPLETED].includes(escrow.status) && escrow.artifact && (
+        {isStudent && [ESCROW_STATUS.SUBMITTED, ESCROW_STATUS.COMPLETED].includes(escrow.status) && (
           <div className="section">
             <h3>{t("escrow.artifact")}</h3>
-            <p className="artifact-desc">{escrow.artifact.description}</p>
-            {escrow.artifact.fileUrl && (
-              <a
-                className="artifact-link"
-                href={escrow.artifact.fileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Download / View ↗
-              </a>
+            {artifact ? (
+              <>
+                <p className="artifact-desc">{artifact.description}</p>
+                {artifact.fileUrl && (
+                  <a
+                    className="artifact-link"
+                    href={artifact.fileUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Download / View ↗
+                  </a>
+                )}
+              </>
+            ) : (
+              <span className="state">{t("escrow.noArtifact")}</span>
             )}
           </div>
         )}
 
-        {/* No artifact yet message for local on submitted state with no artifact */}
-        {isLocal && escrow.status === ESCROW_STATUS.SUBMITTED && !escrow.artifact && (
-          <div className="section">
-            <span className="state">{t("escrow.noArtifact")}</span>
-          </div>
-        )}
 
         {/* Comments — only on completed escrows (social proof layer) */}
         {escrow.status === ESCROW_STATUS.COMPLETED && escrow.showcasePostId && (
