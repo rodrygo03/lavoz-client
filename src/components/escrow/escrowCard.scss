@@ -1,0 +1,61 @@
+@import "../../style.scss";
+
+.escrow-card {
+  @include themify($themes) {
+    background-color: themed("bg");
+    color: themed("textColor");
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    overflow: hidden;
+    cursor: pointer;
+    transition: box-shadow 0.2s;
+
+    &:hover {
+      box-shadow: 0px 0px 25px -5px rgba(0, 0, 0, 0.28);
+    }
+
+    .card-top {
+      background-color: #6D1D1D;
+      color: white;
+      padding: 14px 20px;
+      border-radius: 20px 20px 0 0;
+      text-align: center;
+
+      h3 {
+        font-size: 18px;
+        font-weight: lighter;
+        margin: 8px 0 0;
+      }
+
+      .status-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 12px;
+        border-radius: 20px;
+        color: white;
+      }
+    }
+
+    .card-body {
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+
+      .row {
+        display: flex;
+        gap: 8px;
+        font-size: 14px;
+
+        .label {
+          font-weight: 600;
+          color: themed("textColorSoft");
+          min-width: 80px;
+        }
+      }
+    }
+  }
+}

@@ -1,15 +1,21 @@
 import "./browseTalent.scss";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import ServiceCard from "../../components/service/ServiceCard";
+import InviteStudent from "../../components/escrow/InviteStudent";
+import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 
 const BrowseTalent = () => {
   const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
   const [tab, setTab] = useState("students");
   const [search, setSearch] = useState("");
+  const [inviteTarget, setInviteTarget] = useState(null); // { id, username }
+
+  const isLocal = currentUser?.account_type === "local";
 
   const { isLoading: usersLoading, error: usersError, data: users } = useQuery({
     queryKey: ["talentUsers"],
@@ -36,6 +42,7 @@ const BrowseTalent = () => {
     user.skills ? user.skills.split(",").map((s) => s.trim()).filter(Boolean) : [];
 
   return (
+    <>
     <div className="browse-talent">
       <div className="header">
         <h1>{t("talent.browse")}</h1>
@@ -76,31 +83,40 @@ const BrowseTalent = () => {
 
             <div className="student-grid">
               {filtered.map((user) => (
-                <Link
-                  key={user.id}
-                  to={`/profile/${user.id}`}
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  <div className="student-card">
-                    <img className="profilePic" src={user.profilePic} alt="" />
-                    <span className="name">{user.username}</span>
-                    {(user.university || user.major) && (
-                      <span className="subtitle">
-                        {[user.university, user.major].filter(Boolean).join(" · ")}
-                      </span>
-                    )}
-                    {skills(user).length > 0 && (
-                      <div className="skills-list">
-                        {skills(user).slice(0, 3).map((skill, i) => (
-                          <span key={i} className="skill-tag">{skill}</span>
-                        ))}
-                        {skills(user).length > 3 && (
-                          <span className="skill-tag more">+{skills(user).length - 3}</span>
-                        )}
-                      </div>
-                    )}
-                  </div>
-                </Link>
+                <div key={user.id} className="student-card-wrapper">
+                  <Link
+                    to={`/profile/${user.id}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                  >
+                    <div className="student-card">
+                      <img className="profilePic" src={user.profilePic} alt="" />
+                      <span className="name">{user.username}</span>
+                      {(user.university || user.major) && (
+                        <span className="subtitle">
+                          {[user.university, user.major].filter(Boolean).join(" · ")}
+                        </span>
+                      )}
+                      {skills(user).length > 0 && (
+                        <div className="skills-list">
+                          {skills(user).slice(0, 3).map((skill, i) => (
+                            <span key={i} className="skill-tag">{skill}</span>
+                          ))}
+                          {skills(user).length > 3 && (
+                            <span className="skill-tag more">+{skills(user).length - 3}</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </Link>
+                  {isLocal && (
+                    <button
+                      className="invite-btn"
+                      onClick={() => setInviteTarget({ id: user.id, username: user.username })}
+                    >
+                      {t("escrow.invite")}
+                    </button>
+                  )}
+                </div>
               ))}
             </div>
           </>
@@ -122,6 +138,15 @@ const BrowseTalent = () => {
         )}
       </div>
     </div>
+
+    {inviteTarget && (
+      <InviteStudent
+        studentId={inviteTarget.id}
+        studentUsername={inviteTarget.username}
+        onClose={() => setInviteTarget(null)}
+      />
+    )}
+    </>
   );
 };
 

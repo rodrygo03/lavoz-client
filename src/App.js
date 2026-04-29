@@ -41,6 +41,8 @@ import { RecoveryContext } from "./context/recoveryContext";
 import BrowseProjects from "./pages/projects/BrowseProjects";
 import ProjectDetail from "./pages/projects/ProjectDetail";
 import BrowseTalent from "./pages/talent/BrowseTalent";
+import MyEscrows from "./pages/escrows/MyEscrows";
+import EscrowDetail from "./pages/escrows/EscrowDetail";
 // import Shorts from "./pages/shorts/Shorts";
 
 function App() {
@@ -172,6 +174,14 @@ function App() {
         {
           path: "/talent",
           element: <BrowseTalent />,
+        },
+        {
+          path: "/escrows",
+          element: <MyEscrows />,
+        },
+        {
+          path: "/escrows/:id",
+          element: <EscrowDetail />,
         },
         {
           path: "/projects",

@@ -40,7 +40,10 @@ const SubmitService = ({ onClose }) => {
       }, 2000);
     },
     onError: (err) => {
-      setServerError(err?.response?.data || "Something went wrong. Please try again.");
+      const data = err?.response?.data;
+      setServerError(
+        typeof data === "string" ? data : data?.message || data?.error || "Something went wrong. Please try again."
+      );
     },
   });
 

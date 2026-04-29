@@ -1,0 +1,55 @@
+@import "../../style.scss";
+
+.my-escrows {
+  @include themify($themes) {
+    background-color: themed("bgSoft");
+    color: themed("textColor");
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+
+    .header {
+      background-color: #6D1D1D;
+      padding: 50px 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      @include mobile { padding: 10px 5px; }
+      @include tablet { padding: 10px; }
+
+      h1 {
+        font-weight: bold;
+        color: white;
+        font-size: 60px;
+        text-align: center;
+        margin: 0;
+
+        @include mobile { font-size: 20px; }
+        @include tablet { font-size: 30px; }
+      }
+    }
+
+    .content {
+      padding: 30px 50px;
+
+      @include mobile { padding: 16px; }
+      @include tablet { padding: 20px; }
+    }
+
+    .state {
+      display: block;
+      text-align: center;
+      color: themed("textColorSoft");
+      padding: 40px 0;
+      font-size: 15px;
+      font-style: italic;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+  }
+}

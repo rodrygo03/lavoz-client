@@ -36,7 +36,10 @@ const SubmitProject = () => {
       setTimeout(() => setSubmitted(false), 3000);
     },
     onError: (err) => {
-      setServerError(err?.response?.data || "Something went wrong. Please try again.");
+      const data = err?.response?.data;
+      setServerError(
+        typeof data === "string" ? data : data?.message || data?.error || "Something went wrong. Please try again."
+      );
     },
   });
 

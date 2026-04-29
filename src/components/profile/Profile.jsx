@@ -11,6 +11,7 @@ import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
 import Update from "../../components/update/Update"
 import SubmitService from "../../components/service/SubmitService";
+import InviteStudent from "../../components/escrow/InviteStudent";
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,7 @@ const Profile = ({userId}) => {
   const { t } = useTranslation();
   const [openUpdate, setOpenUpdate] = useState(false);
   const [openService, setOpenService] = useState(false);
+  const [openInvite, setOpenInvite] = useState(false);
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
   const navigate = useNavigate();
@@ -149,11 +151,18 @@ const Profile = ({userId}) => {
                   "loading"
                 ) : 
                 (
-                  <button onClick={handleFollow}>
-                    {currentUser && relationshipData.includes(currentUser.id)
-                      ? t('users.following')
-                      : t('users.follow')}
-                  </button>
+                  <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
+                    <button onClick={handleFollow}>
+                      {currentUser && relationshipData.includes(currentUser.id)
+                        ? t('users.following')
+                        : t('users.follow')}
+                    </button>
+                    {currentUser?.account_type === 'local' && data.account_type === 'student' && (
+                      <button onClick={() => setOpenInvite(true)}>
+                        {t('escrow.invite')}
+                      </button>
+                    )}
+                  </div>
                 )}
               </div>
             </div>
@@ -163,6 +172,13 @@ const Profile = ({userId}) => {
       }
       {openUpdate && <Update setOpenUpdate={setOpenUpdate} user={data} first={false}/>}
       {openService && <SubmitService onClose={() => setOpenService(false)} />}
+      {openInvite && data && (
+        <InviteStudent
+          studentId={data.id}
+          studentUsername={data.username}
+          onClose={() => setOpenInvite(false)}
+        />
+      )}
     </div>
   );
 };
