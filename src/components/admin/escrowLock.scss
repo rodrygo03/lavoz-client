@@ -1,0 +1,56 @@
+@import "../../style.scss";
+
+.escrow-lock {
+  @include themify($themes) {
+    background-color: themed("bg");
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    padding: 24px 28px;
+    margin-bottom: 30px;
+
+    h3 {
+      font-size: 16px;
+      font-weight: 600;
+      margin: 0 0 16px;
+      color: themed("textColor");
+    }
+
+    form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: flex-end;
+
+      select {
+        flex: 1;
+        min-width: 200px;
+        padding: 8px 10px;
+        border-radius: 8px;
+        border: 1px solid themed("border");
+        background-color: themed("bgSoft");
+        color: themed("textColor");
+        font-size: 14px;
+        font-family: inherit;
+
+        &:focus { outline: none; border-color: #6D1D1D; }
+      }
+
+      .error-msg  { width: 100%; color: red;   font-size: 13px; }
+      .success-msg { width: 100%; color: green; font-size: 13px; }
+
+      button {
+        padding: 8px 20px;
+        border-radius: 5px;
+        background-color: #6D1D1D;
+        color: white;
+        border: none;
+        font-size: 14px;
+        cursor: pointer;
+        white-space: nowrap;
+
+        &:hover:not(:disabled) { background-color: #8a2424; }
+        &:disabled { opacity: 0.5; cursor: not-allowed; }
+      }
+    }
+  }
+}

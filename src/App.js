@@ -43,6 +43,8 @@ import ProjectDetail from "./pages/projects/ProjectDetail";
 import BrowseTalent from "./pages/talent/BrowseTalent";
 import MyEscrows from "./pages/escrows/MyEscrows";
 import EscrowDetail from "./pages/escrows/EscrowDetail";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import { RoleGuard } from "./utils/roleGuard";
 // import Shorts from "./pages/shorts/Shorts";
 
 function App() {
@@ -182,6 +184,14 @@ function App() {
         {
           path: "/escrows/:id",
           element: <EscrowDetail />,
+        },
+        {
+          path: "/admin",
+          element: (
+            <RoleGuard roles={["admin"]}>
+              <AdminDashboard />
+            </RoleGuard>
+          ),
         },
         {
           path: "/projects",

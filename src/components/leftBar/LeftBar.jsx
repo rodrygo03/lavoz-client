@@ -13,6 +13,7 @@ import Ad from "../../assets/11.png";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
+import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
@@ -102,6 +103,14 @@ const LeftBar = () => {
                 <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
                   <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
                   <span>{t('escrow.myEscrows')}</span>
+                </div>
+              </Link>
+            }
+            {currentUser?.account_type === 'admin' &&
+              <Link to={"/admin"} style={{ textDecoration: "none", color: "inherit" }}>
+                <div className={`item${isActivePath("/admin") ? " active" : ""}`}>
+                  <AdminPanelSettingsOutlinedIcon style={{ width: 20, height: 20 }} />
+                  <span>{t('admin.dashboard')}</span>
                 </div>
               </Link>
             }
@@ -229,6 +238,14 @@ const LeftBar = () => {
                 <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
                   <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
                   <span>{t('escrow.myEscrows')}</span>
+                </div>
+              </Link>
+            }
+            {currentUser?.account_type === 'admin' &&
+              <Link to={"/admin"} style={{ textDecoration: "none", color: "inherit" }}>
+                <div className={`item${isActivePath("/admin") ? " active" : ""}`}>
+                  <AdminPanelSettingsOutlinedIcon style={{ width: 20, height: 20 }} />
+                  <span>{t('admin.dashboard')}</span>
                 </div>
               </Link>
             }
