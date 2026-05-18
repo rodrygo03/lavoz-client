@@ -3,7 +3,6 @@ import Register from "./pages/register/Register";
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
   Outlet,
   Navigate,
   useNavigate,
@@ -11,25 +10,13 @@ import {
 import { setNavigate } from "./utils/navigation";
 import Navbar from "./components/navbar/Navbar";
 import LeftBar from "./components/leftBar/LeftBar";
-import RightBar from "./components/rightBar/RightBar";
 import Home from "./pages/home/Home";
 import ProfilePage from "./pages/profile/ProfilePage";
-import Notifs from "./pages/notifications/Notifs";
-import PostPage from "./pages/post/PostPage";
-import Messages from "./pages/messages/Messages";
-import Category from "./components/category/Category";
-import Tamu from "./pages/tamu/Tamu";
-import Users from "./pages/users/Users";
-import News from "./pages/news/News";
-// import Market from "./pages/market/Market";
-import Events from "./pages/events/Events";
-import Jobs from "./pages/jobs/Jobs";
-import AdPage from "./pages/adPage/AdPage";
 import FirstLogin from "./pages/firstLogin/FirstLogin";
 // import Viral from "./pages/viral/Viral";
 import Guest from "./pages/guest/Guest";
 import "./style.scss";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { DarkModeContext } from "./context/darkModeContext";
 import { AuthContext } from "./context/authContext";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
@@ -112,53 +99,13 @@ function App() {
           element: <Home />,
         },
         {
-          path: "/:name",
-          element: <Category />,
-        },
-        {
-          path: "/news",
-          element: <News />,
-        },
-        // {
-        //   path: "/market",
-        //   element: <Market />,
-        // },
-        {
-          path: "/events",
-          element: <Events />,
-        },
-        {
-          path: "/jobs",
-          element: <Jobs />,
-        },
-        {
           path: "/profile/:id",
           element: <ProfilePage />,
-        },
-        {
-          path: "/tamu",
-          element: <Tamu />,
-        },
-        // {
-        //   path: "/viral",
-        //   element: <Viral />,
-        // },
-        {
-          path: "/post/:id",
-          element: <PostPage />,
-        },
-        {
-          path: "/post/:id/open",
-          element: <PostPage />,
         },
         {
           path: "/guest",
           element: <Guest/>
         },
-        // {
-        //   path: "/shorts",
-        //   element: <Shorts />
-        // }
       ],
     },
     {
@@ -200,22 +147,6 @@ function App() {
         {
           path: "/projects/:id",
           element: <ProjectDetail />,
-        },
-        {
-          path: "/notifications",
-          element: <Notifs />,
-        },
-        {
-          path: "/messages",
-          element: <Messages />,
-        },
-        {
-          path: "/users",
-          element: <Users />,
-        },
-        {
-          path: "/postAd",
-          element: <AdPage />,
         },
       ],
     },
