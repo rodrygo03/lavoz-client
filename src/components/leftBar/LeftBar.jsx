@@ -87,8 +87,8 @@ const LeftBar = () => {
               </Link>
             }
 
-            {/* My Escrows — student + local + admin */}
-            {currentUser &&
+            {/* My Escrows — student + local only */}
+            {currentUser && currentUser.account_type !== 'admin' &&
               <Link to={"/escrows"} style={{ textDecoration: "none", color: "inherit" }}>
                 <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
                   <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
@@ -165,8 +165,8 @@ const LeftBar = () => {
               </Link>
             }
 
-            {/* My Escrows — student + local + admin */}
-            {currentUser &&
+            {/* My Escrows — student + local only */}
+            {currentUser && currentUser.account_type !== 'admin' &&
               <Link to={"/escrows"} style={{ textDecoration: "none", color: "inherit" }}>
                 <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
                   <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />

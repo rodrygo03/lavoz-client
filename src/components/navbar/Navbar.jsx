@@ -19,6 +19,8 @@ import { makeRequest } from "../../axios";
 import "./navbar.scss";
 
 import Logo from "../../assets/Postsstationlogo.png";
+import MxFlag from "../../assets/mx.png";
+import UsFlag from "../../assets/us.png";
 
 const Navbar = () => {
   const { toggle, darkMode } = useContext(DarkModeContext);
@@ -63,7 +65,7 @@ const Navbar = () => {
           <DarkModeOutlinedIcon className="pc" onClick={toggle} style={{ cursor: "pointer" }} />
         )}
         <button className="language-toggle" onClick={toggleLng}>
-          <img src={language ? "https://www.postsstation.com/reactions/mx.png" : "https://www.postsstation.com/reactions/us.png"} className="flag" alt="Language Flag"/>
+          <img src={language ? MxFlag : UsFlag} className="flag" alt="Language Flag"/>
         </button>
       </div>
       {currentUser ? (

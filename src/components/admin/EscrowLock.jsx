@@ -22,8 +22,22 @@ const EscrowLock = () => {
     queryFn: () => makeRequest.get("/projects").then((res) => res.data),
   });
 
+  const { data: escrows } = useQuery({
+    queryKey: ["adminEscrows"],
+    queryFn: () => makeRequest.get("/escrows").then((res) => res.data),
+  });
+
   const students = users?.filter((u) => u.account_type === "student") ?? [];
-  const openProjects = projects?.filter((p) => p.status === "open") ?? [];
+
+  const projectsWithEscrow = new Set(
+    (escrows ?? [])
+      .filter((e) => e.status !== "cancelled")
+      .map((e) => e.projectId)
+  );
+
+  const openProjects = (projects ?? []).filter(
+    (p) => p.status === "open" && !projectsWithEscrow.has(p.id)
+  );
 
   const selectedProjectObj = openProjects.find((p) => p.id === Number(projectId));
 

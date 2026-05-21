@@ -360,6 +360,10 @@ i18n
             back: "Back to Projects",
             noProjects: "No open projects yet.",
             closeProject: "Close Project",
+            bcsLocalProjects: "BCS Local Projects",
+            bcsLocals: "BCS Locals",
+            noLocals: "No locals found.",
+            viewAll: "View all",
           },
           adConfirmation: {
             thanks: "Thanks for your submission!",
@@ -724,6 +728,10 @@ i18n
             back: "Volver a Proyectos",
             noProjects: "Aún no hay proyectos abiertos.",
             closeProject: "Cerrar Proyecto",
+            bcsLocalProjects: "Proyectos Locales de BCS",
+            bcsLocals: "Locales de BCS",
+            noLocals: "No se encontraron locales.",
+            viewAll: "Ver todo",
           },
           adConfirmation: {
             thanks: "¡Gracias por tu anuncio!",
