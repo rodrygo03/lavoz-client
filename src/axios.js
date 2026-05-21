@@ -13,7 +13,7 @@ import { navigateTo } from "./utils/navigation";
 // });
 
 export const makeRequest = axios.create({
-    baseURL: "https://server.postsstation.com/api/",
+    baseURL: "https://poststation-api-391b2ced2a59.herokuapp.com/",
     withCredentials: true,
 });
 
