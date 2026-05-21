@@ -84,6 +84,9 @@ const Register = () => {
     try {
       const res = await makeRequest.post("/auth/register", inputs);
       userId = res.data.id;
+      if (res.data.token) {
+        localStorage.setItem("accessToken", res.data.token);
+      }
     } catch (error) {
       console.error("Error:", error);
       setErr("User already exists.");

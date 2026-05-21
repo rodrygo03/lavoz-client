@@ -17,6 +17,14 @@ export const makeRequest = axios.create({
     withCredentials: true,
 });
 
+makeRequest.interceptors.request.use((config) => {
+    const token = localStorage.getItem("accessToken");
+    if (token) {
+        config.headers["Authorization"] = `Bearer ${token}`;
+    }
+    return config;
+});
+
 makeRequest.interceptors.response.use(
     (response) => {
         return response;
@@ -24,6 +32,7 @@ makeRequest.interceptors.response.use(
     (error) => {
         if (error.response && error.response.status === 401) {
             localStorage.removeItem("user");
+            localStorage.removeItem("accessToken");
             navigateTo("/login");
         }
         return Promise.reject(error);

@@ -14,8 +14,11 @@ export const AuthContextProvider = ({ children }) => {
       withCredentials: true,
     });
 
-    setCurrentUser(res.data)
+    setCurrentUser(res.data);
     localStorage.setItem("user", JSON.stringify(res.data));
+    if (res.data.token) {
+      localStorage.setItem("accessToken", res.data.token);
+    }
   };
 
   const updateUser = (userData) => {
@@ -25,6 +28,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const clearUser = () => {
     localStorage.removeItem("user");
+    localStorage.removeItem("accessToken");
     setCurrentUser(null);
   }
 
