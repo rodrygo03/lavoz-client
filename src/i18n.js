@@ -234,7 +234,7 @@ i18n
           },
           login: {
             login: "Login",
-            desc: "We are a posts and content creation media that brings you the latest local news through our network. We invite users to share positive content, we encourage fans and the community to show support for the Texas A&M University Aggies!",
+            desc: "A platform for the Brazos Valley community and the next generation of Aggie talent build something together!",
             dont: "Don't have an account?",
             register: "Register",
             username: "Username",
@@ -602,7 +602,7 @@ i18n
           },
           login: {
             login: "Acceso",
-            desc: "¡Somos una red social que ofrece las noticias locales. Te invito a compartir contenido positivo y muestra apoyo a los Aggies de la Universidad Texas A&M!",
+            desc: "¡Una plataforma donde la comunidad del Valle del Brazos y la proxima generacion de talento Aggie construyen algo juntos!",
             dont: "¿No tienes cuenta?",
             register: "Registrar",
             username: "Nombre de usuario",

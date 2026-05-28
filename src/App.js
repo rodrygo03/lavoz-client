@@ -96,7 +96,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: currentUser ? <Home /> : <Navigate to="/login" />,
         },
         {
           path: "/profile/:id",
