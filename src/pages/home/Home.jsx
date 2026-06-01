@@ -1,14 +1,15 @@
 import "./home.scss";
 import { useContext, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { STATUS_COLORS } from "../../utils/escrowStatus";
 
-const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem }) => {
+const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem, isGuest }) => {
   const rowRef = useRef(null);
+  const navigate = useNavigate();
 
   const scrollByAmount = (direction) => {
     if (!rowRef.current) return;
@@ -16,11 +17,20 @@ const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem })
     rowRef.current.scrollBy({ left: direction * amount, behavior: "smooth" });
   };
 
+  const handleGuestClick = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
+
   return (
     <div className="home-card carousel-card">
       <div className="home-card-header">
         <h3>{title}</h3>
-        <Link to={to}>{linkLabel} →</Link>
+        {isGuest ? (
+          <a href="/login" onClick={handleGuestClick}>{linkLabel} →</a>
+        ) : (
+          <Link to={to}>{linkLabel} →</Link>
+        )}
       </div>
 
       {items.length === 0 ? (
@@ -52,89 +62,17 @@ const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem })
   );
 };
 
-/* ── Student home ── */
-const StudentHome = ({ t }) => {
+/* ── Shared home (students and BCS locals) ── */
+const SharedHome = ({ t, isGuest }) => {
+  const L = (path) => (isGuest ? "/login" : path);
+
   const { data: projects, isLoading: projectsLoading } = useQuery({
     queryKey: ["projects"],
     queryFn: () => makeRequest.get("/projects").then((r) => r.data),
   });
 
   const { data: users, isLoading: usersLoading } = useQuery({
-    queryKey: ["localUsers"],
-    queryFn: () => makeRequest.get("/users/").then((r) => r.data),
-  });
-
-  const { data: escrows, isLoading: escrowsLoading } = useQuery({
-    queryKey: ["escrows", "me"],
-    queryFn: () => makeRequest.get("/escrows/me").then((r) => r.data),
-  });
-
-  const open = projects?.filter((p) => p.status === "open").slice(0, 10) ?? [];
-  const locals = users?.filter((u) => u.account_type === "local").slice(0, 10) ?? [];
-  const myEscrows = escrows?.filter((e) =>
-    ["pending", "active", "submitted", "completed"].includes(e.status)
-  ).slice(0, 10) ?? [];
-
-  return (
-    <div className="home-content">
-
-      <CarouselSection
-        title={t("projects.bcsLocalProjects")}
-        to="/projects"
-        linkLabel={t("projects.viewAll")}
-        emptyText={projectsLoading ? "Loading..." : t("projects.noProjects")}
-        items={projectsLoading ? [] : open}
-        renderItem={(project) => (
-          <Link key={project.id} to={`/projects/${project.id}`} className="carousel-item service-item">
-            <span className="item-title">{project.title}</span>
-            <span className="item-subtitle">{project.username}</span>
-            {project.timeline && <span className="item-meta">{project.timeline}</span>}
-          </Link>
-        )}
-      />
-
-      <CarouselSection
-        title={t("projects.bcsLocals")}
-        to="/users"
-        linkLabel={t("projects.viewAll")}
-        emptyText={usersLoading ? "Loading..." : t("projects.noLocals")}
-        items={usersLoading ? [] : locals}
-        renderItem={(user) => (
-          <Link key={user.id} to={`/profile/${user.id}`} className="carousel-item talent-item">
-            <img src={user.profilePic} alt={user.username} />
-            <span className="item-title">{user.username}</span>
-            <span className="item-subtitle">{user.location || "Local"}</span>
-          </Link>
-        )}
-      />
-
-      <CarouselSection
-        title={t("escrow.myEscrows")}
-        to="/escrows"
-        linkLabel={t("projects.viewAll")}
-        emptyText={escrowsLoading ? "Loading..." : t("escrow.noEscrows")}
-        items={escrowsLoading ? [] : myEscrows}
-        renderItem={(escrow) => (
-          <Link key={escrow.id} to={`/escrows/${escrow.id}`} className="carousel-item escrow-item">
-            <span className="item-title">{escrow.projectTitle}</span>
-            <span className="item-subtitle">{escrow.studentUsername} ↔ {escrow.localUsername}</span>
-            <span
-              className="escrow-status"
-              style={{ backgroundColor: STATUS_COLORS[escrow.status] }}
-            >
-              {t(`escrow.${escrow.status}`)}
-            </span>
-          </Link>
-        )}
-      />
-    </div>
-  );
-};
-
-/* ── Local home ── */
-const LocalHome = ({ t }) => {
-  const { data: users, isLoading: usersLoading } = useQuery({
-    queryKey: ["talentUsers"],
+    queryKey: ["allUsers"],
     queryFn: () => makeRequest.get("/users/").then((r) => r.data),
   });
 
@@ -146,28 +84,44 @@ const LocalHome = ({ t }) => {
   const { data: escrows, isLoading: escrowsLoading } = useQuery({
     queryKey: ["escrows", "me"],
     queryFn: () => makeRequest.get("/escrows/me").then((r) => r.data),
+    enabled: !isGuest,
   });
 
-  const students = users
-    ?.filter((u) => u.account_type === "student")
-    .slice(0, 10) ?? [];
-
+  const open = projects?.filter((p) => p.status === "open").slice(0, 10) ?? [];
+  const locals = users?.filter((u) => u.account_type === "local").slice(0, 10) ?? [];
+  const students = users?.filter((u) => u.account_type === "student").slice(0, 10) ?? [];
   const featuredServices = services?.slice(0, 10) ?? [];
-
-  const activeEscrows = escrows?.filter((e) =>
+  const myEscrows = escrows?.filter((e) =>
     ["pending", "active", "submitted", "completed"].includes(e.status)
   ).slice(0, 10) ?? [];
 
   return (
     <div className="home-content">
       <CarouselSection
+        title={t("projects.bcsLocalProjects")}
+        to="/projects"
+        linkLabel={t("projects.viewAll")}
+        emptyText={projectsLoading ? "Loading..." : t("projects.noProjects")}
+        items={projectsLoading ? [] : open}
+        isGuest={isGuest}
+        renderItem={(project) => (
+          <Link key={project.id} to={L(`/projects/${project.id}`)} className="carousel-item service-item">
+            <span className="item-title">{project.title}</span>
+            <span className="item-subtitle">{project.username}</span>
+            {project.timeline && <span className="item-meta">{project.timeline}</span>}
+          </Link>
+        )}
+      />
+
+      <CarouselSection
         title="Student Services"
         to="/talent"
-        linkLabel="View all"
+        linkLabel={t("projects.viewAll")}
         emptyText={servicesLoading ? "Loading..." : t("talent.noServices")}
         items={servicesLoading ? [] : featuredServices}
+        isGuest={isGuest}
         renderItem={(service) => (
-          <Link key={service.id} to={`/profile/${service.userId}`} className="carousel-item service-item">
+          <Link key={service.id} to={L(`/profile/${service.userId}`)} className="carousel-item service-item">
             <span className="item-title">{service.title}</span>
             <span className="item-subtitle">{service.username}</span>
             {service.availability && <span className="item-meta">{service.availability}</span>}
@@ -176,13 +130,30 @@ const LocalHome = ({ t }) => {
       />
 
       <CarouselSection
+        title={t("projects.bcsLocals")}
+        to="/users"
+        linkLabel={t("projects.viewAll")}
+        emptyText={usersLoading ? "Loading..." : t("projects.noLocals")}
+        items={usersLoading ? [] : locals}
+        isGuest={isGuest}
+        renderItem={(user) => (
+          <Link key={user.id} to={L(`/profile/${user.id}`)} className="carousel-item talent-item">
+            <img src={user.profilePic} alt={user.username} />
+            <span className="item-title">{user.username}</span>
+            <span className="item-subtitle">{user.location || "Local"}</span>
+          </Link>
+        )}
+      />
+
+      <CarouselSection
         title="Student Talent"
         to="/talent"
-        linkLabel="View all"
+        linkLabel={t("projects.viewAll")}
         emptyText={usersLoading ? "Loading..." : t("talent.noStudents")}
         items={usersLoading ? [] : students}
+        isGuest={isGuest}
         renderItem={(user) => (
-          <Link key={user.id} to={`/profile/${user.id}`} className="carousel-item talent-item">
+          <Link key={user.id} to={L(`/profile/${user.id}`)} className="carousel-item talent-item">
             <img src={user.profilePic} alt={user.username} />
             <span className="item-title">{user.username}</span>
             <span className="item-subtitle">{user.university || "Student"}</span>
@@ -190,25 +161,28 @@ const LocalHome = ({ t }) => {
         )}
       />
 
-      <CarouselSection
-        title={t("escrow.myEscrows")}
-        to="/escrows"
-        linkLabel="View all"
-        emptyText={escrowsLoading ? "Loading..." : t("escrow.noEscrows")}
-        items={escrowsLoading ? [] : activeEscrows}
-        renderItem={(escrow) => (
-          <Link key={escrow.id} to={`/escrows/${escrow.id}`} className="carousel-item escrow-item">
-            <span className="item-title">{escrow.projectTitle}</span>
-            <span className="item-subtitle">{escrow.studentUsername} ↔ {escrow.localUsername}</span>
-            <span
-              className="escrow-status"
-              style={{ backgroundColor: STATUS_COLORS[escrow.status] }}
-            >
-              {t(`escrow.${escrow.status}`)}
-            </span>
-          </Link>
-        )}
-      />
+      {!isGuest && (
+        <CarouselSection
+          title={t("escrow.myEscrows")}
+          to="/escrows"
+          linkLabel={t("projects.viewAll")}
+          emptyText={escrowsLoading ? "Loading..." : t("escrow.noEscrows")}
+          items={escrowsLoading ? [] : myEscrows}
+          isGuest={false}
+          renderItem={(escrow) => (
+            <Link key={escrow.id} to={`/escrows/${escrow.id}`} className="carousel-item escrow-item">
+              <span className="item-title">{escrow.projectTitle}</span>
+              <span className="item-subtitle">{escrow.studentUsername} ↔ {escrow.localUsername}</span>
+              <span
+                className="escrow-status"
+                style={{ backgroundColor: STATUS_COLORS[escrow.status] }}
+              >
+                {t(`escrow.${escrow.status}`)}
+              </span>
+            </Link>
+          )}
+        />
+      )}
     </div>
   );
 };
@@ -291,6 +265,7 @@ const Home = () => {
   const { currentUser } = useContext(AuthContext);
 
   const role = currentUser?.account_type;
+  const isGuest = !currentUser;
 
   return (
     <div className="home">
@@ -299,17 +274,8 @@ const Home = () => {
         <p>Brazos Valley Student–Local Marketplace</p>
       </div>
 
-      {role === "student" && <StudentHome t={t} />}
-      {role === "local"   && <LocalHome   t={t} />}
-      {role === "admin"   && <AdminHome   t={t} />}
-
-      {!role && (
-        <div className="home-content">
-          <p className="empty-msg" style={{ textAlign: "center", padding: "40px 0" }}>
-            Welcome! Please <Link to="/login">log in</Link> to get started.
-          </p>
-        </div>
-      )}
+      {(isGuest || role === "student" || role === "local") && <SharedHome t={t} isGuest={isGuest} />}
+      {role === "admin" && <AdminHome t={t} />}
     </div>
   );
 };

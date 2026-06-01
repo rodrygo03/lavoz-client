@@ -31,6 +31,33 @@
       }
     }
 
+    /* Guest prompt banner */
+    .guest-banner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 10px 20px;
+      background-color: themed("bg");
+      border-bottom: 0.5px solid themed("border");
+      font-size: 14px;
+      color: themed("textColorSoft");
+
+      a {
+        color: #6D1D1D;
+        font-weight: 600;
+        text-decoration: none;
+        &:hover { text-decoration: underline; }
+      }
+    }
+
+    /* Blur carousel rows for guests */
+    .guest-blur {
+      filter: blur(3px);
+      pointer-events: none;
+      user-select: none;
+    }
+
     /* Content wrapper */
     .home-content {
       max-width: 760px;

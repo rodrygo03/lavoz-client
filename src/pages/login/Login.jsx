@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, Navigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./login.scss";
 import VisibilityIcon from '@mui/icons-material/Visibility';
@@ -30,7 +30,9 @@ const Login = () => {
     setInputs((prev) => ({...prev, [e.target.name]: e.target.value}));
     setErr(null);
   };
-  const { login } = useContext(AuthContext);
+  const { login, currentUser } = useContext(AuthContext);
+
+  if (currentUser) return <Navigate to="/" replace />;
 
   const handleLogin = async (e) => {
     e.preventDefault()

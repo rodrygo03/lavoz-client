@@ -209,6 +209,11 @@
           }
         }
 
+        .item.guest-item {
+          opacity: 0.5;
+          cursor: pointer;
+        }
+
         .categoryLabel {
           padding-left: 20px;
           font-size: 12px;

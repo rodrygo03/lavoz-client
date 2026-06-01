@@ -31,9 +31,12 @@ makeRequest.interceptors.response.use(
     },
     (error) => {
         if (error.response && error.response.status === 401) {
-            localStorage.removeItem("user");
-            localStorage.removeItem("accessToken");
-            navigateTo("/login");
+            const hasSession = localStorage.getItem("user") || localStorage.getItem("accessToken");
+            if (hasSession) {
+                localStorage.removeItem("user");
+                localStorage.removeItem("accessToken");
+                navigateTo("/login");
+            }
         }
         return Promise.reject(error);
     }

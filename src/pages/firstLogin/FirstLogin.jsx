@@ -282,16 +282,6 @@ const FirstLogin = () => {
 
             {currentUser.account_type === 'local' && <>
               <div className="row">
-                <label className="pc-none">{t('update.orgName')}</label>
-                <input
-                  type="text"
-                  name="org_name"
-                  value={texts.org_name}
-                  onChange={handleChange}
-                  placeholder={t('update.orgNamePlaceholder')}
-                />
-              </div>
-              <div className="row">
                 <label className="pc-none">{t('update.orgType')}</label>
                 <select name="org_type" value={texts.org_type} onChange={handleChange}>
                   <option value="">{t('update.selectOrgType')}</option>
@@ -300,6 +290,18 @@ const FirstLogin = () => {
                   <option value="Resident">{t('update.orgTypeResident')}</option>
                 </select>
               </div>
+              {(texts.org_type === 'Business' || texts.org_type === 'Non-profit') && (
+                <div className="row">
+                  <label className="pc-none">{t('update.orgName')}</label>
+                  <input
+                    type="text"
+                    name="org_name"
+                    value={texts.org_name}
+                    onChange={handleChange}
+                    placeholder={t('update.orgNamePlaceholder')}
+                  />
+                </div>
+              )}
             </>}
 
             {/* <span className = "description">{t('update.msg')}</span> */}

@@ -103,10 +103,16 @@ const EscrowDetail = () => {
     onError: (err) => setSubmitError(extractError(err, "Action failed.")),
   });
 
+  const MAX_ARTIFACT_MB = 100;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!desc.trim()) {
       setSubmitError(t("escrow.submitError"));
+      return;
+    }
+    if (file && file.size > MAX_ARTIFACT_MB * 1024 * 1024) {
+      setSubmitError(`File exceeds ${MAX_ARTIFACT_MB} MB limit.`);
       return;
     }
     let fileUrl = null;
@@ -227,7 +233,7 @@ const EscrowDetail = () => {
               <input
                 id="artifact-file"
                 type="file"
-                accept=".png,.jpg,.jpeg,.pdf,.zip,.mp4,.mov,.js,.ts,.jsx,.tsx,.py,.java,.c,.cpp,.cs,.html,.css,.scss,.json,.md,.txt,.rb,.go,.rs,.php,.swift,.kt,.sql"
+                accept=".png,.jpg,.jpeg,.gif,.svg,.webp,.pdf,.txt,.md,.csv,.docx,.xlsx,.pptx,.zip,.tar,.gz,.rar,.mp4,.mov,.js,.ts,.jsx,.tsx,.py,.java,.c,.cpp,.cs,.html,.css,.scss,.json,.yaml,.yml,.toml,.xml,.rb,.go,.rs,.php,.swift,.kt,.sql,.sh,.bash,.r,.m"
                 style={{ display: "none" }}
                 onChange={(e) => setFile(e.target.files[0])}
               />

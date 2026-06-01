@@ -24,88 +24,86 @@ const LeftBar = () => {
     return location.pathname.startsWith(path);
   };
 
+  /* Redirect guests to /login for any nav item that requires auth */
+  const authLink = (path) => (currentUser ? path : "/login");
+
+  const NavItems = () => (
+    <>
+      {currentUser && (
+        <div className="row">
+          <Link to={`/profile/${currentUser.id}`} style={{ textDecoration: "none", color: "inherit" }}>
+            <div className="user">
+              <img src={currentUser.profilePic} alt="" />
+              <span>{currentUser.username}</span>
+            </div>
+          </Link>
+        </div>
+      )}
+
+      <Link to="/" style={{ textDecoration: "none", color: "inherit" }}>
+        <div className={`item${isActivePath("/", true) ? " active" : ""}`}>
+          <img src={Groups} alt="" />
+          <span>{t('sections.home')}</span>
+        </div>
+      </Link>
+
+      {/* Browse Projects — all users + guests */}
+      {(!currentUser || currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') && (
+        <Link to={authLink("/projects")} style={{ textDecoration: "none", color: "inherit" }}>
+          <div className={`item${isActivePath("/projects") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
+            <WorkOutlineIcon style={{ width: 20, height: 20 }} />
+            <span>{t('projects.browse')}</span>
+          </div>
+        </Link>
+      )}
+
+      {/* Browse Talent — all users + guests */}
+      {(!currentUser || currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') && (
+        <Link to={authLink("/talent")} style={{ textDecoration: "none", color: "inherit" }}>
+          <div className={`item${isActivePath("/talent") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
+            <PeopleOutlineIcon style={{ width: 20, height: 20 }} />
+            <span>{t('talent.browse')}</span>
+          </div>
+        </Link>
+      )}
+
+      {/* My Escrows — logged-in student + local, or guest preview */}
+      {(!currentUser || currentUser.account_type !== 'admin') && (
+        <Link to={authLink("/escrows")} style={{ textDecoration: "none", color: "inherit" }}>
+          <div className={`item${isActivePath("/escrows") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
+            <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
+            <span>{t('escrow.myEscrows')}</span>
+          </div>
+        </Link>
+      )}
+
+      {/* Admin Dashboard — admin only */}
+      {currentUser?.account_type === 'admin' && (
+        <Link to="/admin" style={{ textDecoration: "none", color: "inherit" }}>
+          <div className={`item${isActivePath("/admin") ? " active" : ""}`}>
+            <AdminPanelSettingsOutlinedIcon style={{ width: 20, height: 20 }} />
+            <span>{t('admin.dashboard')}</span>
+          </div>
+        </Link>
+      )}
+    </>
+  );
 
   return (
     <div className='soft'>
-      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed pc" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
-
-      {sidebarOpen && <KeyboardDoubleArrowRightIcon className = "toggle-closed mobile" onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}} />}
-
+      {!sidebarOpen && <KeyboardDoubleArrowRightIcon className="toggle-closed pc" onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray", cursor: "pointer" }} />}
+      {sidebarOpen && <KeyboardDoubleArrowRightIcon className="toggle-closed mobile" onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray", cursor: "pointer" }} />}
 
       <div className={`pc leftBar ${sidebarOpen ? "open" : "closed"}`}>
         <div className="container">
           <div className='menu'>
-            <div className = "toggle">
-              {sidebarOpen ? <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}}/>
-              : <KeyboardDoubleArrowRightIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
+            <div className="toggle">
+              {sidebarOpen
+                ? <KeyboardDoubleArrowLeftIcon onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray", cursor: "pointer" }} />
+                : <KeyboardDoubleArrowRightIcon onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray" }} />
               }
             </div>
-
-            {
-              currentUser && 
-              <div className="row">
-                <Link to={"/profile/"+currentUser.id} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div className="user">
-                    <img
-                      src={currentUser.profilePic}
-                      alt=""
-                    />
-                    <span>{currentUser.username}</span>
-                  </div>
-                </Link>
-                {/* <div className="logout">
-                  <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)}/>
-                  {menuOpen && <button onClick={handleLogout}>Logout</button>}
-                </div> */}
-              </div>
-            }
-
-            <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className={`item${isActivePath("/", true) ? " active" : ""}`}>
-                <img src={Groups} alt="" />
-                <span>{t('sections.home')}</span>
-              </div>
-            </Link>
-
-            {/* Browse Projects — student + local + admin */}
-            {currentUser && (currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
-              <Link to={"/projects"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/projects") ? " active" : ""}`}>
-                  <WorkOutlineIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('projects.browse')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* Browse Talent — local + admin */}
-            {currentUser && (currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
-              <Link to={"/talent"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/talent") ? " active" : ""}`}>
-                  <PeopleOutlineIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('talent.browse')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* My Escrows — student + local only */}
-            {currentUser && currentUser.account_type !== 'admin' &&
-              <Link to={"/escrows"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
-                  <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('escrow.myEscrows')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* Admin Dashboard — admin only */}
-            {currentUser?.account_type === 'admin' &&
-              <Link to={"/admin"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/admin") ? " active" : ""}`}>
-                  <AdminPanelSettingsOutlinedIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('admin.dashboard')}</span>
-                </div>
-              </Link>
-            }
+            <NavItems />
           </div>
         </div>
       </div>
@@ -113,77 +111,13 @@ const LeftBar = () => {
       <div className={`mobile leftBar ${sidebarOpen ? "closed" : "open"}`}>
         <div className="container">
           <div className='menu'>
-            <div className = "toggle">
-              {sidebarOpen ? <KeyboardDoubleArrowRightIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray", cursor: "pointer"}}/>
-              : <KeyboardDoubleArrowLeftIcon onClick = {() => setSidebarOpen(!sidebarOpen)} style={{color: "gray"}}/>
+            <div className="toggle">
+              {sidebarOpen
+                ? <KeyboardDoubleArrowRightIcon onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray", cursor: "pointer" }} />
+                : <KeyboardDoubleArrowLeftIcon onClick={() => setSidebarOpen(!sidebarOpen)} style={{ color: "gray" }} />
               }
             </div>
-
-            {
-              currentUser && 
-              <div className="row">
-                <Link to={"/profile/"+currentUser.id} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div className="user">
-                    <img
-                      src={currentUser.profilePic}
-                      alt=""
-                    />
-                    <span>{currentUser.username}</span>
-                  </div>
-                </Link>
-                {/* <div className="logout">
-                  <MoreHorizIcon onClick={() => setMenuOpen(!menuOpen)}/>
-                  {menuOpen && <button onClick={handleLogout}>Logout</button>}
-                </div> */}
-              </div>
-            }
-
-            <Link to={"/"} style={{ textDecoration: "none", color: "inherit" }}>
-              <div className={`item${isActivePath("/", true) ? " active" : ""}`}>
-                <img src={Groups} alt="" />
-                <span>{t('sections.home')}</span>
-              </div>
-            </Link>
-
-            {/* Browse Projects — student + local + admin */}
-            {currentUser && (currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
-              <Link to={"/projects"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/projects") ? " active" : ""}`}>
-                  <WorkOutlineIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('projects.browse')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* Browse Talent — local + admin */}
-            {currentUser && (currentUser.account_type === 'local' || currentUser.account_type === 'admin') &&
-              <Link to={"/talent"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/talent") ? " active" : ""}`}>
-                  <PeopleOutlineIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('talent.browse')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* My Escrows — student + local only */}
-            {currentUser && currentUser.account_type !== 'admin' &&
-              <Link to={"/escrows"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/escrows") ? " active" : ""}`}>
-                  <HandshakeOutlinedIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('escrow.myEscrows')}</span>
-                </div>
-              </Link>
-            }
-
-            {/* Admin Dashboard — admin only */}
-            {currentUser?.account_type === 'admin' &&
-              <Link to={"/admin"} style={{ textDecoration: "none", color: "inherit" }}>
-                <div className={`item${isActivePath("/admin") ? " active" : ""}`}>
-                  <AdminPanelSettingsOutlinedIcon style={{ width: 20, height: 20 }} />
-                  <span>{t('admin.dashboard')}</span>
-                </div>
-              </Link>
-            }
+            <NavItems />
           </div>
         </div>
       </div>
