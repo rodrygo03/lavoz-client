@@ -7,8 +7,8 @@
     min-height: 100%;
     padding: 30px 50px;
 
-    @include mobile { padding: 16px; }
     @include tablet { padding: 20px; }
+    @include mobile { padding: 16px; }
 
     .state {
       display: block;
@@ -18,6 +18,7 @@
       font-style: italic;
     }
 
+    // ── Back link ──────────────────────────────────────────────────────────────
     .back-row {
       margin-bottom: 20px;
 
@@ -27,230 +28,258 @@
         gap: 6px;
         color: themed("textColorSoft");
         font-size: 14px;
-
         &:hover { color: themed("textColor"); }
       }
     }
 
-    .detail-card {
-      max-width: 720px;
+    // ── Outer wrapper ──────────────────────────────────────────────────────────
+    .detail-wrapper {
+      max-width: 1100px;
       background-color: themed("bg");
       border-radius: 20px;
       box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
       overflow: hidden;
+    }
 
-      .card-header {
-        background-color: #6D1D1D;
+    // ── Header ────────────────────────────────────────────────────────────────
+    .card-header {
+      background-color: #6D1D1D;
+      color: white;
+      padding: 24px 28px;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+
+      h1 {
+        font-size: 22px;
+        font-weight: lighter;
+        margin: 0;
+      }
+
+      .status-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 12px;
+        border-radius: 20px;
         color: white;
-        padding: 24px 28px;
-        text-align: center;
+      }
 
-        h1 {
-          font-size: 22px;
-          font-weight: lighter;
-          margin: 10px 0 8px;
-        }
+      .parties {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        font-size: 13px;
+        opacity: 0.85;
+        flex-wrap: wrap;
+      }
 
-        .status-badge {
-          display: inline-block;
-          font-size: 11px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          padding: 2px 12px;
-          border-radius: 20px;
-          color: white;
-        }
+      .updated-at {
+        font-size: 11px;
+        opacity: 0.6;
+        margin: 0;
+      }
 
-        .parties {
-          display: flex;
-          justify-content: center;
-          gap: 10px;
+      .view-project-link {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.75);
+        text-decoration: none;
+        &:hover { color: white; }
+      }
+
+      // MilestoneProgress sits inside the header — its label/track are white-on-dark
+      .milestone-progress {
+        width: 100%;
+        max-width: 380px;
+        margin-top: 4px;
+      }
+    }
+
+    // ── All-approved banner ───────────────────────────────────────────────────
+    .all-approved-banner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      padding: 16px 28px;
+      background-color: #eafaf1;
+      border-bottom: 1px solid #a9dfbf;
+
+      @include mobile { padding: 14px 16px; }
+
+      .all-approved-text {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+
+        strong { font-size: 14px; color: #1e8449; }
+        span   { font-size: 13px; color: #27ae60; }
+      }
+
+      .all-approved-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-wrap: wrap;
+
+        .finalize-error {
           font-size: 13px;
-          opacity: 0.85;
-          margin-top: 6px;
-          flex-wrap: wrap;
-        }
-
-        .view-project-link {
-          display: inline-block;
-          margin-top: 8px;
-          font-size: 12px;
-          color: rgba(255,255,255,0.75);
-          text-decoration: none;
-
-          &:hover { color: white; }
+          color: #e74c3c;
         }
       }
 
-      .section {
-        padding: 22px 28px;
-        border-bottom: 0.5px solid themed("border");
+      .btn-finalize {
+        padding: 8px 18px;
+        border-radius: 6px;
+        border: none;
+        background-color: #27ae60;
+        color: white;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        &:hover { background-color: #2ecc71; }
+        &:disabled { opacity: 0.6; cursor: not-allowed; }
+      }
+    }
 
-        &:last-child { border-bottom: none; }
+    // ── Two-panel body ────────────────────────────────────────────────────────
+    .panels {
+      display: flex;
+      align-items: flex-start;
+      gap: 0;
 
-        h3 {
-          font-size: 12px;
-          font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-          color: themed("textColorSoft");
-          margin: 0 0 14px;
-        }
+      @include tablet { flex-direction: column; }
+      @include mobile { flex-direction: column; }
+    }
 
-        .updated-at {
-          font-size: 12px;
-          color: themed("textColorSoft");
-          margin-top: 10px;
-        }
+    // ── Milestones panel ──────────────────────────────────────────────────────
+    .panel-milestones {
+      flex: 3;
+      padding: 24px 28px;
+      border-right: 1px solid themed("border");
+      min-width: 0;
 
-        .artifact-desc {
+      @include tablet { border-right: none; border-bottom: 1px solid themed("border"); }
+      @include mobile { border-right: none; border-bottom: 1px solid themed("border"); padding: 18px 16px; }
+
+      .panel-heading {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: themed("textColorSoft");
+        margin: 0 0 16px;
+      }
+
+      // Accept / decline callout
+      .pending-actions {
+        margin-bottom: 20px;
+        padding: 16px;
+        background-color: themed("bgSoft");
+        border-radius: 10px;
+        border: 1px solid themed("border");
+
+        .pending-msg {
           font-size: 14px;
-          line-height: 1.6;
-          margin: 0 0 10px;
-        }
-
-        .artifact-link {
-          display: inline-block;
-          color: themed("linkColor");
-          font-size: 14px;
-          margin-bottom: 16px;
+          margin: 0 0 12px;
+          color: themed("textColor");
         }
 
         .action-row {
           display: flex;
-          gap: 12px;
+          gap: 10px;
           flex-wrap: wrap;
-
-          button {
-            padding: 8px 20px;
-            border-radius: 5px;
-            border: none;
-            font-size: 14px;
-            cursor: pointer;
-
-            &:disabled { opacity: 0.6; cursor: not-allowed; }
-
-            &.approve-btn {
-              background-color: #27ae60;
-              color: white;
-              &:hover { background-color: #2ecc71; }
-            }
-
-            &.changes-btn {
-              background-color: transparent;
-              border: 1px solid themed("border");
-              color: themed("textColor");
-              &:hover { border-color: #6D1D1D; color: #6D1D1D; }
-            }
-          }
         }
 
-        .error-msg  { display: block; color: red;   font-size: 13px; margin-bottom: 8px; }
-        .success-msg { display: block; color: green; font-size: 13px; margin-bottom: 8px; }
+        .approve-btn {
+          padding: 8px 20px;
+          border-radius: 6px;
+          background-color: #27ae60;
+          color: white;
+          border: none;
+          font-size: 14px;
+          cursor: pointer;
+          &:hover { background-color: #2ecc71; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+
+        .changes-btn {
+          padding: 8px 16px;
+          border-radius: 6px;
+          background-color: transparent;
+          border: 1px solid themed("border");
+          color: themed("textColor");
+          font-size: 14px;
+          cursor: pointer;
+          &:hover { border-color: #6D1D1D; color: #6D1D1D; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+
+        .error-msg {
+          display: block;
+          color: #e74c3c;
+          font-size: 13px;
+          margin-bottom: 8px;
+        }
       }
     }
 
-    /* Status timeline */
-    .timeline {
-      display: flex;
-      align-items: flex-start;
-      gap: 0;
-      flex-wrap: wrap;
-
-      .step {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        flex: 1;
-        position: relative;
-        min-width: 70px;
-
-        &::before {
-          content: "";
-          position: absolute;
-          top: 8px;
-          left: calc(50% + 10px);
-          right: calc(-50% + 10px);
-          height: 2px;
-          background-color: themed("border");
-          z-index: 0;
-        }
-
-        &:last-child::before { display: none; }
-
-        &.reached::before { background-color: #6D1D1D; }
-
-        .dot {
-          width: 18px;
-          height: 18px;
-          border-radius: 50%;
-          background-color: themed("border");
-          border: 2px solid themed("bg");
-          z-index: 1;
-          transition: background-color 0.2s;
-        }
-
-        &.reached .dot { background-color: #6D1D1D; }
-
-        span {
-          font-size: 11px;
-          margin-top: 6px;
-          text-align: center;
-          color: themed("textColorSoft");
-          text-transform: uppercase;
-          letter-spacing: 0.3px;
-        }
-
-        &.current span { color: themed("textColor"); font-weight: 600; }
-      }
-    }
-
-    /* Submit deliverable form */
-    .submit-form {
+    // ── Activity feed panel ───────────────────────────────────────────────────
+    .panel-feed {
+      flex: 2;
+      min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
 
-      textarea {
-        padding: 10px 14px;
-        border-radius: 10px;
-        border: 1px solid themed("border");
-        background-color: themed("bgSoft");
-        color: themed("textColor");
-        font-size: 14px;
-        font-family: inherit;
-        resize: vertical;
+      // On desktop: always show feed body
+      .feed-toggle { display: none; }
+      .feed-body   { display: block; padding: 24px 22px; }
 
-        &::placeholder { color: themed("textColorSoft"); }
-        &:focus { outline: none; border-color: #6D1D1D; }
+      // On tablet/mobile: collapsible
+      @include tablet {
+        .feed-toggle {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+          padding: 14px 28px;
+          background: none;
+          border: none;
+          border-top: 1px solid themed("border");
+          font-size: 13px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          color: themed("textColorSoft");
+          cursor: pointer;
+          &:hover { color: themed("textColor"); }
+        }
+
+        .feed-body {
+          display: none;
+          padding: 0 28px 20px;
+        }
+
+        &.open .feed-body { display: block; }
       }
 
-      .file-label {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        cursor: pointer;
-        font-size: 13px;
-        color: themed("textColorSoft");
-        padding: 6px 0;
-
-        &:hover { color: themed("textColor"); }
+      @include mobile {
+        .feed-toggle { padding: 14px 16px; }
+        .feed-body   { padding: 0 16px 18px; }
       }
+    }
 
-      button[type="submit"] {
-        align-self: flex-start;
-        padding: 8px 24px;
-        border-radius: 5px;
-        background-color: #6D1D1D;
-        color: white;
-        border: none;
-        font-size: 14px;
-        cursor: pointer;
+    // ── Comments section ──────────────────────────────────────────────────────
+    .comments-section {
+      padding: 24px 28px;
+      border-top: 1px solid themed("border");
 
-        &:hover { background-color: #8a2424; }
-        &:disabled { opacity: 0.6; cursor: not-allowed; }
-      }
+      @include mobile { padding: 18px 16px; }
     }
   }
 }

@@ -1,0 +1,66 @@
+@import "../../style.scss";
+
+.milestone-list {
+  @include themify($themes) {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .list-state {
+      font-size: 14px;
+      font-style: italic;
+      color: themed("textColorSoft");
+      padding: 16px 0;
+      text-align: center;
+    }
+
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .skeleton-row {
+      height: 52px;
+      border-radius: 12px;
+      background: linear-gradient(
+        90deg,
+        themed("bgSoft") 25%,
+        themed("border") 50%,
+        themed("bgSoft") 75%
+      );
+      background-size: 200% 100%;
+      animation: shimmer 1.4s infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    .list-error {
+      display: block;
+      font-size: 13px;
+      color: #e74c3c;
+      padding: 6px 4px;
+    }
+
+    .btn-add-milestone {
+      align-self: flex-start;
+      margin-top: 4px;
+      padding: 8px 18px;
+      border-radius: 6px;
+      background-color: transparent;
+      border: 1px dashed themed("border");
+      color: themed("textColorSoft");
+      font-size: 13px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+
+      &:hover {
+        border-color: #6D1D1D;
+        color: #6D1D1D;
+      }
+    }
+  }
+}

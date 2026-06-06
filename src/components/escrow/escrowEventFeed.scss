@@ -1,0 +1,183 @@
+@import "../../style.scss";
+
+.escrow-event-feed {
+  @include themify($themes) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .feed-heading {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: themed("textColorSoft");
+      margin: 0;
+    }
+
+    .feed-state {
+      font-size: 14px;
+      font-style: italic;
+      color: themed("textColorSoft");
+      padding: 16px 0;
+      text-align: center;
+      display: block;
+    }
+
+    // ── Feed list ──────────────────────────────────────────────────────────────
+    .feed-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    // ── Single event row ───────────────────────────────────────────────────────
+    .event-row {
+      display: flex;
+      gap: 12px;
+      padding: 12px 14px;
+      border-left: 3px solid #888;
+      border-radius: 0 8px 8px 0;
+      background-color: themed("bg");
+      transition: background-color 0.1s;
+
+      &:hover { background-color: themed("bgSoft"); }
+
+      // ── Avatar ───────────────────────────────────────────────────────────────
+      .event-avatar {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: themed("bgSoft");
+        border: 1px solid themed("border");
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+
+        .avatar-fallback {
+          font-size: 13px;
+          font-weight: 600;
+          color: themed("textColorSoft");
+        }
+      }
+
+      // ── Content ──────────────────────────────────────────────────────────────
+      .event-content {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+
+        .event-header {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 13px;
+
+          .actor-name {
+            font-weight: 600;
+          }
+
+          .role-badge {
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            padding: 1px 7px;
+            border-radius: 20px;
+
+            &[data-role="local"]   { background-color: rgba(109,29,29,0.12); color: #6D1D1D; }
+            &[data-role="student"] { background-color: rgba(41,128,185,0.12); color: #2980b9; }
+            &[data-role="admin"]   { background-color: rgba(142,68,173,0.12); color: #8e44ad; }
+          }
+
+          .event-type {
+            color: themed("textColor");
+          }
+
+          .event-time {
+            margin-left: auto;
+            font-size: 11px;
+            color: themed("textColorSoft");
+            white-space: nowrap;
+            flex-shrink: 0;
+          }
+        }
+
+        .event-milestone {
+          font-size: 12px;
+          color: themed("textColorSoft");
+          font-style: italic;
+        }
+
+        .event-note {
+          font-size: 13px;
+          line-height: 1.5;
+          color: themed("textColor");
+          margin: 0;
+          padding: 6px 10px;
+          background-color: themed("bgSoft");
+          border-radius: 6px;
+          border-left: 2px solid #e67e22;
+        }
+
+        .event-artifact {
+          font-size: 12px;
+          color: themed("textColorSoft");
+          margin: 0;
+        }
+      }
+    }
+
+    // ── Loading skeletons ─────────────────────────────────────────────────────
+    .event-row.skeleton {
+      border-left-color: themed("border");
+      pointer-events: none;
+
+      .sk-avatar {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background-color: themed("border");
+        animation: sk-pulse 1.4s infinite;
+      }
+
+      .sk-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+      }
+
+      .sk-line {
+        height: 10px;
+        border-radius: 6px;
+        background-color: themed("border");
+        animation: sk-pulse 1.4s infinite;
+
+        &.sk-line--short { width: 40%; }
+        &.sk-line--long  { width: 75%; }
+      }
+    }
+
+    @keyframes sk-pulse {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.4; }
+    }
+  }
+}
