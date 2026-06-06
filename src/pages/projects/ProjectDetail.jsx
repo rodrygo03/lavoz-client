@@ -35,7 +35,9 @@ const ProjectDetail = () => {
       <div className="card">
         <div className="card-header">
           <span className={`status-badge ${project.status}`}>
-            {project.status === "open" ? t("projects.open") : t("projects.closed")}
+            {project.status === "open" ? t("projects.open")
+              : project.status === "in_escrow" ? t("projects.inEscrow")
+              : t("projects.closed")}
           </span>
           <h1>{project.title}</h1>
           <div className="posted-by">

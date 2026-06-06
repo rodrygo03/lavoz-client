@@ -51,6 +51,8 @@ const EscrowLock = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["adminEscrows"] });
       queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["adminProjects"] });
       setStudentId("");
       setProjectId("");
       setServerError(null);

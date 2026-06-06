@@ -64,8 +64,9 @@
           padding: 2px 10px;
           border-radius: 20px;
 
-          &.open   { background-color: #2ecc71; }
-          &.closed { background-color: #888; }
+          &.open      { background-color: #2ecc71; }
+          &.closed    { background-color: #888; }
+          &.in_escrow { background-color: #2980b9; }
         }
 
         .posted-by {

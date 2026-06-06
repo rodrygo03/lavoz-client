@@ -24,6 +24,8 @@ const InviteStudent = ({ studentId, studentUsername, onClose }) => {
       makeRequest.post("/escrows/invite", { studentId, projectId: selectedProject }),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
+      queryClient.invalidateQueries({ queryKey: ["projects"] });
+      queryClient.invalidateQueries({ queryKey: ["projects", "mine"] });
       setServerError(null);
       setSuccess(true);
       setTimeout(() => onClose(), 2000);

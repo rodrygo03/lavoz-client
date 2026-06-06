@@ -27,7 +27,9 @@ const ProjectCard = ({ project }) => {
     <div className="project-card">
       <div className="card-top">
         <span className={`status-badge ${project.status}`}>
-          {project.status === "open" ? t("projects.open") : t("projects.closed")}
+          {project.status === "open" ? t("projects.open")
+            : project.status === "in_escrow" ? t("projects.inEscrow")
+            : t("projects.closed")}
         </span>
         <h3>{project.title}</h3>
         <div className="posted-by">
