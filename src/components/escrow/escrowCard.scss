@@ -14,12 +14,24 @@
       box-shadow: 0px 0px 25px -5px rgba(0, 0, 0, 0.28);
     }
 
+    &.has-overdue {
+      border: 1px solid #e67e22;
+    }
+
     .card-top {
       background-color: #6D1D1D;
       color: white;
       padding: 14px 20px;
       border-radius: 20px 20px 0 0;
       text-align: center;
+
+      .card-top-badges {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
 
       h3 {
         font-size: 18px;
@@ -35,6 +47,18 @@
         letter-spacing: 0.5px;
         padding: 2px 12px;
         border-radius: 20px;
+        color: white;
+      }
+
+      .overdue-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        padding: 2px 10px;
+        border-radius: 20px;
+        background-color: #e67e22;
         color: white;
       }
     }
@@ -54,6 +78,32 @@
           font-weight: 600;
           color: themed("textColorSoft");
           min-width: 80px;
+        }
+      }
+
+      .milestone-progress {
+        margin-top: 4px;
+
+        .progress-label {
+          display: flex;
+          justify-content: space-between;
+          font-size: 12px;
+          color: themed("textColorSoft");
+          margin-bottom: 4px;
+        }
+
+        .progress-track {
+          height: 6px;
+          background-color: themed("border");
+          border-radius: 4px;
+          overflow: hidden;
+
+          .progress-fill {
+            height: 100%;
+            background-color: #27ae60;
+            border-radius: 4px;
+            transition: width 0.3s ease;
+          }
         }
       }
     }

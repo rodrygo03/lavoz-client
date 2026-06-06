@@ -1,0 +1,391 @@
+@import "../../style.scss";
+
+.milestone-card {
+  @include themify($themes) {
+    background-color: themed("bg");
+    border: 1px solid themed("border");
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.15s;
+
+    &:hover { box-shadow: 0 2px 12px rgba(0,0,0,0.08); }
+
+    &.overdue { border-left: 3px solid #e67e22; }
+
+    .card-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      cursor: pointer;
+      gap: 12px;
+
+      &:focus { outline: 2px solid #6D1D1D; outline-offset: -2px; }
+
+      .card-left {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex: 1;
+        min-width: 0;
+
+        .status-badge {
+          flex-shrink: 0;
+          font-size: 10px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          padding: 2px 10px;
+          border-radius: 20px;
+          color: white;
+          white-space: nowrap;
+        }
+
+        .title {
+          font-size: 15px;
+          font-weight: 500;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .card-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        flex-shrink: 0;
+
+        .overdue-badge {
+          font-size: 11px;
+          font-weight: 600;
+          color: #e67e22;
+          background-color: rgba(230, 126, 34, 0.1);
+          padding: 2px 8px;
+          border-radius: 20px;
+        }
+
+        .due-date {
+          font-size: 12px;
+          color: themed("textColorSoft");
+          white-space: nowrap;
+        }
+
+        .card-actions {
+          display: flex;
+          gap: 6px;
+        }
+
+        .btn-icon {
+          padding: 4px 10px;
+          border-radius: 5px;
+          border: 1px solid themed("border");
+          background: transparent;
+          font-size: 12px;
+          color: themed("textColor");
+          cursor: pointer;
+
+          &:hover { border-color: #6D1D1D; color: #6D1D1D; }
+          &:disabled { opacity: 0.5; cursor: not-allowed; }
+
+          &.btn-danger {
+            &:hover { border-color: #e74c3c; color: #e74c3c; }
+          }
+        }
+
+        .chevron {
+          font-size: 10px;
+          color: themed("textColorSoft");
+        }
+      }
+    }
+
+    .edit-error {
+      padding: 6px 16px;
+      font-size: 12px;
+      color: #e74c3c;
+      background-color: rgba(231, 76, 60, 0.07);
+      border-top: 1px solid rgba(231, 76, 60, 0.2);
+    }
+
+    .card-expanded {
+      padding: 0 16px 16px;
+      border-top: 1px solid themed("border");
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-top: 14px;
+
+      .description {
+        font-size: 14px;
+        line-height: 1.6;
+        color: themed("textColorSoft");
+        margin: 0;
+      }
+
+      .latest-artifact {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        background-color: themed("bgSoft");
+        padding: 12px 14px;
+        border-radius: 8px;
+
+        .artifact-label {
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          color: themed("textColorSoft");
+        }
+
+        .artifact-desc {
+          font-size: 14px;
+          margin: 0;
+        }
+
+        .artifact-link {
+          font-size: 13px;
+          color: themed("linkColor");
+          text-decoration: none;
+
+          &:hover { text-decoration: underline; }
+        }
+
+        .artifact-date {
+          font-size: 11px;
+          color: themed("textColorSoft");
+        }
+      }
+
+      .no-artifact {
+        font-size: 13px;
+        font-style: italic;
+        color: themed("textColorSoft");
+      }
+
+      // ── Approved banner ──────────────────────────────────────────────────────
+      .approved-banner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px 16px;
+        background-color: rgba(39, 174, 96, 0.1);
+        border: 1px solid rgba(39, 174, 96, 0.3);
+        border-radius: 8px;
+        color: #27ae60;
+        font-size: 14px;
+        font-weight: 600;
+
+        &::before { content: "✓"; font-size: 16px; }
+      }
+
+      // ── Submit form ──────────────────────────────────────────────────────────
+      .submit-form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px;
+        background-color: themed("bgSoft");
+        border-radius: 10px;
+        border: 1px solid themed("border");
+
+        .form-heading {
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          color: themed("textColorSoft");
+          margin: 0;
+        }
+
+        textarea {
+          padding: 8px 12px;
+          border-radius: 8px;
+          border: 1px solid themed("border");
+          background-color: themed("bg");
+          color: themed("textColor");
+          font-size: 14px;
+          font-family: inherit;
+          resize: vertical;
+
+          &::placeholder { color: themed("textColorSoft"); }
+          &:focus { outline: none; border-color: #6D1D1D; }
+        }
+
+        .file-label {
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          cursor: pointer;
+          font-size: 13px;
+          color: themed("textColorSoft");
+
+          &:hover { color: themed("textColor"); }
+        }
+
+        .msg {
+          font-size: 13px;
+          &.msg-error  { color: #e74c3c; }
+          &.msg-success { color: #27ae60; }
+        }
+
+        button[type="submit"] {
+          align-self: flex-start;
+          padding: 7px 20px;
+          border-radius: 6px;
+          background-color: #6D1D1D;
+          color: white;
+          border: none;
+          font-size: 13px;
+          cursor: pointer;
+
+          &:hover { background-color: #8a2424; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+      }
+
+      // ── Local approve / request-changes ─────────────────────────────────────
+      .local-actions {
+        .action-row {
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          flex-wrap: wrap;
+        }
+
+        .btn-approve {
+          padding: 7px 20px;
+          border-radius: 6px;
+          background-color: #27ae60;
+          color: white;
+          border: none;
+          font-size: 13px;
+          cursor: pointer;
+
+          &:hover { background-color: #2ecc71; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+
+        .btn-changes {
+          padding: 7px 16px;
+          border-radius: 6px;
+          background-color: transparent;
+          border: 1px solid themed("border");
+          color: themed("textColor");
+          font-size: 13px;
+          cursor: pointer;
+
+          &:hover { border-color: #e67e22; color: #e67e22; }
+          &:disabled { opacity: 0.6; cursor: not-allowed; }
+        }
+
+        .btn-ghost {
+          padding: 7px 14px;
+          border-radius: 6px;
+          background-color: transparent;
+          border: 1px solid themed("border");
+          color: themed("textColorSoft");
+          font-size: 13px;
+          cursor: pointer;
+
+          &:hover { border-color: themed("textColor"); color: themed("textColor"); }
+        }
+
+        .request-form {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          padding: 14px;
+          background-color: themed("bgSoft");
+          border-radius: 10px;
+          border: 1px solid themed("border");
+
+          .form-heading {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            color: themed("textColorSoft");
+            margin: 0;
+          }
+
+          textarea {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid themed("border");
+            background-color: themed("bg");
+            color: themed("textColor");
+            font-size: 14px;
+            font-family: inherit;
+            resize: vertical;
+
+            &::placeholder { color: themed("textColorSoft"); }
+            &:focus { outline: none; border-color: #e67e22; }
+          }
+
+          .request-form-actions {
+            display: flex;
+            gap: 8px;
+          }
+        }
+      }
+
+      // ── Artifact history ─────────────────────────────────────────────────────
+      .artifact-history {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .history-label {
+          font-size: 11px;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.4px;
+          color: themed("textColorSoft");
+        }
+
+        .history-list {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+        }
+
+        .history-entry {
+          padding: 10px 12px;
+          background-color: themed("bgSoft");
+          border-radius: 8px;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .entry-desc {
+            font-size: 13px;
+            margin: 0;
+            line-height: 1.5;
+          }
+
+          .entry-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+
+            .entry-link {
+              font-size: 12px;
+              color: themed("linkColor");
+              text-decoration: none;
+              &:hover { text-decoration: underline; }
+            }
+
+            .entry-date {
+              font-size: 11px;
+              color: themed("textColorSoft");
+            }
+          }
+        }
+      }
+    }
+  }
+}

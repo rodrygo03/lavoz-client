@@ -1,6 +1,6 @@
 import "./escrowDetail.scss";
 import { useParams, Link } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
@@ -8,8 +8,11 @@ import { useTranslation } from "react-i18next";
 import { ESCROW_STATUS, STATUS_COLORS } from "../../utils/escrowStatus";
 import moment from "moment";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Comments from "../../components/comments/Comments";
+import { useEscrowDetail, useFinalizeEscrow } from "../../hooks/useEscrowDetail";
+import MilestoneList from "../../components/escrow/MilestoneList";
+import MilestoneProgress from "../../components/escrow/MilestoneProgress";
+import EscrowEventFeed from "../../components/escrow/EscrowEventFeed";
 
 const extractError = (err, fallback) => {
   const data = err?.response?.data;
@@ -18,120 +21,40 @@ const extractError = (err, fallback) => {
 
 const EscrowDetail = () => {
   const { t } = useTranslation();
-  const { id } = useParams();
+  const { id: rawId } = useParams();
+  const id = Number(rawId);
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
 
-  const [desc, setDesc] = useState("");
-  const [file, setFile] = useState(null);
-  const [submitError, setSubmitError] = useState(null);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [actionError, setActionError] = useState(null);
+  const [feedOpen, setFeedOpen] = useState(false);
+  const [finalizeError, setFinalizeError] = useState(null);
 
-  const { isLoading, error, data: escrow } = useQuery({
-    queryKey: ["escrow", id],
-    queryFn: () => makeRequest.get(`/escrows/${id}`).then((res) => res.data),
-  });
-
-  const { data: artifacts } = useQuery({
-    queryKey: ["artifacts", id],
-    queryFn: () => makeRequest.get(`/artifacts/${id}`).then((res) => res.data),
-    enabled: !!id,
-  });
-
-  // Use the most recent artifact (backend returns newest first)
-  const artifact = artifacts?.[0] ?? null;
+  const { isLoading, error, data: escrow } = useEscrowDetail(id);
+  const finalizeMutation = useFinalizeEscrow(id);
 
   const invalidate = () => {
     queryClient.invalidateQueries({ queryKey: ["escrow", id] });
-    queryClient.invalidateQueries({ queryKey: ["artifacts", id] });
+    queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
   };
-
-  const upload = async (f) => {
-    const formData = new FormData();
-    formData.append("file", f);
-    const res = await makeRequest.post("/upload", formData);
-    return res.data;
-  };
-
-  const submitMutation = useMutation({
-    mutationFn: async (payload) => makeRequest.post(`/escrows/${id}/submit`, payload),
-    onSuccess: () => {
-      invalidate();
-      queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
-      setDesc("");
-      setFile(null);
-      setSubmitError(null);
-      setSubmitSuccess(true);
-      setTimeout(() => setSubmitSuccess(false), 3000);
-    },
-    onError: (err) => setSubmitError(extractError(err, "Submission failed.")),
-  });
-
-  const approveMutation = useMutation({
-    mutationFn: () => makeRequest.put(`/escrows/${id}/complete`),
-    onSuccess: () => {
-      invalidate();
-      queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
-    },
-    onError: (err) => setSubmitError(extractError(err, "Action failed.")),
-  });
-
-  const requestChangesMutation = useMutation({
-    mutationFn: () => makeRequest.put(`/escrows/${id}/reopen`),
-    onSuccess: () => {
-      invalidate();
-      queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
-    },
-    onError: (err) => setSubmitError(extractError(err, "Action failed.")),
-  });
 
   const acceptMutation = useMutation({
     mutationFn: () => makeRequest.put(`/escrows/${id}/accept`),
-    onSuccess: () => {
-      invalidate();
-      queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
-    },
-    onError: (err) => setSubmitError(extractError(err, "Action failed.")),
+    onSuccess: () => { invalidate(); setActionError(null); },
+    onError: (err) => setActionError(extractError(err, "Action failed.")),
   });
 
   const declineMutation = useMutation({
     mutationFn: () => makeRequest.put(`/escrows/${id}/cancel`),
-    onSuccess: () => {
-      invalidate();
-      queryClient.invalidateQueries({ queryKey: ["escrows", "me"] });
-    },
-    onError: (err) => setSubmitError(extractError(err, "Action failed.")),
+    onSuccess: () => { invalidate(); setActionError(null); },
+    onError: (err) => setActionError(extractError(err, "Action failed.")),
   });
 
-  const MAX_ARTIFACT_MB = 100;
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!desc.trim()) {
-      setSubmitError(t("escrow.submitError"));
-      return;
-    }
-    if (file && file.size > MAX_ARTIFACT_MB * 1024 * 1024) {
-      setSubmitError(`File exceeds ${MAX_ARTIFACT_MB} MB limit.`);
-      return;
-    }
-    let fileUrl = null;
-    if (file) fileUrl = await upload(file);
-    submitMutation.mutate({ description: desc, fileUrl });
-  };
-
-  const isStudent = currentUser?.id === escrow?.studentId;
-  const isLocal   = currentUser?.id === escrow?.localId;
-
-  const statusOrder = [
-    ESCROW_STATUS.PENDING,
-    ESCROW_STATUS.ACTIVE,
-    ESCROW_STATUS.SUBMITTED,
-    ESCROW_STATUS.COMPLETED,
-  ];
-
-  if (isLoading) return <div className="escrow-detail"><span className="state">Loading...</span></div>;
+  if (isLoading) return <div className="escrow-detail"><span className="state">Loading…</span></div>;
   if (error || !escrow) return <div className="escrow-detail"><span className="state">Escrow not found.</span></div>;
+
+  const isStudent = currentUser?.id === escrow.studentId;
+  const isLocal   = currentUser?.id === escrow.localId;
 
   return (
     <div className="escrow-detail">
@@ -142,8 +65,8 @@ const EscrowDetail = () => {
         </Link>
       </div>
 
-      <div className="detail-card">
-        {/* Header */}
+      <div className="detail-wrapper">
+        {/* ── Header ── */}
         <div className="card-header">
           <span
             className="status-badge"
@@ -157,6 +80,10 @@ const EscrowDetail = () => {
             <span>·</span>
             <span>{t("escrow.local")}: <strong>{escrow.localUsername}</strong></span>
           </div>
+          {escrow.progress && <MilestoneProgress progress={escrow.progress} />}
+          <p className="updated-at">
+            {t("escrow.lastUpdated")}: {moment(escrow.updatedAt).format("MMM D, YYYY h:mm A")}
+          </p>
           {escrow.projectId && (
             <Link to={`/projects/${escrow.projectId}`} className="view-project-link">
               {t("escrow.viewProject")} →
@@ -164,157 +91,95 @@ const EscrowDetail = () => {
           )}
         </div>
 
-        {/* Status Timeline */}
-        <div className="section">
-          <h3>{t("escrow.timeline")}</h3>
-          <div className="timeline">
-            {statusOrder.map((s) => {
-              const reached = statusOrder.indexOf(escrow.status) >= statusOrder.indexOf(s)
-                && escrow.status !== ESCROW_STATUS.CANCELLED;
-              const isCurrent = escrow.status === s;
-              return (
-                <div key={s} className={`step ${reached ? "reached" : ""} ${isCurrent ? "current" : ""}`}>
-                  <div className="dot" style={isCurrent ? { backgroundColor: STATUS_COLORS[s] } : {}} />
-                  <span>{t(`escrow.${s}`)}</span>
-                </div>
-              );
-            })}
-            {escrow.status === ESCROW_STATUS.CANCELLED && (
-              <div className="step reached current">
-                <div className="dot" style={{ backgroundColor: STATUS_COLORS.cancelled }} />
-                <span>{t("escrow.cancelled")}</span>
-              </div>
-            )}
-          </div>
-          <p className="updated-at">
-            {t("escrow.lastUpdated")}: {moment(escrow.updatedAt).format("MMM D, YYYY h:mm A")}
-          </p>
-        </div>
-
-        {/* Student — accept or decline when pending */}
-        {isStudent && escrow.status === ESCROW_STATUS.PENDING && (
-          <div className="section">
-            <p className="artifact-desc">{t("escrow.pendingMsg")}</p>
-            {submitError && <span className="error-msg">{submitError}</span>}
-            <div className="action-row">
+        {/* ── All-approved banner (Local only, escrow active) ── */}
+        {isLocal &&
+          escrow.status === ESCROW_STATUS.ACTIVE &&
+          escrow.progress?.total > 0 &&
+          escrow.progress?.approved === escrow.progress?.total && (
+          <div className="all-approved-banner">
+            <div className="all-approved-text">
+              <strong>All milestones approved.</strong>
+              <span>You can finalize the project or add another milestone.</span>
+            </div>
+            <div className="all-approved-actions">
+              {finalizeError && <span className="finalize-error">{finalizeError}</span>}
               <button
-                className="approve-btn"
-                onClick={() => acceptMutation.mutate()}
-                disabled={acceptMutation.isPending}
+                className="btn-finalize"
+                onClick={() => {
+                  if (!window.confirm("Finalize this project? This will mark it as complete and cannot be undone.")) return;
+                  finalizeMutation.mutate(undefined, {
+                    onError: (err) => {
+                      const data = err?.response?.data;
+                      setFinalizeError(typeof data === "string" ? data : data?.message || "Failed to finalize.");
+                    },
+                  });
+                }}
+                disabled={finalizeMutation.isPending}
               >
-                {t("escrow.accept")}
-              </button>
-              <button
-                className="changes-btn"
-                onClick={() => declineMutation.mutate()}
-                disabled={declineMutation.isPending}
-              >
-                {t("escrow.decline")}
+                {finalizeMutation.isPending ? "Finalizing…" : "Finalize Project →"}
               </button>
             </div>
           </div>
         )}
 
-        {/* Student — submit deliverable when active */}
-        {isStudent && escrow.status === ESCROW_STATUS.ACTIVE && (
-          <div className="section">
-            <h3>{t("escrow.submitDeliverable")}</h3>
-            <form className="submit-form" onSubmit={handleSubmit}>
-              <textarea
-                rows={4}
-                value={desc}
-                onChange={(e) => { setDesc(e.target.value); setSubmitError(null); }}
-                placeholder={t("escrow.descriptionPlaceholder")}
-              />
-              <label className="file-label" htmlFor="artifact-file">
-                <CloudUploadIcon fontSize="small" />
-                <span>{file ? file.name : t("share.add")}</span>
-              </label>
-              <input
-                id="artifact-file"
-                type="file"
-                accept=".png,.jpg,.jpeg,.gif,.svg,.webp,.pdf,.txt,.md,.csv,.docx,.xlsx,.pptx,.zip,.tar,.gz,.rar,.mp4,.mov,.js,.ts,.jsx,.tsx,.py,.java,.c,.cpp,.cs,.html,.css,.scss,.json,.yaml,.yml,.toml,.xml,.rb,.go,.rs,.php,.swift,.kt,.sql,.sh,.bash,.r,.m"
-                style={{ display: "none" }}
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-              {submitError && <span className="error-msg">{submitError}</span>}
-              {submitSuccess && <span className="success-msg">{t("escrow.submitSuccess")}</span>}
-              <button type="submit" disabled={submitMutation.isPending}>
-                {submitMutation.isPending ? t("escrow.submitting") : t("escrow.submitBtn")}
-              </button>
-            </form>
-          </div>
-        )}
+        {/* ── Two-panel body ── */}
+        <div className="panels">
 
-        {/* Local — review submitted artifact */}
-        {isLocal && escrow.status === ESCROW_STATUS.SUBMITTED && (
-          <div className="section">
-            <h3>{t("escrow.artifact")}</h3>
-            {artifact ? (
-              <>
-                <p className="artifact-desc">{artifact.description}</p>
-                {artifact.fileUrl && (
-                  <a
-                    className="artifact-link"
-                    href={artifact.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download / View ↗
-                  </a>
-                )}
-                {submitError && <span className="error-msg">{submitError}</span>}
+          {/* ── Milestones panel ── */}
+          <div className="panel-milestones">
+            <h3 className="panel-heading">{t("escrow.milestones") || "Milestones"}</h3>
+
+            {/* Student: accept / decline when pending */}
+            {isStudent && escrow.status === ESCROW_STATUS.PENDING && (
+              <div className="pending-actions">
+                <p className="pending-msg">{t("escrow.pendingMsg")}</p>
+                {actionError && <span className="error-msg">{actionError}</span>}
                 <div className="action-row">
                   <button
                     className="approve-btn"
-                    onClick={() => approveMutation.mutate()}
-                    disabled={approveMutation.isPending}
+                    onClick={() => acceptMutation.mutate()}
+                    disabled={acceptMutation.isPending}
                   >
-                    {t("escrow.approve")}
+                    {t("escrow.accept")}
                   </button>
                   <button
                     className="changes-btn"
-                    onClick={() => requestChangesMutation.mutate()}
-                    disabled={requestChangesMutation.isPending}
+                    onClick={() => declineMutation.mutate()}
+                    disabled={declineMutation.isPending}
                   >
-                    {t("escrow.requestChanges")}
+                    {t("escrow.decline")}
                   </button>
                 </div>
-              </>
-            ) : (
-              <span className="state">{t("escrow.noArtifact")}</span>
+              </div>
             )}
+
+            <MilestoneList
+              escrowId={id}
+              escrow={escrow}
+              isLocal={isLocal}
+              isStudent={isStudent}
+            />
           </div>
-        )}
 
-        {/* Show artifact to student in submitted/completed state */}
-        {isStudent && [ESCROW_STATUS.SUBMITTED, ESCROW_STATUS.COMPLETED].includes(escrow.status) && (
-          <div className="section">
-            <h3>{t("escrow.artifact")}</h3>
-            {artifact ? (
-              <>
-                <p className="artifact-desc">{artifact.description}</p>
-                {artifact.fileUrl && (
-                  <a
-                    className="artifact-link"
-                    href={artifact.fileUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Download / View ↗
-                  </a>
-                )}
-              </>
-            ) : (
-              <span className="state">{t("escrow.noArtifact")}</span>
-            )}
+          {/* ── Activity feed panel ── */}
+          <div className={`panel-feed${feedOpen ? " open" : ""}`}>
+            <button
+              className="feed-toggle"
+              onClick={() => setFeedOpen((v) => !v)}
+              aria-expanded={feedOpen}
+              aria-label="Toggle activity feed"
+            >
+              Activity {feedOpen ? "▲" : "▼"}
+            </button>
+            <div className="feed-body">
+              <EscrowEventFeed escrowId={id} escrowStatus={escrow.status} />
+            </div>
           </div>
-        )}
+        </div>
 
-
-        {/* Comments — only on completed escrows (social proof layer) */}
+        {/* ── Comments (completed escrows only) ── */}
         {escrow.status === ESCROW_STATUS.COMPLETED && escrow.showcasePostId && (
-          <div className="section">
+          <div className="comments-section">
             <Comments post={{ id: escrow.showcasePostId, userId: escrow.studentId }} />
           </div>
         )}
