@@ -1,4 +1,5 @@
 import "./browseProjects.scss";
+import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useContext } from "react";
@@ -6,17 +7,25 @@ import { AuthContext } from "../../context/authContext";
 import ProjectCard from "../../components/project/ProjectCard";
 import SubmitProject from "../../components/project/SubmitProject";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const BrowseProjects = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
+  const [tab, setTab] = useState("locals");
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading: projectsLoading, error: projectsError, data: projectsData } = useQuery({
     queryKey: ["projects"],
     queryFn: () => makeRequest.get("/projects").then((res) => res.data),
   });
 
-  const openProjects = data ? data.filter((p) => p.status === "open") : [];
+  const { isLoading: usersLoading, error: usersError, data: usersData } = useQuery({
+    queryKey: ["allUsers"],
+    queryFn: () => makeRequest.get("/users/").then((res) => res.data),
+  });
+
+  const openProjects = projectsData ? projectsData.filter((p) => p.status === "open") : [];
+  const locals = usersData ? usersData.filter((u) => u.account_type === "local") : [];
 
   return (
     <div className="browse-projects">
@@ -25,22 +34,65 @@ const BrowseProjects = () => {
       </div>
 
       <div className="content">
-        {currentUser?.account_type === "local" && (
-          <div className="submit-section">
-            <SubmitProject />
-          </div>
+        <div className="tabs">
+          <button
+            className={tab === "locals" ? "tab selected" : "tab"}
+            onClick={() => setTab("locals")}
+          >
+            {t("projects.locals")}
+          </button>
+          <button
+            className={tab === "projects" ? "tab selected" : "tab"}
+            onClick={() => setTab("projects")}
+          >
+            {t("projects.projects")}
+          </button>
+        </div>
+
+        {tab === "locals" && (
+          <>
+            {usersLoading && <span className="state">Loading...</span>}
+            {usersError && <span className="state">Failed to load locals.</span>}
+            {!usersLoading && locals.length === 0 && (
+              <span className="state">{t("projects.noLocals")}</span>
+            )}
+            <div className="local-grid">
+              {locals.map((user) => (
+                <Link
+                  key={user.id}
+                  to={`/profile/${user.id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <div className="local-card">
+                    <img className="profilePic" src={user.profilePic} alt="" />
+                    <span className="name">{user.username}</span>
+                    {user.city && <span className="subtitle">{user.city}</span>}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
         )}
 
-        <div className="feed">
-          {isLoading && <span className="loading">Loading...</span>}
-          {error && <span className="error">Failed to load projects.</span>}
-          {!isLoading && !error && openProjects.length === 0 && (
-            <span className="empty">{t("projects.noProjects")}</span>
-          )}
-          {!isLoading && openProjects.map((project) => (
-            <ProjectCard key={project.id} project={project} />
-          ))}
-        </div>
+        {tab === "projects" && (
+          <>
+            {currentUser?.account_type === "local" && (
+              <div className="submit-section">
+                <SubmitProject />
+              </div>
+            )}
+            <div className="feed">
+              {projectsLoading && <span className="state">Loading...</span>}
+              {projectsError && <span className="state">Failed to load projects.</span>}
+              {!projectsLoading && !projectsError && openProjects.length === 0 && (
+                <span className="state">{t("projects.noProjects")}</span>
+              )}
+              {!projectsLoading && openProjects.map((project) => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

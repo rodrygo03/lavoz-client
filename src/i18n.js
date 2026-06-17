@@ -342,7 +342,9 @@ i18n
             viewProfile: "View Profile",
           },
           projects: {
-            browse: "Browse Projects",
+            browse: "Browse Ventures",
+            locals: "Locals",
+            projects: "Projects",
             post: "Post a Project",
             viewDetails: "View Details",
             open: "Open",
@@ -711,7 +713,9 @@ i18n
             viewProfile: "Ver Perfil",
           },
           projects: {
-            browse: "Ver Proyectos",
+            browse: "Ver Locales",
+            locals: "Locales",
+            projects: "Proyectos",
             post: "Publicar Proyecto",
             viewDetails: "Ver Detalles",
             open: "Abierto",
