@@ -2,9 +2,22 @@ import "./serviceCard.scss";
 import { Link } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useTranslation } from "react-i18next";
+import { useContext } from "react";
+import { AuthContext } from "../../context/authContext";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
 
 const ServiceCard = ({ service }) => {
   const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
+  const queryClient = useQueryClient();
+
+  const deleteMutation = useMutation({
+    mutationFn: () => makeRequest.delete(`/services/${service.id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["services"] }),
+  });
+
+  const isOwner = currentUser && currentUser.id === service.userId;
 
   const skills = service.skills
     ? service.skills.split(",").map((s) => s.trim()).filter(Boolean)
@@ -48,6 +61,17 @@ const ServiceCard = ({ service }) => {
         <Link to={`/profile/${service.userId}`}>
           <button>{t("talent.viewProfile")}</button>
         </Link>
+        {isOwner && (
+          <button
+            className="delete-btn"
+            onClick={() => {
+              if (window.confirm(t("talent.deleteConfirm"))) deleteMutation.mutate();
+            }}
+            disabled={deleteMutation.isPending}
+          >
+            {t("talent.deleteService")}
+          </button>
+        )}
       </div>
     </div>
   );

@@ -88,6 +88,8 @@
     .card-footer {
       padding: 12px 20px;
       border-top: 1px solid themed("border");
+      display: flex;
+      gap: 10px;
 
       button {
         padding: 5px 14px;
@@ -99,6 +101,14 @@
         cursor: pointer;
 
         &:hover { background-color: #8a2424; }
+
+        &.delete-btn {
+          background-color: transparent;
+          border: 1px solid #c0392b;
+          color: #c0392b;
+          &:hover { background-color: #c0392b; color: white; }
+          &:disabled { opacity: 0.5; cursor: not-allowed; }
+        }
       }
     }
   }

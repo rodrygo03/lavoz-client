@@ -129,6 +129,14 @@
           color: themed("textColorSoft");
           &:hover { border-color: #6D1D1D; color: #6D1D1D; }
         }
+
+        &.delete-btn {
+          background-color: transparent;
+          border: 1px solid #c0392b;
+          color: #c0392b;
+          &:hover { background-color: #c0392b; color: white; }
+          &:disabled { opacity: 0.5; cursor: not-allowed; }
+        }
       }
     }
   }

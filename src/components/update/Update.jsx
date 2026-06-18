@@ -14,6 +14,7 @@ const Update = ({ setOpenUpdate, user, first }) => {
     const { updateUser, currentUser } = useContext(AuthContext);
     const [texts, setTexts] = useState({
       email: user.email,
+      phone: user.phone || '',
       password: user.password,
       username: user.username,
       city: user.city,
@@ -62,12 +63,12 @@ const Update = ({ setOpenUpdate, user, first }) => {
     const handleClick = async (e) => {
       e.preventDefault();
       setIsSubmitting(true);
-    
+
       try {
         let coverUrl = cover ? await upload(cover) : user.coverPic;
         let profileUrl = profile ? await upload(profile) : user.profilePic;
-    
-        mutation.mutate({
+
+        await mutation.mutateAsync({
           ...texts,
           coverPic: coverUrl,
           profilePic: profileUrl,
@@ -79,9 +80,8 @@ const Update = ({ setOpenUpdate, user, first }) => {
         setProfile(null);
         setIsSubmitting(false);
       } catch (error) {
-        console.error("File upload failed:", error.message);
+        console.error("Profile update failed:", error.message);
         setIsSubmitting(false);
-        // Handle the error, e.g., show a user-friendly message
       }
     };
   
@@ -142,6 +142,17 @@ const Update = ({ setOpenUpdate, user, first }) => {
                 name="email"
                 onChange={handleChange}
                 placeholder={t('update.email')}
+              />
+            </div>
+
+            <div className="row">
+              <label className="pc-none">{t('update.phone')}</label>
+              <input
+                type="tel"
+                value={texts.phone}
+                name="phone"
+                onChange={handleChange}
+                placeholder={t('update.phone')}
               />
             </div>
 

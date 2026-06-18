@@ -4,6 +4,8 @@ import InstagramIcon from "@mui/icons-material/Instagram";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import PlaceIcon from "@mui/icons-material/Place";
 import LanguageIcon from "@mui/icons-material/Language";
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
 import Posts from "../../components/posts/Posts"
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -129,6 +131,22 @@ const Profile = ({userId}) => {
                   <div className="item">
                     <LanguageIcon />
                     <span>{data.language}</span>
+                  </div>
+                  }
+                  {data.email &&
+                  <div className="item">
+                    <a href={`mailto:${data.email}`}>
+                      <EmailIcon fontSize="medium" />
+                      <span>{data.email}</span>
+                    </a>
+                  </div>
+                  }
+                  {data.phone &&
+                  <div className="item">
+                    <a href={`tel:${data.phone}`}>
+                      <PhoneIcon fontSize="medium" />
+                      <span>{data.phone}</span>
+                    </a>
                   </div>
                   }
                 </div>

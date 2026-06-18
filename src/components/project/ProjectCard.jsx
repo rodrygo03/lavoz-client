@@ -21,6 +21,11 @@ const ProjectCard = ({ project }) => {
     onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
   });
 
+  const deleteMutation = useMutation({
+    mutationFn: () => makeRequest.delete(`/projects/${project.id}`),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: ["projects"] }),
+  });
+
   const isOwner = currentUser && currentUser.id === project.userId;
 
   return (
@@ -71,6 +76,17 @@ const ProjectCard = ({ project }) => {
             disabled={closeMutation.isPending}
           >
             {t("projects.closeProject")}
+          </button>
+        )}
+        {isOwner && project.status === "open" && (
+          <button
+            className="delete-btn"
+            onClick={() => {
+              if (window.confirm(t("projects.deleteConfirm"))) deleteMutation.mutate();
+            }}
+            disabled={deleteMutation.isPending}
+          >
+            {t("projects.deleteProject")}
           </button>
         )}
       </div>
