@@ -132,6 +132,30 @@ const Notification = ({ notification }) => {
                 </Link>
             )
         }
+        else if ([
+            'escrow_invited', 'student_accepted', 'student_declined',
+            'milestone_added', 'milestone_approved', 'change_requested',
+            'artifact_submitted', 'escrow_completed', 'escrow_reopened',
+        ].includes(type)) {
+            return (
+                <Link to={`/escrows/${notification.objectId}`} style={{ textDecoration: "none", color: "inherit" }}>
+                    <div className="notif">
+                        <div className="notifRow">
+                            <div className="pfp">
+                                <img className="profilePic" src={notification.profilePic} alt="" />
+                                <div className="text">
+                                    <span>{notification.username} {t(`notifs.${type}`)}</span>
+                                    <span className="date">{moment(notification.createdAt).fromNow()}</span>
+                                </div>
+                            </div>
+                            {notification.new === 1 &&
+                                <FiberManualRecordIcon style={{color: "red", marginRight: 15}} fontSize="small"/>
+                            }
+                        </div>
+                    </div>
+                </Link>
+            );
+        }
         else if (type === 'comment') {
             return(
                 <Link to={"/post/"+notification.postId+'/open'} style={{ textDecoration: "none", color: "inherit" }}>
