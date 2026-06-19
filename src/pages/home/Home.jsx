@@ -131,7 +131,7 @@ const SharedHome = ({ t, isGuest }) => {
 
       <CarouselSection
         title={t("projects.bcsLocals")}
-        to="/users"
+        to="/talent"
         linkLabel={t("projects.viewAll")}
         emptyText={usersLoading ? "Loading..." : t("projects.noLocals")}
         items={usersLoading ? [] : locals}

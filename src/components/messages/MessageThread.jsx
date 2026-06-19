@@ -1,5 +1,5 @@
 import { useContext, useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import moment from 'moment';
 import "./messages.scss";
@@ -49,6 +49,11 @@ const MessageThread = ({user, name}) => {
     },
   });
 
+  const { data: threadUser } = useQuery({
+    queryKey: ["threadUser", userId],
+    queryFn: () => makeRequest.get("/users/find/" + userId).then((res) => res.data),
+  });
+
   const { isLoading, error, data: mData } = useQuery({
     queryKey: ["messages"],
     queryFn: () => makeRequest.get("/messages?userId=" + userId).then((res) => {return res.data})
@@ -84,8 +89,13 @@ const MessageThread = ({user, name}) => {
   return (
         <div className="msg-right">
             {!isLoading && mData &&
-              <div className = "thread">
-                {/* <div className = "username">{name}</div> */}
+              <div className="thread">
+                {threadUser && (
+                  <Link to={`/profile/${threadUser.id}`} className="thread-header" style={{ textDecoration: "none", color: "inherit" }}>
+                    <img src={threadUser.profilePic} alt={threadUser.username} className="thread-header-pic" />
+                    <span className="thread-header-name">{threadUser.username}</span>
+                  </Link>
+                )}
                 {/* Render messages grouped by day */}
                 {Object.entries(groupedMessages).map(([day, messages]) => (
                     <div key={day} className="convo">

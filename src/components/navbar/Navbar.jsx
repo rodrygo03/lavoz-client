@@ -3,10 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import WbSunnyOutlinedIcon from "@mui/icons-material/WbSunnyOutlined";
-import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import IconButton from '@mui/material/IconButton';
 import NotificationBell from "../notification/NotificationBell";
 import MessageBell from "../notification/MessageBell";
@@ -70,9 +66,6 @@ const Navbar = () => {
       </div>
       {currentUser ? (
         <div className="right">
-          <Link to={"/users"} className="pc" style={{ textDecoration: "none", color: "inherit" }}>
-            <IconButton color={"inherit"}><PersonOutlinedIcon style={{ color: "inherit" }} /></IconButton>
-          </Link>
           <Link to="/messages" style={{ textDecoration: "none", color: "inherit" }}>
             <MessageBell iconColor="inherit" />
           </Link>

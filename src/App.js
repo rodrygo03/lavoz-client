@@ -32,6 +32,8 @@ import MyEscrows from "./pages/escrows/MyEscrows";
 import EscrowDetail from "./pages/escrows/EscrowDetail";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import { RoleGuard } from "./utils/roleGuard";
+import Messages from "./pages/messages/Messages";
+import Notifs from "./pages/notifications/Notifs";
 // import Shorts from "./pages/shorts/Shorts";
 
 function App() {
@@ -147,6 +149,14 @@ function App() {
         {
           path: "/projects/:id",
           element: <ProjectDetail />,
+        },
+        {
+          path: "/messages",
+          element: <Messages />,
+        },
+        {
+          path: "/notifications",
+          element: <Notifs />,
         },
       ],
     },

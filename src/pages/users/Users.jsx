@@ -1,27 +1,17 @@
-import { useContext, useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import "./users.scss";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import TextField from "@mui/material/TextField";
-import User from "../../components/user/User";
 import { useTranslation } from 'react-i18next';
 
 const Users = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const [inputText, setInputText] = useState("");
   const [followerInputText, setFollowerInputText] = useState("");
   const [followingInputText, setFollowingInputText] = useState("");
-  const [selectedUser, setSelectedUser] = useState(0);
-  const queryClient = useQueryClient();
-
-  let inputHandler = (e) => {
-    // convert input text to lowercase
-    let lowerCase = e.target.value.toLowerCase();
-    setInputText(lowerCase);
-  };
 
   let followerInputHandler = (e) => {
     // convert input text to lowercase
@@ -35,11 +25,6 @@ const Users = () => {
     setFollowingInputText(lowerCase);
   };
 
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["user"],
-    queryFn: () => makeRequest.get("/users/").then((res) => res.data),
-  });
-
   const { isLoading: isFollowersLoading, error: followerError, data: followerData} = useQuery({
     queryKey: ["followers"],
     queryFn: () => makeRequest.get("/users/followers").then((res) => res.data),
@@ -49,52 +34,6 @@ const Users = () => {
     queryKey: ["following"],
     queryFn: () => makeRequest.get("/users/following").then((res) => res.data),
   });
-
-  const mutation = useMutation({
-    mutationFn: (following) => {
-      if (following) return makeRequest.delete("/relationships/unfollow", {selectedUser});
-      return makeRequest.post("/relationships/follow", { selectedUser });
-    },
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries(["relationship"]);
-    },
-  });
-
-  const handleFollow = (id) => {
-    setSelectedUser(id);
-    mutation.mutate(followingData.includes(currentUser.id));
-  }
-
-  const getUserList = () => {
-    if (error) {
-      // Handle the error case
-      console.error("Error fetching user data:", error);
-      return null;
-    }
-  
-    if (!isLoading && data && Array.isArray(data)) {
-      const filteredUsers = data.filter((user) => user.username.toLowerCase().includes(inputText));
-      
-      return (
-        <div className="user-list">
-            {filteredUsers.slice(0,16).map((user) => 
-              // <User user={user} key={user.id}/>
-            <Link to={"/profile/" + user.id} style={{ textDecoration: "none", color: "inherit" }}>
-            <div className="user" key={user.id} onClick={() => setSelectedUser(user.id)}>
-                <img className="profilePic" src= {user.profilePic}/>
-                <span>{user.username}</span>
-                {/* <button onClick={handleFollow}>{user.following === 1 ? "Following" : "Follow"}</button> */}
-            </div>
-            </Link>
-            )}
-        </div>
-      );
-    }
-  
-    // Handle the case when isLoading is true or data is not available
-    return null;
-  };
 
   const getFollowerList = () => {
     if (followerError) {
@@ -108,7 +47,7 @@ const Users = () => {
             <div className="user-list">
                 {filteredUsers.slice(0, 16).map((user) => 
                 <Link to={"/profile/" + user.id} style={{ textDecoration: "none", color: "inherit" }}>
-                  <div className="user" key={user.id} onClick={() => setSelectedUser(user.id)}>
+                  <div className="user" key={user.id}>
                       <img className="profilePic" src= {user.profilePic}/>
                       <span>{user.username}</span>
                       {/* <button>{user.following === 1 ? "Following" : "Follow"}</button> */}
@@ -182,21 +121,6 @@ const Users = () => {
                   />
           </div>
         { isFollowersLoading || !followerData ? "loading" : getFollowerList() }
-      </div>
-      <div className="user-category">
-        <h3>{t('users.all')}</h3>
-        <div className = "search-list">
-            <div className="search">
-                <TextField
-                    id="outlined-basic"
-                    onChange={inputHandler}
-                    variant="outlined"
-                    fullWidth
-                    label={t('users.search')}
-                />
-            </div>
-            { isLoading || !data ? "loading" : getUserList()}
-        </div>
       </div>
     </div>
   )

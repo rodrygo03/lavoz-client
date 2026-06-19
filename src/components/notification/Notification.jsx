@@ -15,10 +15,11 @@ const Notification = ({ notification }) => {
 
     const type = notification.type;
 
-    // get post by id
+    // get post by id — only relevant for reaction/comment notifications
     const { isLoading, error, data } = useQuery({
-        queryKey: ["post"],
-        queryFn: () => makeRequest.get("/posts/find?id=" + notification.postId).then((res) => {return res.data})
+        queryKey: ["post", notification.postId],
+        queryFn: () => makeRequest.get("/posts/find?id=" + notification.postId).then((res) => res.data),
+        enabled: !!notification.postId,
     });
 
     useEffect(() => {
@@ -167,11 +168,7 @@ const Notification = ({ notification }) => {
 
     return (
         <div>
-        {isLoading ? "isLoading" :
-            <div>
-                {buildNotif()}
-            </div>
-        }
+            {buildNotif()}
         </div>
     )
 };

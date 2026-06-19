@@ -18,7 +18,7 @@ const Messages = () => {
     const maxLength = 100;
 
     const { isLoading, error, data } = useQuery({
-      queryKey: ["user"],
+      queryKey: ["allUsers"],
       queryFn: () => makeRequest.get("/users/").then((res) => res.data),
     });
 
@@ -30,10 +30,13 @@ const Messages = () => {
       }
     
       if (!isLoading && data) {
-        const filteredUsers = data.filter((user) => user.username.includes(inputText));
-        
+        const filteredUsers = data.filter((user) =>
+          user.id !== currentUser.id &&
+          user.username.toLowerCase().includes(inputText)
+        );
+
         return (
-          filteredUsers.slice(0, 5).map((user) => 
+          filteredUsers.map((user) =>
             <div key={user.id} className="user" onClick={() => setSelectedUser(user.id)}>
               <img className="small-img" src={user.profilePic} alt={`${user.username}'s profile`} />
               <div className="info">

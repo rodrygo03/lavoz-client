@@ -7,7 +7,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import Posts from "../../components/posts/Posts"
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { AuthContext } from "../../context/authContext";
 import { useContext, useState } from "react";
@@ -16,7 +16,6 @@ import SubmitService from "../../components/service/SubmitService";
 import InviteStudent from "../../components/escrow/InviteStudent";
 import InsertLinkIcon from '@mui/icons-material/InsertLink';
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 const Profile = ({userId}) => {
 
@@ -25,37 +24,11 @@ const Profile = ({userId}) => {
   const [openService, setOpenService] = useState(false);
   const [openInvite, setOpenInvite] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  const queryClient = useQueryClient();
-  const navigate = useNavigate();
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["user"],
     queryFn: () => makeRequest.get("/users/find/" + userId).then((res) => {return res.data})
   });
-  
-  const { isLoading: rIsLoading, error: rError, data: relationshipData} = useQuery({
-    queryKey: ["relationship"],
-    queryFn: () => makeRequest.get("/relationships?followedUserId=" + userId).then((res) => {return res.data})
-  });
-
-  const mutation = useMutation({
-    mutationFn: (following) => {
-      if (following) return makeRequest.delete("/relationships?userId=" + userId);
-      return makeRequest.post("/relationships", { userId });
-    },
-    onSuccess: () => {
-      // Invalidate and refetch
-      queryClient.invalidateQueries(["relationship"]);
-    },
-  });
-  
-  const handleFollow = () => {
-    if (!currentUser) {
-      navigate("/guest");
-      return;
-    }
-    mutation.mutate(relationshipData.includes(currentUser.id));
-  }
   
   return (
     <div className="profile">
@@ -164,17 +137,8 @@ const Profile = ({userId}) => {
                       <button onClick={() => setOpenService(true)}>{t('talent.postService')}</button>
                     )}
                   </div>
-                ) :
-                rIsLoading || rError ? (
-                  "loading"
-                ) : 
-                (
+                ) : (
                   <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap" }}>
-                    <button onClick={handleFollow}>
-                      {currentUser && relationshipData.includes(currentUser.id)
-                        ? t('users.following')
-                        : t('users.follow')}
-                    </button>
                     {currentUser?.account_type === 'local' && data.account_type === 'student' && (
                       <button onClick={() => setOpenInvite(true)}>
                         {t('escrow.invite')}
