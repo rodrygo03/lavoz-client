@@ -1,6 +1,7 @@
 import "./leftBar.scss";
 import Groups from "../../assets/2.png";
 import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PostAddIcon from "@mui/icons-material/PostAdd";
 import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
@@ -54,6 +55,16 @@ const LeftBar = () => {
           <div className={`item${isActivePath("/projects") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
             <WorkOutlineIcon style={{ width: 20, height: 20 }} />
             <span>{t('projects.browse')}</span>
+          </div>
+        </Link>
+      )}
+
+      {/* Publish Project — locals only */}
+      {currentUser?.account_type === 'local' && (
+        <Link to="/projects?tab=projects" style={{ textDecoration: "none", color: "inherit" }}>
+          <div className={`item publish-item${isActivePath("/projects") && new URLSearchParams(location.search).get("tab") === "projects" ? " active" : ""}`}>
+            <PostAddIcon style={{ width: 20, height: 20 }} />
+            <span>Publish Project</span>
           </div>
         </Link>
       )}

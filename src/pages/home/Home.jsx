@@ -6,6 +6,9 @@ import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { STATUS_COLORS } from "../../utils/escrowStatus";
+import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
+import PostAddIcon from "@mui/icons-material/PostAdd";
+import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 
 const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem, isGuest }) => {
   const rowRef = useRef(null);
@@ -63,7 +66,7 @@ const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem, i
 };
 
 /* ── Shared home (students and BCS locals) ── */
-const SharedHome = ({ t, isGuest }) => {
+const SharedHome = ({ t, isGuest, role }) => {
   const L = (path) => (isGuest ? "/login" : path);
 
   const { data: projects, isLoading: projectsLoading } = useQuery({
@@ -97,6 +100,23 @@ const SharedHome = ({ t, isGuest }) => {
 
   return (
     <div className="home-content">
+      <div className="quick-actions">
+        <Link to={L("/projects")} className="qa-tile">
+          <WorkOutlineIcon />
+          <span>{t("projects.browse")}</span>
+        </Link>
+        {role === "local" && (
+          <Link to="/projects?tab=projects" className="qa-tile qa-tile--primary">
+            <PostAddIcon />
+            <span>Publish Project</span>
+          </Link>
+        )}
+        <Link to={L("/talent")} className="qa-tile">
+          <PeopleOutlineIcon />
+          <span>{t("talent.browse")}</span>
+        </Link>
+      </div>
+
       <CarouselSection
         title={t("projects.bcsLocalProjects")}
         to="/projects"
@@ -274,7 +294,7 @@ const Home = () => {
         <p>Brazos Valley Student–Local Marketplace</p>
       </div>
 
-      {(isGuest || role === "student" || role === "local") && <SharedHome t={t} isGuest={isGuest} />}
+      {(isGuest || role === "student" || role === "local") && <SharedHome t={t} isGuest={isGuest} role={role} />}
       {role === "admin" && <AdminHome t={t} />}
     </div>
   );

@@ -7,12 +7,13 @@ import { AuthContext } from "../../context/authContext";
 import ProjectCard from "../../components/project/ProjectCard";
 import SubmitProject from "../../components/project/SubmitProject";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 const BrowseProjects = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const [tab, setTab] = useState("locals");
+  const [searchParams] = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("tab") === "projects" ? "projects" : "locals");
 
   const { isLoading: projectsLoading, error: projectsError, data: projectsData } = useQuery({
     queryKey: ["projects"],
