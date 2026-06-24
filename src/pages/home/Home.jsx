@@ -1,14 +1,14 @@
 import "./home.scss";
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { STATUS_COLORS } from "../../utils/escrowStatus";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
-import PostAddIcon from "@mui/icons-material/PostAdd";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
+import SubmitService from "../../components/service/SubmitService";
+import SubmitProject from "../../components/project/SubmitProject";
+import Post from "../../components/post/Post";
 
 const CarouselSection = ({ title, to, linkLabel, emptyText, items, renderItem, isGuest }) => {
   const rowRef = useRef(null);
@@ -90,6 +90,13 @@ const SharedHome = ({ t, isGuest, role }) => {
     enabled: !isGuest,
   });
 
+  const { data: allPosts } = useQuery({
+    queryKey: ["posts"],
+    queryFn: () => makeRequest.get("/posts").then((r) => r.data),
+  });
+
+  const projectActivityPosts = allPosts?.filter((p) => p.projectId != null) ?? [];
+
   const open = projects?.filter((p) => p.status === "open").slice(0, 10) ?? [];
   const locals = users?.filter((u) => u.account_type === "local").slice(0, 10) ?? [];
   const students = users?.filter((u) => u.account_type === "student").slice(0, 10) ?? [];
@@ -100,22 +107,16 @@ const SharedHome = ({ t, isGuest, role }) => {
 
   return (
     <div className="home-content">
-      <div className="quick-actions">
-        <Link to={L("/projects")} className="qa-tile">
-          <WorkOutlineIcon />
-          <span>{t("projects.browse")}</span>
-        </Link>
-        {role === "local" && (
-          <Link to="/projects?tab=projects" className="qa-tile qa-tile--primary">
-            <PostAddIcon />
-            <span>Publish Project</span>
-          </Link>
-        )}
-        <Link to={L("/talent")} className="qa-tile">
-          <PeopleOutlineIcon />
-          <span>{t("talent.browse")}</span>
-        </Link>
-      </div>
+      {!isGuest && role === "local" && <SubmitProject />}
+      {!isGuest && role === "student" && <SubmitService />}
+
+      {projectActivityPosts.length > 0 && (
+        <div className="activity-feed-section">
+          {projectActivityPosts.map((post) => (
+            <Post key={post.id} post={post} />
+          ))}
+        </div>
+      )}
 
       <CarouselSection
         title={t("projects.bcsLocalProjects")}

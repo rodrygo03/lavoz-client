@@ -181,6 +181,36 @@
         }
       }
 
+      .project-banner {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 0 2px;
+        flex-wrap: wrap;
+
+        .project-banner-link {
+          font-size: 12px;
+          font-weight: 600;
+          color: #6D1D1D;
+          text-decoration: none;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .post-type-chip {
+          font-size: 11px;
+          background-color: #f6f0f0;
+          color: #6D1D1D;
+          border: 1px solid #e0c8c8;
+          border-radius: 20px;
+          padding: 2px 9px;
+          text-transform: capitalize;
+          white-space: nowrap;
+        }
+      }
+
       .centered {
         display: flex;
         justify-content: center;

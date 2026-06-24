@@ -322,45 +322,12 @@
       }
     }
 
-    /* Quick action tiles */
-    .quick-actions {
+
+    /* Project activity feed */
+    .activity-feed-section {
       display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-
-      .qa-tile {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 18px 16px;
-        background-color: themed("bg");
-        border-radius: 16px;
-        border: 0.5px solid themed("border");
-        box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
-        text-decoration: none;
-        color: themed("textColor");
-        flex: 1;
-        min-width: 100px;
-        transition: box-shadow 0.2s;
-
-        svg { font-size: 26px; }
-
-        span {
-          font-size: 13px;
-          font-weight: 500;
-          text-align: center;
-        }
-
-        &:hover { box-shadow: 0px 0px 16px -4px rgba(0, 0, 0, 0.25); }
-
-        &--primary {
-          background-color: #6D1D1D;
-          color: white;
-          border-color: #6D1D1D;
-        }
-      }
+      flex-direction: column;
+      gap: 16px;
     }
 
     /* Stat grid (Admin home) */

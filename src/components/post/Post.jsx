@@ -431,6 +431,11 @@ const Post = ({ post, openComments = false }) => {
 
   const jobCategories = ["construction", "restaurant", "general", "students", "office", "sales", "temporary"];
 
+  const postTypeLabel = (type) => {
+    if (!type) return null;
+    return t(`projectPost.${type}`, type.replace(/_/g, " "));
+  };
+
   return (
     <div className="post">
       <div className="container">
@@ -458,6 +463,21 @@ const Post = ({ post, openComments = false }) => {
           )}
         </div>
         
+        {post.projectId && (
+          <div className="project-banner">
+            <Link
+              to={`/projects/${post.projectId}`}
+              style={{ textDecoration: "none", color: "inherit" }}
+              className="project-banner-link"
+            >
+              {post.projectTitle || t("projectPost.project")}
+            </Link>
+            {post.postType && (
+              <span className="post-type-chip">{postTypeLabel(post.postType)}</span>
+            )}
+          </div>
+        )}
+
         <div className="content">
             {(() => {
               const postText = post.article != null ? post.article : post.desc;

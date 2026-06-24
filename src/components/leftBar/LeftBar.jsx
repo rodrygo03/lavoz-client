@@ -1,8 +1,6 @@
 import "./leftBar.scss";
 import Groups from "../../assets/2.png";
-import WorkOutlineIcon from "@mui/icons-material/WorkOutline";
 import PostAddIcon from "@mui/icons-material/PostAdd";
-import PeopleOutlineIcon from "@mui/icons-material/PeopleOutline";
 import HandshakeOutlinedIcon from "@mui/icons-material/HandshakeOutlined";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
@@ -49,32 +47,12 @@ const LeftBar = () => {
         </div>
       </Link>
 
-      {/* Browse Projects — all users + guests */}
-      {(!currentUser || currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') && (
-        <Link to={authLink("/projects")} style={{ textDecoration: "none", color: "inherit" }}>
-          <div className={`item${isActivePath("/projects") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
-            <WorkOutlineIcon style={{ width: 20, height: 20 }} />
-            <span>{t('projects.browse')}</span>
-          </div>
-        </Link>
-      )}
-
       {/* Publish Project — locals only */}
       {currentUser?.account_type === 'local' && (
         <Link to="/projects?tab=projects" style={{ textDecoration: "none", color: "inherit" }}>
           <div className={`item publish-item${isActivePath("/projects") && new URLSearchParams(location.search).get("tab") === "projects" ? " active" : ""}`}>
             <PostAddIcon style={{ width: 20, height: 20 }} />
             <span>Publish Project</span>
-          </div>
-        </Link>
-      )}
-
-      {/* Browse Talent — all users + guests */}
-      {(!currentUser || currentUser.account_type === 'student' || currentUser.account_type === 'local' || currentUser.account_type === 'admin') && (
-        <Link to={authLink("/talent")} style={{ textDecoration: "none", color: "inherit" }}>
-          <div className={`item${isActivePath("/talent") ? " active" : ""}${!currentUser ? " guest-item" : ""}`}>
-            <PeopleOutlineIcon style={{ width: 20, height: 20 }} />
-            <span>{t('talent.browse')}</span>
           </div>
         </Link>
       )}

@@ -66,10 +66,33 @@
       height: 25px;
     }
 
+    .nav-link {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: themed("textColorSoft");
+      padding: 4px;
+      border-radius: 6px;
+      transition: color 0.15s, background-color 0.15s;
+
+      @include mobile {
+        display: none;
+      }
+
+      &:hover {
+        color: themed("textColor");
+        background-color: themed("bgSoft");
+      }
+
+      &.active {
+        color: #6D1D1D;
+      }
+    }
+
     .left {
       display: flex;
       align-items: center;
-      gap: 30px;
+      gap: 20px;
 
       @include mobile {
         gap: 10px;

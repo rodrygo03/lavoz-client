@@ -1,0 +1,234 @@
+@import "../../style.scss";
+
+.project-share-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .modal-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
+  }
+
+  .modal-box {
+    @include themify($themes) {
+      position: relative;
+      z-index: 1;
+      background-color: themed("bg");
+      color: themed("textColor");
+      border-radius: 16px;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.22);
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+
+      @include mobile {
+        max-width: calc(100vw - 24px);
+        border-radius: 12px;
+      }
+
+      &.done-box {
+        align-items: center;
+        justify-content: center;
+        padding: 48px 24px;
+        gap: 12px;
+
+        h3 {
+          font-weight: 400;
+          color: themed("textColorSoft");
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .modal-header {
+    @include themify($themes) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
+      border-bottom: 0.5px solid themed("border");
+
+      .modal-title {
+        font-size: 14px;
+        color: themed("textColorSoft");
+
+        strong {
+          color: themed("textColor");
+        }
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        color: themed("textColorSoft");
+        display: flex;
+        align-items: center;
+        padding: 4px;
+        border-radius: 50%;
+
+        &:hover {
+          background-color: themed("bgSoft");
+        }
+      }
+    }
+  }
+
+  .post-type-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 14px 20px;
+
+    .type-chip {
+      @include themify($themes) {
+        background-color: themed("bgSoft");
+        color: themed("textColorSoft");
+        border: 1px solid themed("border");
+        border-radius: 20px;
+        padding: 5px 14px;
+        font-size: 12px;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        white-space: nowrap;
+
+        &:hover {
+          border-color: #6D1D1D;
+          color: #6D1D1D;
+        }
+
+        &.active {
+          background-color: #6D1D1D;
+          color: white;
+          border-color: #6D1D1D;
+        }
+      }
+    }
+  }
+
+  .modal-body {
+    @include themify($themes) {
+      display: flex;
+      gap: 12px;
+      padding: 4px 20px 12px;
+
+      .pfp {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
+        margin-top: 4px;
+      }
+
+      textarea {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: transparent;
+        color: themed("textColor");
+        font-size: 14px;
+        resize: none;
+        line-height: 1.5;
+        font-family: inherit;
+
+        &::placeholder {
+          color: themed("textColorSoft");
+        }
+      }
+    }
+  }
+
+  .file-preview-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 0 20px 12px;
+
+    .file-thumb {
+      position: relative;
+      width: 80px;
+      height: 80px;
+      border-radius: 8px;
+      overflow: hidden;
+
+      img,
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .remove-file {
+        position: absolute;
+        top: 2px;
+        right: 2px;
+        background: rgba(255,255,255,0.8);
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .error-msg {
+    color: red;
+    font-size: 12px;
+    padding: 0 20px 8px;
+  }
+
+  .modal-footer {
+    @include themify($themes) {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 20px 16px;
+      border-top: 0.5px solid themed("border");
+
+      .file-label {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        cursor: pointer;
+        font-size: 13px;
+        color: themed("textColorSoft");
+
+        &:hover {
+          color: themed("textColor");
+        }
+      }
+
+      .post-btn {
+        background-color: #6D1D1D;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 7px 22px;
+        font-size: 13px;
+        cursor: pointer;
+        transition: opacity 0.15s;
+
+        &:disabled {
+          opacity: 0.45;
+          cursor: default;
+        }
+
+        &:not(:disabled):hover {
+          opacity: 0.88;
+        }
+      }
+    }
+  }
+}
