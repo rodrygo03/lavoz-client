@@ -1,249 +1,131 @@
 import "./rightBar.scss";
+import { useContext } from "react";
 import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { makeRequest } from "../../axios";
+import { AuthContext } from "../../context/authContext";
+import { useTranslation } from "react-i18next";
+import { STATUS_COLORS } from "../../utils/escrowStatus";
 
-// import Free from "../../assets/cart-line-icon.jpg";
-// import Merch from "../../assets/outdoor-market.jpg";
-import Events from "../../assets/food-trucks.jpg";
-import Games from "../../assets/ball-american-football-icon.jpg";
-import Jobs from "../../assets/briefcase-icon.jpg";
+const RbSection = ({ title, to, linkLabel, children }) => (
+  <div className="rb-card">
+    <div className="rb-header">
+      <h4>{title}</h4>
+      <Link to={to}>{linkLabel} →</Link>
+    </div>
+    <div className="rb-list">{children}</div>
+  </div>
+);
 
 const RightBar = () => {
+  const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
+
+  const { data: projects } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () => makeRequest.get("/projects").then((r) => r.data),
+  });
+
+  const { data: users } = useQuery({
+    queryKey: ["allUsers"],
+    queryFn: () => makeRequest.get("/users/").then((r) => r.data),
+  });
+
+  const { data: services } = useQuery({
+    queryKey: ["services"],
+    queryFn: () => makeRequest.get("/services").then((r) => r.data),
+  });
+
+  const { data: escrows } = useQuery({
+    queryKey: ["escrows", "me"],
+    queryFn: () => makeRequest.get("/escrows/me").then((r) => r.data),
+    enabled: !!currentUser,
+  });
+
+  const openProjects = projects?.filter((p) => p.status === "open").slice(0, 5) ?? [];
+  const students = users?.filter((u) => u.account_type === "student").slice(0, 5) ?? [];
+  const locals = users?.filter((u) => u.account_type === "local").slice(0, 5) ?? [];
+  const featuredServices = services?.slice(0, 5) ?? [];
+  const myEscrows = escrows?.filter((e) =>
+    ["pending", "active", "submitted", "completed"].includes(e.status)
+  ).slice(0, 5) ?? [];
+
   return (
     <div className="rightBar">
-      <div className="container">
-        <div className="item" style={{paddingTop: 0}}>
-          {/* <Link to={"/market"} className="circle-icon" style={{marginTop: 0}}>
-            <img src={Free}/>
-            <p>Free Items</p>
-          </Link>
-          <Link to={"/market"} className="circle-icon">
-            <img src={Merch}/>
-            <p>Aggie Merch</p>
-          </Link> */}
-          <Link to={"/events"}  className="circle-icon">
-            <img src={Events}/>
-            <p>BCS Events</p>
-          </Link>
-          <Link to={"/tamu"}  className="circle-icon">
-            <img src={Games}/>
-            <p>Aggie Games</p>
-          </Link>
-          <Link to={"/jobs"} className="circle-icon">
-            <img src={Jobs}/>
-            <p>Students & Jobs</p>
-          </Link>
-        </div>
+      {openProjects.length > 0 && (
+        <RbSection title={t("projects.bcsLocalProjects")} to="/projects" linkLabel={t("projects.viewAll")}>
+          {openProjects.map((p) => (
+            <Link key={p.id} to={`/projects/${p.id}`} className="rb-row">
+              <div className="rb-row-info">
+                <span className="rb-title">{p.title}</span>
+                <span className="rb-subtitle">{p.username}{p.timeline ? ` · ${p.timeline}` : ""}</span>
+              </div>
+            </Link>
+          ))}
+        </RbSection>
+      )}
 
-      </div>
+      {students.length > 0 && (
+        <RbSection title="Student Talent" to="/talent" linkLabel={t("projects.viewAll")}>
+          {students.map((u) => (
+            <Link key={u.id} to={`/profile/${u.id}`} className="rb-row">
+              <img src={u.profilePic} alt="" />
+              <div className="rb-row-info">
+                <span className="rb-title">{u.username}</span>
+                <span className="rb-subtitle">{u.skills ? u.skills.split(",")[0].trim() : u.university || "Student"}</span>
+              </div>
+            </Link>
+          ))}
+        </RbSection>
+      )}
+
+      {featuredServices.length > 0 && (
+        <RbSection title="Student Services" to="/talent" linkLabel={t("projects.viewAll")}>
+          {featuredServices.map((s) => (
+            <Link key={s.id} to={`/profile/${s.userId}`} className="rb-row">
+              <div className="rb-row-info">
+                <span className="rb-title">{s.title}</span>
+                <span className="rb-subtitle">{s.username}</span>
+              </div>
+            </Link>
+          ))}
+        </RbSection>
+      )}
+
+      {locals.length > 0 && (
+        <RbSection title={t("projects.bcsLocals")} to="/talent" linkLabel={t("projects.viewAll")}>
+          {locals.map((u) => (
+            <Link key={u.id} to={`/profile/${u.id}`} className="rb-row">
+              <img src={u.profilePic} alt="" />
+              <div className="rb-row-info">
+                <span className="rb-title">{u.username}</span>
+                <span className="rb-subtitle">{u.location || "BCS Local"}</span>
+              </div>
+            </Link>
+          ))}
+        </RbSection>
+      )}
+
+      {currentUser && myEscrows.length > 0 && (
+        <RbSection title={t("escrow.myEscrows")} to="/escrows" linkLabel={t("projects.viewAll")}>
+          {myEscrows.map((e) => (
+            <Link key={e.id} to={`/escrows/${e.id}`} className="rb-row">
+              <div className="rb-row-info">
+                <span className="rb-title">{e.projectTitle}</span>
+                <span className="rb-subtitle">{e.studentUsername} ↔ {e.localUsername}</span>
+              </div>
+              <span
+                className="rb-status"
+                style={{ backgroundColor: STATUS_COLORS[e.status] }}
+              >
+                {t(`escrow.${e.status}`)}
+              </span>
+            </Link>
+          ))}
+        </RbSection>
+      )}
     </div>
   );
 };
 
 export default RightBar;
-
-
-// import "./rightBar.scss";
-
-// const RightBar = () => {
-//   return (
-//     <div className="rightBar">
-//       <div className="container">
-//         <div className="item">
-//           <span>Suggestions For You</span>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <span>Jane Doe</span>
-//             </div>
-//             <div className="buttons">
-//               <button>sigue</button>
-//               <button>ignora</button>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <span>Jane Doe</span>
-//             </div>
-//             <div className="buttons">
-//               <button>sigue</button>
-//               <button>ignora</button>
-//             </div>
-//           </div>
-//         </div>
-//         <div className="item">
-//           <span>Latest Activities</span>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <p>
-//                 <span>Jane Doe</span> changed their cover picture
-//               </p>
-//             </div>
-//             <span>1 min ago</span>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <p>
-//                 <span>Jane Doe</span> changed their cover picture
-//               </p>
-//             </div>
-//             <span>1 min ago</span>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <p>
-//                 <span>Jane Doe</span> changed their cover picture
-//               </p>
-//             </div>
-//             <span>1 min ago</span>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <p>
-//                 <span>Jane Doe</span> changed their cover picture
-//               </p>
-//             </div>
-//             <span>1 min ago</span>
-//           </div>
-//         </div>
-//         <div className="item">
-//           <span>Online Friends</span>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//           <div className="user">
-//             <div className="userInfo">
-//               <img
-//                 src="https://images.pexels.com/photos/4881619/pexels-photo-4881619.jpeg?auto=compress&cs=tinysrgb&w=1600"
-//                 alt=""
-//               />
-//               <div className="online" />
-//               <span>Jane Doe</span>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default RightBar;

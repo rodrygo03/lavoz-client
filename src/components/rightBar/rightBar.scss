@@ -2,125 +2,116 @@
 
 .rightBar {
   @include themify($themes) {
-    //position: sticky;
-    // top: 70px;
-    // height: calc(100vh - 70px);
-    // overflow: scroll;
+    width: 280px;
+    flex-shrink: 0;
+    position: sticky;
+    top: 50px;
+    height: calc(100vh - 50px);
+    overflow-y: auto;
     background-color: themed("bgSoft");
-    padding-right: 20px;
-    
+    padding: 20px 12px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
 
-    @include mobile{
-      display: none;
-    }
-    @include tablet{
-      display: none;
+    @include mobile  { display: none; }
+    @include tablet  { display: none; }
+
+    &::-webkit-scrollbar { display: none; }
+
+    .rb-card {
+      background-color: themed("bg");
+      border-radius: 16px;
+      box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.18);
+      overflow: hidden;
+      border: 0.5px solid themed("border");
     }
 
-    .circle-icon {
+    .rb-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 14px;
+      border-bottom: 0.5px solid themed("border");
+
+      h4 {
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        color: themed("textColorSoft");
+        margin: 0;
+      }
+
+      a {
+        font-size: 11px;
+        color: #6D1D1D;
+        text-decoration: none;
+        white-space: nowrap;
+
+        &:hover { text-decoration: underline; }
+      }
+    }
+
+    .rb-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .rb-row {
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 5px;
+      gap: 10px;
+      padding: 9px 14px;
       text-decoration: none;
-      color: inherit;
-      margin: 30px 0px;
+      color: themed("textColor");
+      border-bottom: 0.5px solid themed("border");
+      transition: background-color 0.12s;
+
+      &:last-child { border-bottom: none; }
+      &:hover { background-color: themed("bgSoft"); }
 
       img {
-        width: 130px;
-        height: 130px;
-        border: 1px themed("border") solid;
-        border-radius: 100%;
-        object-fit: contain;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        flex-shrink: 0;
       }
 
-      p {
-        color: themed("textColor");
-        font-weight: light;
-        font-size: large;
+      .rb-row-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
+        flex: 1;
+        min-width: 0;
+
+        .rb-title {
+          font-size: 13px;
+          font-weight: 500;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .rb-subtitle {
+          font-size: 11px;
+          color: themed("textColorSoft");
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
-      
-    }
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .container {
-      padding-top: 0px;
-      .item {
-        //-webkit-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        //-moz-box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        //box-shadow: 0px 0px 15px 1px rgba(0, 0, 0, 0.09);
-        padding: 20px;
-        margin-bottom: 20px;
-        background-color: themed("bgSoft");
-
-        span {
-          color: gray;
-        }
-
-        .user {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin: 20px 0px;
-
-          .userInfo {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            position: relative;
-
-            img {
-              width: 40px;
-              height: 40px;
-              border-radius: 50%;
-              object-fit: cover;
-            }
-
-            .online {
-              width: 12px;
-              height: 12px;
-              border-radius: 50%;
-              background-color: limegreen;
-              position: absolute;
-              top: 0;
-              left: 30px;
-            }
-
-            p {
-              color: themed("textColorSoft");
-            }
-
-            span {
-              font-weight: 500;
-              color: themed("textColor");
-            }
-          }
-
-          .buttons {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-
-            button {
-              border: none;
-              padding: 5px;
-              color: white;
-              cursor: pointer;
-
-              &:first-child {
-                background-color: #6D1D1D;
-              }
-
-              &:last-child {
-                background-color: #111111;
-              }
-            }
-          }
-        }
+      .rb-status {
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        color: white;
+        padding: 2px 7px;
+        border-radius: 20px;
+        flex-shrink: 0;
       }
     }
   }

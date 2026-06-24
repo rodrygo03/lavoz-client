@@ -25,6 +25,7 @@ import ForgotPassword from "./pages/forgotPassword/forgotPassword";
 import OTPInput from "./pages/forgotPassword/OTPInput";
 import ResetPassword from "./pages/forgotPassword/ResetPassword";
 import { RecoveryContext } from "./context/recoveryContext";
+import RightBar from "./components/rightBar/RightBar";
 import BrowseProjects from "./pages/projects/BrowseProjects";
 import ProjectDetail from "./pages/projects/ProjectDetail";
 import BrowseTalent from "./pages/talent/BrowseTalent";
@@ -65,7 +66,7 @@ function App() {
             <div className="mainSection" style={{ width: "100%", margin: 0, flex: 10 }}>
               <Outlet />
             </div>
-            {/* <RightBar /> */}
+            <RightBar />
           </div>
         </div>
       </QueryClientProvider>
