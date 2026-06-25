@@ -6,6 +6,7 @@ import {
   Outlet,
   Navigate,
   useNavigate,
+  useLocation,
 } from "react-router-dom";
 import { setNavigate } from "./utils/navigation";
 import Navbar from "./components/navbar/Navbar";
@@ -57,6 +58,9 @@ function App() {
   };
 
   const Layout = () => {
+    const location = useLocation();
+    const isHome = location.pathname === "/";
+
     return (
       <QueryClientProvider client={queryClient}>
         <div className={`theme-${darkMode ? "dark" : "light"}`} style={{height: '100%'}}>
