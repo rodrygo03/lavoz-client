@@ -9,11 +9,14 @@ import SubmitProject from "../../components/project/SubmitProject";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
 
+const STATUS_ORDER = ["open", "in_escrow", "closed"];
+
 const BrowseProjects = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const [searchParams] = useSearchParams();
   const [tab, setTab] = useState(searchParams.get("tab") === "projects" ? "projects" : "locals");
+  const [statusFilter, setStatusFilter] = useState("all");
 
   const { isLoading: projectsLoading, error: projectsError, data: projectsData } = useQuery({
     queryKey: ["projects"],
@@ -25,7 +28,16 @@ const BrowseProjects = () => {
     queryFn: () => makeRequest.get("/users/").then((res) => res.data),
   });
 
-  const openProjects = projectsData ? projectsData.filter((p) => p.status === "open") : [];
+  const allProjects = projectsData
+    ? [...projectsData].sort(
+        (a, b) => STATUS_ORDER.indexOf(a.status) - STATUS_ORDER.indexOf(b.status)
+      )
+    : [];
+
+  const visibleProjects = statusFilter === "all"
+    ? allProjects
+    : allProjects.filter((p) => p.status === statusFilter);
+
   const locals = usersData ? usersData.filter((u) => u.account_type === "local") : [];
 
   return (
@@ -82,13 +94,26 @@ const BrowseProjects = () => {
                 <SubmitProject />
               </div>
             )}
+
+            <div className="status-filters">
+              {["all", "open", "in_escrow", "closed"].map((s) => (
+                <button
+                  key={s}
+                  className={`status-filter-btn${statusFilter === s ? " active" : ""} ${s}`}
+                  onClick={() => setStatusFilter(s)}
+                >
+                  {s === "all" ? "All" : s === "in_escrow" ? "In Escrow" : s.charAt(0).toUpperCase() + s.slice(1)}
+                </button>
+              ))}
+            </div>
+
             <div className="feed">
               {projectsLoading && <span className="state">Loading...</span>}
               {projectsError && <span className="state">Failed to load projects.</span>}
-              {!projectsLoading && !projectsError && openProjects.length === 0 && (
+              {!projectsLoading && !projectsError && visibleProjects.length === 0 && (
                 <span className="state">{t("projects.noProjects")}</span>
               )}
-              {!projectsLoading && openProjects.map((project) => (
+              {!projectsLoading && visibleProjects.map((project) => (
                 <ProjectCard key={project.id} project={project} />
               ))}
             </div>

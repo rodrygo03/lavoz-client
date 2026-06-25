@@ -114,6 +114,37 @@
       margin: 30px 0 10px;
     }
 
+    .status-filters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 16px 0 4px;
+
+      .status-filter-btn {
+        padding: 6px 16px;
+        border-radius: 20px;
+        border: 1.5px solid themed("border");
+        background-color: themed("bg");
+        color: themed("textColorSoft");
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.15s ease;
+
+        &:hover { border-color: themed("textColorSoft"); color: themed("textColor"); }
+
+        &.active {
+          color: white;
+          border-color: transparent;
+
+          &.all      { background-color: #555; }
+          &.open     { background-color: #2e7d32; }
+          &.in_escrow { background-color: #1565c0; }
+          &.closed   { background-color: #999; }
+        }
+      }
+    }
+
     .feed {
       display: flex;
       flex-direction: column;

@@ -113,6 +113,14 @@ function App() {
           path: "/guest",
           element: <Guest/>
         },
+        {
+          path: "/projects",
+          element: <BrowseProjects />,
+        },
+        {
+          path: "/projects/:id",
+          element: <ProjectDetail />,
+        },
       ],
     },
     {
@@ -146,14 +154,6 @@ function App() {
               <AdminDashboard />
             </RoleGuard>
           ),
-        },
-        {
-          path: "/projects",
-          element: <BrowseProjects />,
-        },
-        {
-          path: "/projects/:id",
-          element: <ProjectDetail />,
         },
         {
           path: "/messages",
