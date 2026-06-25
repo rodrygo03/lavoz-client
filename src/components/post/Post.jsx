@@ -480,7 +480,7 @@ const Post = ({ post, openComments = false }) => {
 
         <div className="content">
             {(() => {
-              const postText = post.article != null ? post.article : post.desc;
+              const postText = post.article != null ? post.article : (post.desc ?? "");
               const truncatedPostText = postText.length > MAX_LENGTH ? postText.substring(0, MAX_LENGTH) : postText;
 
               return (
