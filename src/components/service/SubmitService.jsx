@@ -5,6 +5,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useTranslation } from "react-i18next";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
+import CategoryPicker from "../categoryPicker/CategoryPicker";
 
 const SubmitService = ({ onClose }) => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const SubmitService = ({ onClose }) => {
     skills: "",
     availability: "",
   });
+  const [subcategoryIds, setSubcategoryIds] = useState([]);
   const [error, setError] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -32,6 +34,7 @@ const SubmitService = ({ onClose }) => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["services"] });
       setTexts({ title: "", description: "", skills: "", availability: "" });
+      setSubcategoryIds([]);
       setServerError(null);
       setSubmitted(true);
       setTimeout(() => {
@@ -53,7 +56,7 @@ const SubmitService = ({ onClose }) => {
       setError(true);
       return;
     }
-    mutation.mutate(texts);
+    mutation.mutate({ ...texts, subcategoryIds });
   };
 
   return (
@@ -89,6 +92,7 @@ const SubmitService = ({ onClose }) => {
             onChange={handleChange}
             placeholder={t("services.availabilityPlaceholder")}
           />
+          <CategoryPicker value={subcategoryIds} onChange={setSubcategoryIds} />
           {error && <span className="error-msg">{t("services.error")}</span>}
           {serverError && <span className="error-msg">{serverError}</span>}
           {submitted && <span className="success-msg">Service posted!</span>}

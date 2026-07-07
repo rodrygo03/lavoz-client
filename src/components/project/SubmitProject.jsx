@@ -4,6 +4,7 @@ import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useTranslation } from "react-i18next";
+import CategoryPicker from "../categoryPicker/CategoryPicker";
 
 const SubmitProject = () => {
   const { t } = useTranslation();
@@ -17,6 +18,7 @@ const SubmitProject = () => {
     timeline: "",
     deliverables: "",
   });
+  const [subcategoryIds, setSubcategoryIds] = useState([]);
   const [error, setError] = useState(false);
   const [serverError, setServerError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
@@ -31,6 +33,7 @@ const SubmitProject = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
       setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "" });
+      setSubcategoryIds([]);
       setServerError(null);
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
@@ -49,7 +52,7 @@ const SubmitProject = () => {
       setError(true);
       return;
     }
-    mutation.mutate(texts);
+    mutation.mutate({ ...texts, subcategoryIds });
   };
 
   return (
@@ -95,6 +98,7 @@ const SubmitProject = () => {
             placeholder={t("projects.deliverablesPlaceholder")}
             rows={2}
           />
+          <CategoryPicker value={subcategoryIds} onChange={setSubcategoryIds} />
           {error && <span className="error-msg">{t("projects.error")}</span>}
           {serverError && <span className="error-msg">{serverError}</span>}
           {submitted && <span className="success-msg">Project posted!</span>}

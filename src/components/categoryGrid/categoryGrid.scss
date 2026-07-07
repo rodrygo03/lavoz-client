@@ -1,0 +1,42 @@
+@import "../../style.scss";
+
+.category-grid {
+  @include themify($themes) {
+    background-color: themed("bg");
+    border-radius: 20px;
+    box-shadow: 0px 0px 25px -10px rgba(0, 0, 0, 0.38);
+    padding: 14px 20px;
+    margin-bottom: 20px;
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+
+      .label {
+        flex-shrink: 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: themed("textColor");
+        white-space: nowrap;
+      }
+
+      select {
+        flex: 1;
+        max-width: 260px;
+        padding: 6px 12px;
+        border-radius: 20px;
+        border: 1px solid themed("border");
+        background-color: themed("bgSoft");
+        color: themed("textColor");
+        font-size: 13px;
+        font-weight: 500;
+        cursor: pointer;
+
+        &:hover {
+          border-color: #6D1D1D;
+        }
+      }
+    }
+  }
+}

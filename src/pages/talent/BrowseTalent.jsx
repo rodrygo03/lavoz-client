@@ -1,21 +1,26 @@
 import "./browseTalent.scss";
 import { useState, useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import ServiceCard from "../../components/service/ServiceCard";
 import InviteStudent from "../../components/escrow/InviteStudent";
 import { AuthContext } from "../../context/authContext";
 import { useTranslation } from "react-i18next";
+import { useCategories } from "../../hooks/useCategories";
 
 const BrowseTalent = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const [tab, setTab] = useState("students");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("category") ? "services" : "students");
   const [search, setSearch] = useState("");
   const [inviteTarget, setInviteTarget] = useState(null); // { id, username }
+  const categoryFilter = searchParams.get("category") || "";
 
   const isLocal = currentUser?.account_type === "local";
+
+  const { data: categories } = useCategories();
 
   const { isLoading: usersLoading, error: usersError, data: users } = useQuery({
     queryKey: ["talentUsers"],
@@ -23,9 +28,19 @@ const BrowseTalent = () => {
   });
 
   const { isLoading: servicesLoading, error: servicesError, data: services } = useQuery({
-    queryKey: ["services"],
-    queryFn: () => makeRequest.get("/services").then((res) => res.data),
+    queryKey: ["services", { category: categoryFilter }],
+    queryFn: () =>
+      makeRequest
+        .get("/services", { params: categoryFilter ? { category: categoryFilter } : {} })
+        .then((res) => res.data),
   });
+
+  const handleCategoryChange = (e) => {
+    const next = new URLSearchParams(searchParams);
+    if (e.target.value) next.set("category", e.target.value);
+    else next.delete("category");
+    setSearchParams(next);
+  };
 
   const students = users
     ? users.filter((u) => u.account_type === "student")
@@ -124,6 +139,15 @@ const BrowseTalent = () => {
 
         {tab === "services" && (
           <>
+            <div className="category-filter">
+              <select value={categoryFilter} onChange={handleCategoryChange}>
+                <option value="">{t("taxonomy.allCategories")}</option>
+                {categories?.map((c) => (
+                  <option key={c.id} value={c.slug}>{c.name}</option>
+                ))}
+              </select>
+            </div>
+
             {servicesLoading && <span className="state">Loading...</span>}
             {servicesError && <span className="state">Failed to load services.</span>}
             {!servicesLoading && (!services || services.length === 0) && (
