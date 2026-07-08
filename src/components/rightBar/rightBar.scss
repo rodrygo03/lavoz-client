@@ -227,10 +227,16 @@
     }
 
     .rb-menu {
-      width: 256px;    /* fixed so layout doesn't reflow during width transition */
+      width: 72px;      /* matches collapsed bar so cards aren't clipped mid-card */
       display: flex;
       flex-direction: column;
       gap: 10px;
+      transition: width 0.3s ease;
+    }
+
+    /* expand menu to fixed width once bar is open (avoids reflow during widening) */
+    &:hover .rb-menu {
+      width: 256px;
     }
 
     /* text hidden when slim */

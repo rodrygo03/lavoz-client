@@ -13,7 +13,9 @@ const BrowseTalent = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const [searchParams, setSearchParams] = useSearchParams();
-  const [tab, setTab] = useState(searchParams.get("category") ? "services" : "students");
+  const [tab, setTab] = useState(
+    searchParams.get("tab") === "services" || searchParams.get("category") ? "services" : "students"
+  );
   const [search, setSearch] = useState("");
   const [inviteTarget, setInviteTarget] = useState(null); // { id, username }
   const categoryFilter = searchParams.get("category") || "";
