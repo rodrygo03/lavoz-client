@@ -8,36 +8,20 @@ import ProjectCard from "../../components/project/ProjectCard";
 import SubmitProject from "../../components/project/SubmitProject";
 import { useTranslation } from "react-i18next";
 import { Link, useSearchParams } from "react-router-dom";
-import { useCategories } from "../../hooks/useCategories";
 
 const STATUS_ORDER = ["open", "in_escrow", "closed"];
 
 const BrowseProjects = () => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [tab, setTab] = useState(
-    searchParams.get("tab") === "projects" || searchParams.get("category") ? "projects" : "locals"
-  );
+  const [searchParams] = useSearchParams();
+  const [tab, setTab] = useState(searchParams.get("tab") === "projects" ? "projects" : "locals");
   const [statusFilter, setStatusFilter] = useState("all");
-  const categoryFilter = searchParams.get("category") || "";
-
-  const { data: categories } = useCategories();
 
   const { isLoading: projectsLoading, error: projectsError, data: projectsData } = useQuery({
-    queryKey: ["projects", { category: categoryFilter }],
-    queryFn: () =>
-      makeRequest
-        .get("/projects", { params: categoryFilter ? { category: categoryFilter } : {} })
-        .then((res) => res.data),
+    queryKey: ["projects"],
+    queryFn: () => makeRequest.get("/projects").then((res) => res.data),
   });
-
-  const handleCategoryChange = (e) => {
-    const next = new URLSearchParams(searchParams);
-    if (e.target.value) next.set("category", e.target.value);
-    else next.delete("category");
-    setSearchParams(next);
-  };
 
   const { isLoading: usersLoading, error: usersError, data: usersData } = useQuery({
     queryKey: ["allUsers"],
@@ -121,15 +105,6 @@ const BrowseProjects = () => {
                   {s === "all" ? "All" : s === "in_escrow" ? "In Escrow" : s.charAt(0).toUpperCase() + s.slice(1)}
                 </button>
               ))}
-            </div>
-
-            <div className="category-filter">
-              <select value={categoryFilter} onChange={handleCategoryChange}>
-                <option value="">{t("taxonomy.allCategories")}</option>
-                {categories?.map((c) => (
-                  <option key={c.id} value={c.slug}>{c.name}</option>
-                ))}
-              </select>
             </div>
 
             <div className="feed">

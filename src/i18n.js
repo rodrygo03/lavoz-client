@@ -382,12 +382,6 @@ i18n
             noLocals: "No locals found.",
             viewAll: "View all",
           },
-          taxonomy: {
-            browseBy: "Browse by",
-            selectCategory: "Select a category",
-            selectSubcategory: "Select a subcategory",
-            allCategories: "All Categories",
-          },
           projectPost: {
             createPost: "Create Post",
             postAbout: "Post about",
@@ -791,12 +785,6 @@ i18n
             bcsLocals: "Locales de BCS",
             noLocals: "No se encontraron locales.",
             viewAll: "Ver todo",
-          },
-          taxonomy: {
-            browseBy: "Explorar por",
-            selectCategory: "Selecciona una categoría",
-            selectSubcategory: "Selecciona una subcategoría",
-            allCategories: "Todas las Categorías",
           },
           projectPost: {
             createPost: "Crear Publicación",

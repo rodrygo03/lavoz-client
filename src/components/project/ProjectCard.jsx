@@ -6,7 +6,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
-import { slugToLabel } from "../../utils/categoryLabel";
 
 const ProjectCard = ({ project }) => {
   const { t } = useTranslation();
@@ -15,10 +14,6 @@ const ProjectCard = ({ project }) => {
 
   const skills = project.skills
     ? project.skills.split(",").map((s) => s.trim()).filter(Boolean)
-    : [];
-
-  const subcategories = project.subcategorySlugs
-    ? project.subcategorySlugs.split(",").map((s) => s.trim()).filter(Boolean)
     : [];
 
   const closeMutation = useMutation({
@@ -52,14 +47,6 @@ const ProjectCard = ({ project }) => {
 
       <div className="card-body">
         <p className="description">{project.description}</p>
-
-        {subcategories.length > 0 && (
-          <div className="skills-list">
-            {subcategories.map((slug, i) => (
-              <span key={i} className="skill-tag category-tag">{slugToLabel(slug)}</span>
-            ))}
-          </div>
-        )}
 
         {skills.length > 0 && (
           <div className="skills-list">

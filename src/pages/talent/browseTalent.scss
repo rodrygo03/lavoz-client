@@ -183,18 +183,5 @@
       max-width: 700px;
       padding-bottom: 30px;
     }
-
-    .category-filter {
-      margin-bottom: 20px;
-
-      select {
-        padding: 6px 12px;
-        border-radius: 20px;
-        border: 1.5px solid themed("border");
-        background-color: themed("bg");
-        color: themed("textColor");
-        font-size: 13px;
-      }
-    }
   }
 }

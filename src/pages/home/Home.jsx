@@ -9,7 +9,6 @@ import { STATUS_COLORS } from "../../utils/escrowStatus";
 import SubmitService from "../../components/service/SubmitService";
 import SubmitProject from "../../components/project/SubmitProject";
 import Post from "../../components/post/Post";
-import CategoryGrid from "../../components/categoryGrid/CategoryGrid";
 
 /* ── Shared home (students and BCS locals) ── */
 const SharedHome = ({ t, isGuest, role }) => {
@@ -24,8 +23,6 @@ const SharedHome = ({ t, isGuest, role }) => {
     <div className="home-content">
       {!isGuest && role === "local" && <SubmitProject />}
       {!isGuest && role === "student" && <SubmitService />}
-
-      <CategoryGrid />
 
       {projectActivityPosts.length > 0 && (
         <div className="activity-feed-section">
