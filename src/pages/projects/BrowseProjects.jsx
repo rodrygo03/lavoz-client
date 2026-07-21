@@ -1,5 +1,5 @@
 import "./browseProjects.scss";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useContext } from "react";
@@ -17,6 +17,10 @@ const BrowseProjects = () => {
   const [searchParams] = useSearchParams();
   const [tab, setTab] = useState(searchParams.get("tab") === "projects" ? "projects" : "locals");
   const [statusFilter, setStatusFilter] = useState("all");
+
+  useEffect(() => {
+    setTab(searchParams.get("tab") === "projects" ? "projects" : "locals");
+  }, [searchParams]);
 
   const { isLoading: projectsLoading, error: projectsError, data: projectsData } = useQuery({
     queryKey: ["projects"],

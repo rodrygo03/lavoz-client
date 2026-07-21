@@ -1,5 +1,5 @@
 import "./rightBar.scss";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -10,9 +10,11 @@ import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 import KeyboardDoubleArrowLeftIcon from "@mui/icons-material/KeyboardDoubleArrowLeft";
 import KeyboardDoubleArrowRightIcon from "@mui/icons-material/KeyboardDoubleArrowRight";
+import { AuthContext } from "../../context/authContext";
 
 const RightBar = () => {
   const { t } = useTranslation();
+  const { currentUser } = useContext(AuthContext);
   const location = useLocation();
   const isHome = location.pathname === "/";
   const [homeOpen, setHomeOpen] = useState(true);
@@ -57,7 +59,7 @@ const RightBar = () => {
       label: "Student Services",
       to: "/talent?tab=services",
       rows: featuredServices.map((s) => (
-        <Link key={s.id} to={`/profile/${s.userId}`} className="rb-row">
+        <Link key={s.id} to={`/talent?tab=services&service=${s.id}`} className="rb-row">
           <div className="rb-row-info">
             <span className="rb-title">{s.title}</span>
             <span className="rb-subtitle">{s.username}</span>
@@ -81,7 +83,7 @@ const RightBar = () => {
       )),
     },
     {
-      show: openProjects.length > 0,
+      show: currentUser?.account_type === "local" || openProjects.length > 0,
       icon: <FolderOutlinedIcon />,
       label: t("projects.bcsLocalProjects"),
       to: "/projects?tab=projects",

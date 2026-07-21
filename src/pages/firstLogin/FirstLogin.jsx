@@ -13,6 +13,8 @@ const FirstLogin = () => {
   const {currentUser} = useContext(AuthContext);
   const [cover, setCover] = useState(null);
   const [profile, setProfile] = useState(null);
+  const [categories, setCategories] = useState([]);
+  const [categoriesError, setCategoriesError] = useState(false);
   const [texts, setTexts] = useState({
       email: currentUser.email,
       password: currentUser.password,
@@ -26,9 +28,26 @@ const FirstLogin = () => {
       university: currentUser.university || '',
       major: currentUser.major || '',
       grad_year: currentUser.grad_year || '',
+      serviceCategoryIds: currentUser.serviceCategoryIds || [],
       org_name: currentUser.org_name || '',
       org_type: currentUser.org_type || '',
     });
+
+    useEffect(() => {
+      let cancelled = false;
+
+      makeRequest.get("/categories")
+        .then((res) => {
+          if (!cancelled) setCategories(res.data);
+        })
+        .catch(() => {
+          if (!cancelled) setCategoriesError(true);
+        });
+
+      return () => {
+        cancelled = true;
+      };
+    }, []);
   
     const upload = async (file) => {
       console.log(file)
@@ -44,6 +63,16 @@ const FirstLogin = () => {
   
     const handleChange = (e) => {
       setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    };
+
+    const toggleServiceCategory = (categoryId) => {
+      const id = String(categoryId);
+      setTexts((prev) => ({
+        ...prev,
+        serviceCategoryIds: prev.serviceCategoryIds.includes(id)
+          ? prev.serviceCategoryIds.filter((selectedId) => selectedId !== id)
+          : [...prev.serviceCategoryIds, id],
+      }));
     };
   
     const queryClient = useQueryClient();
@@ -70,7 +99,7 @@ const FirstLogin = () => {
         let coverUrl = cover ? await upload(cover) : currentUser.coverPic;
         let profileUrl = profile ? await upload(profile) : currentUser.profilePic;
     
-        mutation.mutate({
+        await mutation.mutateAsync({
           ...texts,
           coverPic: coverUrl,
           profilePic: profileUrl,
@@ -249,6 +278,26 @@ const FirstLogin = () => {
                   onChange={handleChange}
                   placeholder={t('update.skillsPlaceholder')}
                 />
+              </div>
+              <div className="row">
+                <label className="pc-none">{t('register.services')}</label>
+                <div className="service-category-options" aria-label={t('register.services')}>
+                  {categoriesError && <span>{t('register.servicesUnavailable')}</span>}
+                  {categories.map((category) => {
+                    const categoryId = String(category.id);
+                    return (
+                      <label key={category.id} className="service-category-option">
+                        <input
+                          type="checkbox"
+                          checked={texts.serviceCategoryIds.includes(categoryId)}
+                          onChange={() => toggleServiceCategory(categoryId)}
+                          disabled={categoriesError}
+                        />
+                        <span>{category.name}</span>
+                      </label>
+                    );
+                  })}
+                </div>
               </div>
               <div className="row">
                 <label className="pc-none">{t('update.university')}</label>

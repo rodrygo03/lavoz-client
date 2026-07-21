@@ -22,7 +22,8 @@
         gap: 15px;
 
         input,
-        textarea {
+        textarea,
+        select {
           padding: 5px 0;
           border: none;
           border-bottom: 1px solid themed("border");
@@ -35,6 +36,61 @@
 
           &::placeholder { color: themed("textColorSoft"); }
           &:focus { outline: none; border-bottom-color: #6D1D1D; }
+        }
+
+        .field-label {
+          color: themed("textColorSoft");
+          font-size: 13px;
+          margin-bottom: -10px;
+        }
+
+        .service-skills-picker {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .student-skill-options,
+          .selected-service-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+          }
+
+          .student-skill-option,
+          .selected-service-skills button {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 2px 7px;
+            border: 1px solid themed("border");
+            border-radius: 12px;
+            background-color: themed("bgSoft");
+            color: themed("textColor");
+            font-size: 12px;
+            cursor: pointer;
+
+            input {
+              width: 14px;
+              height: 14px;
+              padding: 0;
+              border: initial;
+            }
+          }
+
+          .custom-skill-input {
+            display: flex;
+            gap: 8px;
+
+            input { flex: 1; }
+            button {
+              padding: 5px 10px;
+              border: none;
+              border-radius: 3px;
+              background-color: #6D1D1D;
+              color: white;
+              cursor: pointer;
+            }
+          }
         }
 
         .error-msg  { color: red;   font-size: 12px; }

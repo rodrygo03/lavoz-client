@@ -37,7 +37,8 @@
         gap: 15px;
 
         input,
-        textarea {
+        textarea,
+        select {
           padding: 5px 0;
           border: none;
           border-bottom: 1px solid themed("border");
@@ -50,6 +51,12 @@
 
           &::placeholder { color: themed("textColorSoft"); }
           &:focus { outline: none; border-bottom-color: #6D1D1D; }
+        }
+
+        .field-label {
+          color: themed("textColorSoft");
+          font-size: 13px;
+          margin-bottom: -10px;
         }
 
         .error-msg {

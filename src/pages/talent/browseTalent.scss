@@ -183,5 +183,10 @@
       max-width: 700px;
       padding-bottom: 30px;
     }
+
+    .focused-service .service-card {
+      outline: 2px solid #6D1D1D;
+      outline-offset: 3px;
+    }
   }
 }

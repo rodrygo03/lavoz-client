@@ -1,5 +1,5 @@
 import "./browseTalent.scss";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -17,6 +17,11 @@ const BrowseTalent = () => {
   );
   const [search, setSearch] = useState("");
   const [inviteTarget, setInviteTarget] = useState(null); // { id, username }
+  const focusedServiceId = searchParams.get("service");
+
+  useEffect(() => {
+    setTab(searchParams.get("tab") === "services" ? "services" : "students");
+  }, [searchParams]);
 
   const isLocal = currentUser?.account_type === "local";
 
@@ -29,6 +34,11 @@ const BrowseTalent = () => {
     queryKey: ["services"],
     queryFn: () => makeRequest.get("/services").then((res) => res.data),
   });
+
+  useEffect(() => {
+    if (tab !== "services" || !focusedServiceId || !services) return;
+    document.getElementById(`service-${focusedServiceId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [focusedServiceId, services, tab]);
 
   const students = users
     ? users.filter((u) => u.account_type === "student")
@@ -134,7 +144,13 @@ const BrowseTalent = () => {
             )}
             <div className="service-feed">
               {services && services.map((service) => (
-                <ServiceCard key={service.id} service={service} />
+                <div
+                  key={service.id}
+                  id={`service-${service.id}`}
+                  className={String(service.id) === focusedServiceId ? "focused-service" : ""}
+                >
+                  <ServiceCard service={service} />
+                </div>
               ))}
             </div>
           </>

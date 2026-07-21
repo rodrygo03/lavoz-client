@@ -147,13 +147,48 @@
           }
         }
 
-        input {
+        input,
+        select {
           padding: 5px 0px;
           border: none;
           border-bottom: 1px solid themed("border");
           color: gray;
           background-color: transparent;
           flex-basis: 60%;
+        }
+
+        .service-category-options {
+          flex-basis: 60%;
+          display: grid;
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+          gap: 8px;
+          max-height: 220px;
+          overflow-y: auto;
+          padding: 8px;
+          border: 1px solid themed("border");
+
+          @include mobile {
+            grid-template-columns: 1fr;
+          }
+
+          .service-category-option {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 6px;
+            flex-basis: auto;
+            font-weight: normal;
+            cursor: pointer;
+
+            input {
+              flex-basis: auto;
+              width: 16px;
+              height: 16px;
+              padding: 0;
+              border: initial;
+              cursor: pointer;
+            }
+          }
         }
 
         button {

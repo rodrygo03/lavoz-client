@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { makeRequest } from "../../axios";
 import "./update.scss";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -11,6 +11,12 @@ const Update = ({ setOpenUpdate, user, first }) => {
     const { t, i18n } = useTranslation();
     const [cover, setCover] = useState(null);
     const [profile, setProfile] = useState(null);
+    const [skillInput, setSkillInput] = useState("");
+    const [skills, setSkills] = useState(() =>
+      (user.skills || "").split(",").map((skill) => skill.trim()).filter(Boolean)
+    );
+    const [categories, setCategories] = useState([]);
+    const [categoriesError, setCategoriesError] = useState(false);
     const { updateUser, currentUser } = useContext(AuthContext);
     const [texts, setTexts] = useState({
       email: user.email,
@@ -26,11 +32,29 @@ const Update = ({ setOpenUpdate, user, first }) => {
       university: user.university || '',
       major: user.major || '',
       grad_year: user.grad_year || '',
+      serviceCategoryIds: (user.serviceCategories || []).map((category) => String(category.id)),
       org_name: user.org_name || '',
       org_type: user.org_type || '',
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const id = currentUser.id;
+
+    useEffect(() => {
+      if (user.account_type !== "student") return undefined;
+      let cancelled = false;
+
+      makeRequest.get("/categories")
+        .then((res) => {
+          if (!cancelled) setCategories(res.data);
+        })
+        .catch(() => {
+          if (!cancelled) setCategoriesError(true);
+        });
+
+      return () => {
+        cancelled = true;
+      };
+    }, [user.account_type]);
   
     const upload = async (file) => {
       try {
@@ -46,6 +70,34 @@ const Update = ({ setOpenUpdate, user, first }) => {
     const handleChange = (e) => {
       setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     };
+
+    const toggleServiceCategory = (categoryId) => {
+      const id = String(categoryId);
+      setTexts((prev) => ({
+        ...prev,
+        serviceCategoryIds: prev.serviceCategoryIds.includes(id)
+          ? prev.serviceCategoryIds.filter((selectedId) => selectedId !== id)
+          : [...prev.serviceCategoryIds, id],
+      }));
+    };
+
+    const addSkill = () => {
+      const skill = skillInput.trim();
+      if (!skill || skills.some((existingSkill) => existingSkill.toLowerCase() === skill.toLowerCase())) return;
+      setSkills((currentSkills) => [...currentSkills, skill]);
+      setSkillInput("");
+    };
+
+    const removeSkill = (skillToRemove) => {
+      setSkills((currentSkills) => currentSkills.filter((skill) => skill !== skillToRemove));
+    };
+
+    const handleSkillKeyDown = (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        addSkill();
+      }
+    };
   
     const queryClient = useQueryClient();
   
@@ -54,9 +106,8 @@ const Update = ({ setOpenUpdate, user, first }) => {
             return makeRequest.put("/users", user);
         },
         onSuccess: () => {
-          // Invalidate and refetch
-          //updateUser(userData);
-          queryClient.invalidateQueries(["user"]);
+          queryClient.invalidateQueries({ queryKey: ["user", user.id] });
+          queryClient.invalidateQueries({ queryKey: ["allUsers"] });
         },
     });
   
@@ -68,12 +119,13 @@ const Update = ({ setOpenUpdate, user, first }) => {
         let coverUrl = cover ? await upload(cover) : user.coverPic;
         let profileUrl = profile ? await upload(profile) : user.profilePic;
 
+        const updatedTexts = { ...texts, skills: skills.join(", ") };
         await mutation.mutateAsync({
-          ...texts,
+          ...updatedTexts,
           coverPic: coverUrl,
           profilePic: profileUrl,
         });
-        let userData = {...texts, coverPic: coverUrl, profilePic: profileUrl, id: id};
+        let userData = {...updatedTexts, coverPic: coverUrl, profilePic: profileUrl, id: id};
         updateUser(userData);
         setOpenUpdate(false);
         setCover(null);
@@ -250,13 +302,48 @@ const Update = ({ setOpenUpdate, user, first }) => {
             {user.account_type === 'student' && <>
               <div className="row">
                 <label className="pc-none">{t('update.skills')}</label>
-                <input
-                  type="text"
-                  name="skills"
-                  value={texts.skills}
-                  onChange={handleChange}
-                  placeholder={t('update.skillsPlaceholder')}
-                />
+                <div className="skill-editor">
+                  <div className="skill-input-row">
+                    <input
+                      type="text"
+                      value={skillInput}
+                      onChange={(e) => setSkillInput(e.target.value)}
+                      onKeyDown={handleSkillKeyDown}
+                      placeholder={t('update.skillsPlaceholder')}
+                    />
+                    <button type="button" onClick={addSkill}>{t('update.addSkill')}</button>
+                  </div>
+                  {skills.length > 0 && (
+                    <div className="skill-editor-tags">
+                      {skills.map((skill) => (
+                        <div key={skill} className="skill-editor-tag">
+                          <span>{skill}</span>
+                          <button type="button" onClick={() => removeSkill(skill)} aria-label={`Remove ${skill}`}>×</button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="row">
+                <label className="pc-none">{t('register.services')}</label>
+                <div className="service-category-options" aria-label={t('register.services')}>
+                  {categoriesError && <span>{t('register.servicesUnavailable')}</span>}
+                  {categories.map((category) => {
+                    const categoryId = String(category.id);
+                    return (
+                      <label key={category.id} className="service-category-option">
+                        <input
+                          type="checkbox"
+                          checked={texts.serviceCategoryIds.includes(categoryId)}
+                          onChange={() => toggleServiceCategory(categoryId)}
+                          disabled={categoriesError}
+                        />
+                        <span>{category.name}</span>
+                      </label>
+                    );
+                  })}
+                </div>
               </div>
               <div className="row">
                 <label className="pc-none">{t('update.university')}</label>

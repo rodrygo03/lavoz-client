@@ -26,7 +26,7 @@ const Profile = ({userId}) => {
   const { currentUser } = useContext(AuthContext);
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["user"],
+    queryKey: ["user", userId],
     queryFn: () => makeRequest.get("/users/find/" + userId).then((res) => {return res.data})
   });
   
@@ -124,10 +124,23 @@ const Profile = ({userId}) => {
                   }
                 </div>
                 {data.account_type === 'student' && data.skills &&
-                  <div className="skills-list">
-                    {data.skills.split(',').map(s => s.trim()).filter(Boolean).map((skill, i) => (
-                      <span key={i} className="skill-tag">{skill}</span>
-                    ))}
+                  <div className="skills-categories-list">
+                     <div className="service-categories-label">{t('update.skills')}</div>
+                    <div className="skills-list">
+                      {data.skills.split(',').map(s => s.trim()).filter(Boolean).map((skill, i) => (
+                        <div key={i} className="skill-tag">{skill}</div>
+                      ))}
+                    </div>
+                  </div>
+                }
+                {data.account_type === 'student' && data.serviceCategories?.length > 0 &&
+                  <div className="service-categories-list">
+                    <div className="service-categories-label">{t('register.services')}</div>
+                    <div className="skills-list">
+                      {data.serviceCategories.map((category) => (
+                        <div key={category.id} className="service-tag">{category.name}</div>
+                      ))}
+                    </div>
                   </div>
                 }
                 {currentUser && userId === currentUser.id ? (

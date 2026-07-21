@@ -192,9 +192,30 @@
         background-color: themed("bgSoft");
         border: 1px solid themed("border");
         color: themed("textColor");
-        border-radius: 20px;
-        padding: 3px 12px;
-        font-size: 13px;
+        border-radius: 12px;
+        padding: 2px 7px;
+        font-size: 12px;
+      }
+    }
+
+    .skills-categories-list,
+    .service-categories-list {
+      text-align: center;
+      margin: 8px 0;
+
+      .service-categories-label {
+        color: themed("textColorSoft");
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      .skills-list .service-tag {
+        background-color: themed("bgSoft");
+        border: 1px solid themed("border");
+        border-radius: 12px;
+        color: themed("textColorSoft");
+        font-size: 12px;
+        padding: 2px 7px;
       }
     }
   }

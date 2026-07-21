@@ -1,5 +1,5 @@
 import "./submitProject.scss";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
@@ -16,10 +16,27 @@ const SubmitProject = () => {
     skills: "",
     timeline: "",
     deliverables: "",
+    categoryId: "",
   });
+  const [categories, setCategories] = useState([]);
+  const [categoriesError, setCategoriesError] = useState(false);
   const [error, setError] = useState(false);
   const [serverError, setServerError] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    let cancelled = false;
+    makeRequest.get("/categories")
+      .then((res) => {
+        if (!cancelled) setCategories(res.data);
+      })
+      .catch(() => {
+        if (!cancelled) setCategoriesError(true);
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -30,7 +47,7 @@ const SubmitProject = () => {
     mutationFn: (project) => makeRequest.post("/projects", project),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "" });
+      setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "", categoryId: "" });
       setServerError(null);
       setSubmitted(true);
       setTimeout(() => setSubmitted(false), 3000);
@@ -45,7 +62,7 @@ const SubmitProject = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!texts.title.trim() || !texts.description.trim()) {
+    if (!texts.title.trim() || !texts.description.trim() || !texts.categoryId) {
       setError(true);
       return;
     }
@@ -74,6 +91,19 @@ const SubmitProject = () => {
             placeholder={t("projects.descField")}
             rows={3}
           />
+          <label className="field-label" htmlFor="project-category">{t("projects.category")}</label>
+          <select
+            id="project-category"
+            name="categoryId"
+            value={texts.categoryId}
+            onChange={handleChange}
+            disabled={categoriesError}
+          >
+            <option value="">{categoriesError ? t("projects.categoriesUnavailable") : t("projects.selectCategory")}</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>{category.name}</option>
+            ))}
+          </select>
           <input
             type="text"
             name="skills"
