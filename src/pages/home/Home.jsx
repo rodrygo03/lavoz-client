@@ -9,6 +9,7 @@ import { STATUS_COLORS } from "../../utils/escrowStatus";
 import SubmitService from "../../components/service/SubmitService";
 import SubmitProject from "../../components/project/SubmitProject";
 import Post from "../../components/post/Post";
+import ProjectCard from "../../components/project/ProjectCard";
 
 /* ── Shared home (students and BCS locals) ── */
 const SharedHome = ({ t, isGuest, role }) => {
@@ -18,13 +19,34 @@ const SharedHome = ({ t, isGuest, role }) => {
   });
 
   const projectActivityPosts = allPosts?.filter((p) => p.projectId != null) ?? [];
+  const { isLoading: projectsLoading, data: projects } = useQuery({
+    queryKey: ["projects"],
+    queryFn: () => makeRequest.get("/projects").then((r) => r.data),
+  });
+  const visibleProjects = projects?.filter((project) => project.status !== "closed") ?? [];
 
   return (
     <div className="home-content">
       {!isGuest && role === "local" && <SubmitProject />}
       {!isGuest && role === "student" && <SubmitService />}
 
-      {projectActivityPosts.length > 0 && (
+      <section className="home-projects-section">
+        <div className="home-card-header">
+          <h2>{t("projects.bcsLocalProjects")}</h2>
+          <Link to="/projects?tab=projects">{t("projects.viewAll")} →</Link>
+        </div>
+        {projectsLoading && <span className="home-projects-state">Loading...</span>}
+        {!projectsLoading && visibleProjects.length === 0 && (
+          <span className="home-projects-state">{t("projects.noProjects")}</span>
+        )}
+        <div className="home-projects-feed">
+          {visibleProjects.map((project) => (
+            <ProjectCard key={project.id} project={project} />
+          ))}
+        </div>
+      </section>
+
+      {!isGuest && projectActivityPosts.length > 0 && (
         <div className="activity-feed-section">
           {projectActivityPosts.map((post) => (
             <Post key={post.id} post={post} />

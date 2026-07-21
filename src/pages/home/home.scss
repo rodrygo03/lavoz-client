@@ -105,6 +105,41 @@
       }
     }
 
+    .home-projects-section {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+
+      .home-card-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        h2 {
+          font-size: 20px;
+          margin: 0;
+        }
+
+        a {
+          color: #6D1D1D;
+          font-size: 13px;
+          text-decoration: none;
+        }
+      }
+
+      .home-projects-feed {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .home-projects-state {
+        color: themed("textColorSoft");
+        font-size: 14px;
+        text-align: center;
+      }
+    }
+
     /* Escrow list rows */
     .escrow-list {
       display: flex;
