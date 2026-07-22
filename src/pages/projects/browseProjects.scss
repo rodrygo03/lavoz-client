@@ -131,16 +131,38 @@
         cursor: pointer;
         transition: all 0.15s ease;
 
-        &:hover { border-color: themed("textColorSoft"); color: themed("textColor"); }
+        &.all {
+          border-color: #6D1D1D;
+          color: #6D1D1D;
+          &:hover { background-color: #6D1D1D; color: white; }
+        }
+
+        &.open {
+          border-color: #2ecc71;
+          color: #218c4e;
+          &:hover { background-color: #2ecc71; color: white; }
+        }
+
+        &.in_escrow {
+          border-color: #2980b9;
+          color: #2980b9;
+          &:hover { background-color: #2980b9; color: white; }
+        }
+
+        &.closed {
+          border-color: #888;
+          color: #666;
+          &:hover { background-color: #888; color: white; }
+        }
 
         &.active {
           color: white;
           border-color: transparent;
 
-          &.all      { background-color: #555; }
-          &.open     { background-color: #2e7d32; }
-          &.in_escrow { background-color: #1565c0; }
-          &.closed   { background-color: #999; }
+          &.all       { background-color: #6D1D1D; }
+          &.open      { background-color: #2ecc71; }
+          &.in_escrow { background-color: #2980b9; }
+          &.closed    { background-color: #888; }
         }
       }
     }

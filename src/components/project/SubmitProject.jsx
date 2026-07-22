@@ -5,19 +5,21 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
 import { useTranslation } from "react-i18next";
 
-const SubmitProject = () => {
+const SubmitProject = ({ project, onClose }) => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const isEditing = Boolean(project);
 
   const [texts, setTexts] = useState({
     title: "",
     description: "",
-    skills: "",
     timeline: "",
     deliverables: "",
     categoryId: "",
   });
+  const [selectedSkills, setSelectedSkills] = useState([]);
+  const [customSkill, setCustomSkill] = useState("");
   const [categories, setCategories] = useState([]);
   const [categoriesError, setCategoriesError] = useState(false);
   const [error, setError] = useState(false);
@@ -38,19 +40,71 @@ const SubmitProject = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!project || categories.length === 0) return;
+
+    const category = categories.find((item) => item.slug === project.categorySlug);
+    setTexts({
+      title: project.title || "",
+      description: project.description || "",
+      timeline: project.timeline || "",
+      deliverables: project.deliverables || "",
+      categoryId: category ? String(category.id) : "",
+    });
+    setSelectedSkills(
+      (project.skills || ",").split(",").map((skill) => skill.trim()).filter(Boolean)
+    );
+  }, [project, categories]);
+
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
     setError(false);
   };
 
+  const toggleSkill = (skill) => {
+    setSelectedSkills((currentSkills) =>
+      currentSkills.includes(skill)
+        ? currentSkills.filter((selectedSkill) => selectedSkill !== skill)
+        : [...currentSkills, skill]
+    );
+  };
+
+  const addCustomSkill = () => {
+    const skill = customSkill.trim();
+    if (!skill) return;
+    setSelectedSkills((currentSkills) => {
+      const existingSkill = currentSkills.find((currentSkill) => currentSkill.toLowerCase() === skill.toLowerCase());
+      return existingSkill ? currentSkills : [...currentSkills, skill];
+    });
+    setCustomSkill("");
+  };
+
+  const handleCustomSkillKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addCustomSkill();
+    }
+  };
+
   const mutation = useMutation({
-    mutationFn: (project) => makeRequest.post("/projects", project),
+    mutationFn: (projectData) => (
+      isEditing
+        ? makeRequest.put(`/projects/${project.id}`, projectData)
+        : makeRequest.post("/projects", projectData)
+    ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
-      setTexts({ title: "", description: "", skills: "", timeline: "", deliverables: "", categoryId: "" });
+      if (!isEditing) {
+        setTexts({ title: "", description: "", timeline: "", deliverables: "", categoryId: "" });
+        setSelectedSkills([]);
+        setCustomSkill("");
+      }
       setServerError(null);
       setSubmitted(true);
-      setTimeout(() => setSubmitted(false), 3000);
+      setTimeout(() => {
+        setSubmitted(false);
+        if (onClose) onClose();
+      }, 2000);
     },
     onError: (err) => {
       const data = err?.response?.data;
@@ -66,7 +120,7 @@ const SubmitProject = () => {
       setError(true);
       return;
     }
-    mutation.mutate(texts);
+    mutation.mutate({ ...texts, skills: selectedSkills.join(", ") });
   };
 
   return (
@@ -74,7 +128,7 @@ const SubmitProject = () => {
       <div className="container">
         <div className="top">
           <img src={currentUser.profilePic} alt="" />
-          <h2>{t("projects.post")}</h2>
+          <h2>{isEditing ? t("projects.edit") : t("projects.post")}</h2>
         </div>
         <form onSubmit={handleSubmit}>
           <input
@@ -104,13 +158,26 @@ const SubmitProject = () => {
               <option key={category.id} value={category.id}>{category.name}</option>
             ))}
           </select>
-          <input
-            type="text"
-            name="skills"
-            value={texts.skills}
-            onChange={handleChange}
-            placeholder={t("projects.skillsPlaceholder")}
-          />
+          <div className="project-skills-picker">
+            <label className="field-label">{t("projects.skillsNeeded")}</label>
+            <div className="custom-skill-input">
+              <input
+                type="text"
+                value={customSkill}
+                onChange={(e) => setCustomSkill(e.target.value)}
+                onKeyDown={handleCustomSkillKeyDown}
+                placeholder={t("projects.addSkill")}
+              />
+              <button type="button" onClick={addCustomSkill}>{t("update.addSkill")}</button>
+            </div>
+            {selectedSkills.length > 0 && (
+              <div className="selected-project-skills">
+                {selectedSkills.map((skill) => (
+                  <button type="button" key={skill} onClick={() => toggleSkill(skill)}>{skill} ×</button>
+                ))}
+              </div>
+            )}
+          </div>
           <input
             type="text"
             name="timeline"
@@ -127,10 +194,10 @@ const SubmitProject = () => {
           />
           {error && <span className="error-msg">{t("projects.error")}</span>}
           {serverError && <span className="error-msg">{serverError}</span>}
-          {submitted && <span className="success-msg">Project posted!</span>}
+          {submitted && <span className="success-msg">{isEditing ? t("projects.updated") : t("projects.posted")}</span>}
           <div className="footer">
             <button type="submit" disabled={mutation.isPending}>
-              {t("share.post")}
+              {isEditing ? t("projects.save") : t("share.post")}
             </button>
           </div>
         </form>

@@ -59,6 +59,44 @@
           margin-bottom: -10px;
         }
 
+        .project-skills-picker {
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+
+          .custom-skill-input {
+            display: flex;
+            gap: 8px;
+
+            input { flex: 1; }
+
+            button {
+              padding: 5px 10px;
+              border: none;
+              border-radius: 3px;
+              background-color: #6D1D1D;
+              color: white;
+              cursor: pointer;
+            }
+          }
+
+          .selected-project-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+
+            button {
+              padding: 2px 7px;
+              border: 1px solid themed("border");
+              border-radius: 12px;
+              background-color: themed("bgSoft");
+              color: themed("textColor");
+              font-size: 12px;
+              cursor: pointer;
+            }
+          }
+        }
+
         .error-msg {
           color: red;
           font-size: 12px;

@@ -6,10 +6,11 @@ import { makeRequest } from "../../axios";
 import { useTranslation } from "react-i18next";
 import DisabledByDefaultIcon from "@mui/icons-material/DisabledByDefault";
 
-const SubmitService = ({ onClose }) => {
+const SubmitService = ({ onClose, service }) => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const isEditing = Boolean(service);
 
   const [texts, setTexts] = useState({
     title: "",
@@ -32,7 +33,25 @@ const SubmitService = ({ onClose }) => {
     () => (student?.skills || "").split(",").map((skill) => skill.trim()).filter(Boolean),
     [student?.skills]
   );
-  const selectedCategories = student?.serviceCategories || [];
+  const selectedCategories = useMemo(
+    () => student?.serviceCategories || [],
+    [student?.serviceCategories]
+  );
+
+  useEffect(() => {
+    if (!service) return;
+
+    const category = selectedCategories.find((item) => item.slug === service.categorySlug);
+    setTexts({
+      title: service.title || "",
+      description: service.description || "",
+      availability: service.availability || "",
+      categoryId: category ? String(category.id) : "",
+    });
+    setSelectedSkills(
+      (service.skills || ",").split(",").map((skill) => skill.trim()).filter(Boolean)
+    );
+  }, [service, selectedCategories]);
 
   const handleChange = (e) => {
     setTexts((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -67,12 +86,18 @@ const SubmitService = ({ onClose }) => {
   const [serverError, setServerError] = useState(null);
 
   const mutation = useMutation({
-    mutationFn: (service) => makeRequest.post("/services", service),
+    mutationFn: (serviceData) => (
+      isEditing
+        ? makeRequest.put(`/services/${service.id}`, serviceData)
+        : makeRequest.post("/services", serviceData)
+    ),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["services"] });
-      setTexts({ title: "", description: "", availability: "", categoryId: "" });
-      setSelectedSkills([]);
-      setCustomSkill("");
+      if (!isEditing) {
+        setTexts({ title: "", description: "", availability: "", categoryId: "" });
+        setSelectedSkills([]);
+        setCustomSkill("");
+      }
       setServerError(null);
       setSubmitted(true);
       setTimeout(() => {
@@ -100,7 +125,7 @@ const SubmitService = ({ onClose }) => {
   return (
     <div className="submit-service">
       <div className="wrapper">
-        <h2>{t("services.post")}</h2>
+        <h2>{isEditing ? t("services.edit") : t("services.post")}</h2>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -171,10 +196,10 @@ const SubmitService = ({ onClose }) => {
           />
           {error && <span className="error-msg">{t("services.error")}</span>}
           {serverError && <span className="error-msg">{serverError}</span>}
-          {submitted && <span className="success-msg">Service posted!</span>}
+          {submitted && <span className="success-msg">{isEditing ? t("services.updated") : t("services.posted")}</span>}
           <div className="footer">
             <button type="submit" disabled={mutation.isPending}>
-              {t("share.post")}
+              {isEditing ? t("services.save") : t("share.post")}
             </button>
           </div>
         </form>

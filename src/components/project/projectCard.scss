@@ -23,18 +23,19 @@
         margin: 8px 0;
       }
 
-      .status-badge {
+      .category-badge {
         display: inline-block;
+        padding: 3px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 20px;
+        color: white;
         font-size: 11px;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;
-        padding: 2px 10px;
-        border-radius: 20px;
+        letter-spacing: 0.02em;
 
-        &.open      { background-color: #2ecc71; color: #fff; }
-        &.closed    { background-color: #888;    color: #fff; }
-        &.in_escrow { background-color: #2980b9; color: #fff; }
+        &.open { background-color: #2ecc71; }
+        &.closed { background-color: #888; }
+        &.in_escrow { background-color: #2980b9; }
       }
 
       .posted-by {
@@ -137,6 +138,56 @@
           &:hover { background-color: #c0392b; color: white; }
           &:disabled { opacity: 0.5; cursor: not-allowed; }
         }
+
+        &.edit-btn {
+          background-color: transparent;
+          border: 1px solid #6D1D1D;
+          color: #6D1D1D;
+          &:hover { background-color: #6D1D1D; color: white; }
+        }
+      }
+    }
+
+    .project-edit-modal {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      .project-edit-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.45);
+      }
+
+      .project-edit-modal-content {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 620px);
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
+      }
+
+      .project-edit-modal-close {
+        position: absolute;
+        z-index: 2;
+        top: 8px;
+        right: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 32px;
+        height: 32px;
+        border: none;
+        border-radius: 50%;
+        background-color: themed("bgSoft");
+        color: themed("textColor");
+        cursor: pointer;
+
+        &:hover { color: #6D1D1D; }
       }
     }
   }

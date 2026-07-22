@@ -23,6 +23,21 @@
         margin: 0 0 8px;
       }
 
+      .category-badge {
+        display: inline-flex;
+        align-items: center;
+        margin: 0 0 10px;
+        padding: 3px 10px;
+        border: 1px solid rgba(255, 255, 255, 0.5);
+        border-radius: 999px;
+        background-color: rgba(255, 255, 255, 0.14);
+        color: white;
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+        line-height: 1.2;
+      }
+
       .posted-by {
         display: flex;
         align-items: center;
@@ -109,6 +124,38 @@
           &:hover { background-color: #c0392b; color: white; }
           &:disabled { opacity: 0.5; cursor: not-allowed; }
         }
+
+        &.edit-btn {
+          background-color: transparent;
+          border: 1px solid #6D1D1D;
+          color: #6D1D1D;
+
+          &:hover { background-color: #6D1D1D; color: white; }
+        }
+      }
+    }
+
+    .service-edit-modal {
+      position: fixed;
+      z-index: 10;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+
+      .service-edit-modal-backdrop {
+        position: absolute;
+        inset: 0;
+        background-color: rgba(0, 0, 0, 0.45);
+      }
+
+      .service-edit-modal-content {
+        position: relative;
+        z-index: 1;
+        width: min(100%, 520px);
+        max-height: calc(100vh - 40px);
+        overflow-y: auto;
       }
     }
   }

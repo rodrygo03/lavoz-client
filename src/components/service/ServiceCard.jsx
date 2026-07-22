@@ -2,15 +2,17 @@ import "./serviceCard.scss";
 import { Link } from "react-router-dom";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import { useTranslation } from "react-i18next";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../context/authContext";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { makeRequest } from "../../axios";
+import SubmitService from "./SubmitService";
 
 const ServiceCard = ({ service }) => {
   const { t } = useTranslation();
   const { currentUser } = useContext(AuthContext);
   const queryClient = useQueryClient();
+  const [isEditing, setIsEditing] = useState(false);
 
   const deleteMutation = useMutation({
     mutationFn: () => makeRequest.delete(`/services/${service.id}`),
@@ -27,6 +29,9 @@ const ServiceCard = ({ service }) => {
     <div className="service-card">
       <div className="card-top">
         <h3>{service.title}</h3>
+        {service.categoryName && (
+          <span className="category-badge">{service.categoryName}</span>
+        )}
         <div className="posted-by">
           <img src={service.profilePic} alt="" />
           <Link to={`/profile/${service.userId}`} style={{ textDecoration: "none", color: "inherit" }}>
@@ -62,17 +67,30 @@ const ServiceCard = ({ service }) => {
           <button>{t("talent.viewProfile")}</button>
         </Link>
         {isOwner && (
-          <button
-            className="delete-btn"
-            onClick={() => {
-              if (window.confirm(t("talent.deleteConfirm"))) deleteMutation.mutate();
-            }}
-            disabled={deleteMutation.isPending}
-          >
-            {t("talent.deleteService")}
-          </button>
+          <>
+            <button className="edit-btn" onClick={() => setIsEditing(true)}>
+              {t("talent.editService")}
+            </button>
+            <button
+              className="delete-btn"
+              onClick={() => {
+                if (window.confirm(t("talent.deleteConfirm"))) deleteMutation.mutate();
+              }}
+              disabled={deleteMutation.isPending}
+            >
+              {t("talent.deleteService")}
+            </button>
+          </>
         )}
       </div>
+      {isEditing && (
+        <div className="service-edit-modal" role="dialog" aria-modal="true" aria-label={t("services.edit")}>
+          <div className="service-edit-modal-backdrop" onClick={() => setIsEditing(false)} />
+          <div className="service-edit-modal-content">
+            <SubmitService service={service} onClose={() => setIsEditing(false)} />
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -177,11 +177,119 @@
     }
 
     .service-feed {
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 20px;
-      max-width: 700px;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
       padding-bottom: 30px;
+
+      @include mobile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .service-category-carousel-wrap {
+      position: relative;
+      box-sizing: border-box;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto 20px;
+      border: 1px solid themed("border");
+      border-radius: 12px;
+      background-color: themed("bg");
+
+      .service-category-carousel {
+        display: flex;
+        gap: 8px;
+        padding: 4px 2px 12px;
+        overflow-x: auto;
+        scrollbar-width: thin;
+        scrollbar-color: #6D1D1D transparent;
+
+        &::-webkit-scrollbar { height: 6px; }
+        &::-webkit-scrollbar-thumb { background-color: #6D1D1D; border-radius: 99px; }
+      }
+
+      .carousel-scroll-control {
+        position: absolute;
+        top: 4px;
+        bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        border: none;
+        color: #6D1D1D;
+        opacity: 0.58;
+        cursor: pointer;
+        z-index: 1;
+        transition: opacity 0.2s;
+
+        &:hover,
+        &:focus-visible {
+          opacity: 1;
+          outline: none;
+        }
+
+        svg {
+          font-size: 30px;
+        }
+
+        &.left {
+          left: 0;
+          background: linear-gradient(270deg, transparent, themed("bg") 48%);
+        }
+
+        &.right {
+          right: 0;
+          background: linear-gradient(90deg, transparent, themed("bg") 48%);
+        }
+      }
+
+      .category-carousel-item {
+        display: flex;
+        flex: 0 0 104px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        min-height: 76px;
+        padding: 8px 10px;
+        border: 1px solid transparent;
+        border-radius: 9px;
+        background-color: transparent;
+        color: themed("textColor");
+        font-size: 12px;
+        cursor: pointer;
+        transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+
+        &:hover {
+          background-color: themed("bgSoft");
+          color: #6D1D1D;
+        }
+
+        svg {
+          font-size: 26px;
+        }
+
+        span {
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          line-height: 1.2;
+          text-align: center;
+        }
+
+        &.selected {
+          border-color: #6D1D1D;
+          background-color: #6D1D1D;
+          color: white;
+          font-weight: 600;
+        }
+      }
     }
 
     .focused-service .service-card {
